@@ -1,11 +1,11 @@
 <template>
   <div class="login-container flex justify-center items-center">
-    <AppLogo />
+    <AppLogo class="left-22px top-24px" />
     <LoginBanner />
-    <div class="content">
-      <dark-mode-switch
+    <div class="content h-full">
+      <AppDarkModeSwitch
         :dark="theme.darkMode"
-        class="absolute left-48px top-24px z-3 text-20px"
+        class="absolute right-48px top-24px z-3 text-20px"
         @update:dark="theme.setDarkMode"
       />
       <div class="content-inner">
@@ -32,7 +32,7 @@
   // import Footer from '@/components/footer/index.vue';
   import { PwdLogin } from './components';
   import LoginBanner from './components/Banner/banner.vue';
-  import { AppLogo } from '@/components/Application';
+  import { AppLogo, AppDarkModeSwitch } from '@/components/Application';
 
   interface Props {
     /** 登录模块分类 */
@@ -101,22 +101,6 @@
       right: 0;
       bottom: 0;
       width: 100%;
-    }
-  }
-
-  .logo {
-    position: fixed;
-    top: 24px;
-    left: 22px;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-
-    &-text {
-      margin-right: 4px;
-      margin-left: 4px;
-      color: var(--color-fill-1);
-      font-size: 20px;
     }
   }
 </style>

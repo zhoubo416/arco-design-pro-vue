@@ -17,11 +17,17 @@ export interface GlobEnvConfig {
 
 // api config
 export interface GlobConfig {
+  // 标题
   title: string;
+  // 接口地址
   apiUrl: string;
+  // Project abbreviation
   shortName: string;
+  // 接口前缀
   urlPrefix?: string;
+  // 图片上传地址
   uploadUrl?: string;
+  // 图片前缀地址
   imgUrl?: string;
 }
 

@@ -9,7 +9,7 @@ export function setupTheme() {
       import('@arco-design/web-vue/dist/arco.css');
       break;
     case 'theme-christmas':
-      import('@/styles/theme/theme-christmas.less');
+      import('@/assets/styles/theme/theme-christmas.less');
       break;
     default:
       import('@arco-design/web-vue/dist/arco.css');

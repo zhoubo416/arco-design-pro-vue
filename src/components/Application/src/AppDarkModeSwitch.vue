@@ -1,6 +1,9 @@
 <template>
   <!-- 切换模式 MODE SWITCH -->
-  <div class="flex-center text-18px cursor-pointer" @click="handleToggleTheme">
+  <div
+    class="flex-center text-18px cursor-pointer text-[var(--color-text-1)]"
+    @click="handleToggleTheme"
+  >
     <icon-moon-fill v-if="isDark" />
     <icon-sun-fill v-else />
   </div>
