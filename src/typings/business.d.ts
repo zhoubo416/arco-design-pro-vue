@@ -17,6 +17,8 @@ declare namespace Auth {
     userName: string;
     /** 用户角色类型 */
     userRole: RoleType;
+    /** 首页路由 */
+    homePath: string;
   }
 }
 

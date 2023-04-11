@@ -1,12 +1,6 @@
 <template>
-  <div class="login-container">
-    <div class="logo">
-      <img
-        alt="logo"
-        src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-      />
-      <div class="logo-text">{{ title }}</div>
-    </div>
+  <div class="login-container flex justify-center items-center">
+    <AppLogo />
     <LoginBanner />
     <div class="content">
       <dark-mode-switch
@@ -37,7 +31,8 @@
   // import { getColorPalette, mixColor } from '@/utils';
   // import Footer from '@/components/footer/index.vue';
   import { PwdLogin } from './components';
-  import LoginBanner from './components/banner.vue';
+  import LoginBanner from './components/Banner/banner.vue';
+  import { AppLogo } from '@/components/Application';
 
   interface Props {
     /** 登录模块分类 */
@@ -88,8 +83,8 @@
     height: 100vh;
 
     .banner {
-      width: 550px;
-      background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
+      width: 700px;
+      //background: linear-gradient(163.85deg, #1d2129 0%, #f80000 100%);
     }
 
     .content {
@@ -131,7 +126,7 @@
   @media (max-width: @screen-lg) {
     .login-container {
       .banner {
-        width: 25%;
+        width: 60%;
       }
     }
   }

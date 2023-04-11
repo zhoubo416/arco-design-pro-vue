@@ -1,5 +1,6 @@
 // import localeMessageBox from '@/components/message-box/locale/en-US';
 import localeLogin from '@/views/base-view/login/components/PwdLogin/locale/en-US';
+import localeLoginBanner from '@/views/base-view/login/components/Banner/locale/en-US';
 import localeAnalysis from '@/views/dashboard/analysis/locale/en-US';
 import localeWorkbench from '@/views/dashboard/workbench/locale/en-US';
 /** simple */
@@ -45,6 +46,7 @@ export default {
   ...localeSettings,
   // ...localeMessageBox,
   ...localeLogin,
+  ...localeLoginBanner,
   ...localeAnalysis,
   ...localeWorkbench,
   /** simple */

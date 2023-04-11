@@ -1,5 +1,6 @@
 // import localeMessageBox from '@/components/message-box/locale/zh-CN';
 import localeLogin from '@/views/base-view/login/components/PwdLogin/locale/zh-CN';
+import localeLoginBanner from '@/views/base-view/login/components/Banner/locale/zh-CN';
 import localeWorkbench from '@/views/dashboard/workbench/locale/zh-CN';
 import localeAnalysis from '@/views/dashboard/analysis/locale/zh-CN';
 /** simple */
@@ -44,6 +45,7 @@ export default {
   ...localeSettings,
   // ...localeMessageBox,
   ...localeLogin,
+  ...localeLoginBanner,
   ...localeAnalysis,
   ...localeWorkbench,
   /** simple */

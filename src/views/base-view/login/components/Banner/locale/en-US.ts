@@ -1,0 +1,15 @@
+export default {
+  'login.form.title': 'Login Arco Design Pro',
+  'login.form.userName.errMsg': 'Username cannot be empty',
+  'login.form.password.errMsg': 'Password cannot be empty',
+  'login.form.login.errMsg': 'Login error, please refresh and try again',
+  'login.form.login.success': 'Welcome to use',
+  'login.form.userName.placeholder': 'Username: Arco',
+  'login.form.password.placeholder': 'Password: arco123',
+  'login.form.rememberPassword': 'Remember password',
+  'login.form.forgetPassword': 'Forget password',
+  'login.form.login': 'Login',
+  'login.form.register': 'Register',
+  'login.banner.title': 'Out of the box middle and back-end management system',
+  'login.banner.subtitle': 'Rich page templates covering most typical business scenarios',
+};

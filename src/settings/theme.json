@@ -23,7 +23,7 @@
       }
     ]
   },
-  "themeColor": "#1890ff",
+  "themeColor": "#f80000",
   "themeColorList": [
     "#1890ff",
     "#409EFF",
@@ -51,7 +51,7 @@
     "#546e7a"
   ],
   "otherColor": {
-    "info": "#0099ad",
+    "info": "#096dd9",
     "success": "#52c41a",
     "warning": "#faad14",
     "error": "#f5222d"

@@ -8,3 +8,4 @@ export * from './url';
 // export * from './hook';
 export * from './domUtils';
 // export * from './yaml';
+export * from './default';
