@@ -13,7 +13,7 @@
         <template v-if="!item.children">
           <a-menu-item :key="item.key" @click="handleUpdateMenu(item.key, item)">
             <template #icon>
-              <component :is="item.icon" />
+              <component :is="item.icon ? item.icon : ''" />
             </template>
             {{ $t(item.label) }}
           </a-menu-item>
@@ -27,12 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
   import { getActiveKeyPathsOfMenus } from '@/utils';
   import SubMenu from './SubMenu.vue';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
   const route = useRoute();
   const routeStore = useRouteStore();
@@ -52,9 +53,9 @@
 
   interface Props {
     /** mode */
-    mode?: LayoutMode;
+    mode: LayoutMode;
     /** 菜单数据 */
-    menus?: GlobalMenuOption[];
+    menus: GlobalMenuOption[];
     /** 是否折叠 */
     siderCollapse?: boolean;
   }
@@ -63,14 +64,19 @@
     siderCollapse: false,
   });
 
-  watch(
-    () => route.name,
-    () => {
-      selectedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
-      openKeys.value = selectedKeys.value.slice(0, selectedKeys.value.length - 1);
-    },
-    { immediate: true }
-  );
+  // watch(
+  //   () => route.name,
+  //   () => {
+  //     selectedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
+  //     openKeys.value = selectedKeys.value.slice(0, selectedKeys.value.length - 1);
+  //   },
+  //   { immediate: true }
+  // );
+
+  listenerRouteChange(() => {
+    selectedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
+    openKeys.value = selectedKeys.value.slice(0, selectedKeys.value.length - 1);
+  });
 </script>
 
 <style lang="less" scoped>

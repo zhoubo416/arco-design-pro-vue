@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, nextTick, reactive, ref, watch } from 'vue';
+  import { computed, nextTick, reactive, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import Draggable from 'vuedraggable';
   import { useEventListener } from '@vueuse/core';
@@ -75,11 +75,11 @@
   import { useBasicLayout } from '@/composables';
   import { setTabRoutes } from '@/store/modules/tab/helpers';
   import ContextMenu from './components/ContextMenu.vue';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
   const theme = useThemeStore();
   const app = useAppStore();
   const tab = useTabStore();
-  const route = useRoute();
   const { siderWidth, siderCollapsedWidth, siderVisible } = useBasicLayout();
 
   // refs
@@ -104,7 +104,7 @@
   });
 
   function init() {
-    tab.iniTabStore(route);
+    tab.iniTabStore(useRoute());
     updateNavScroll(true);
   }
 
@@ -173,14 +173,20 @@
     scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
   }
 
-  watch(
-    () => route.fullPath,
-    () => {
-      tab.addTab(route);
-      tab.setActiveTab(route.fullPath);
-      updateNavScroll(true);
-    }
-  );
+  // watch(
+  //   () => route.fullPath,
+  //   () => {
+  //     tab.addTab(route);
+  //     tab.setActiveTab(route.fullPath);
+  //     updateNavScroll(true);
+  //   }
+  // );
+
+  listenerRouteChange((route) => {
+    tab.addTab(route);
+    tab.setActiveTab(route.fullPath);
+    updateNavScroll(true);
+  });
 
   /** 页面离开时缓存多页签数据 */
   useEventListener(window, 'beforeunload', () => {

@@ -31,6 +31,7 @@
   import { useAppInfo } from '@/composables';
   import { getActiveKeyPathsOfMenus } from '@/utils';
   import { Menu } from '@/layout/common';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
   interface Props {
     /** 菜单抽屉可见性 */
@@ -62,13 +63,17 @@
   //   expandedKeys.value = keys;
   // }
 
-  watch(
-    () => route.name,
-    () => {
-      expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, props.menus);
-    },
-    { immediate: true }
-  );
+  // watch(
+  //   () => route.name,
+  //   () => {
+  //     expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, props.menus);
+  //   },
+  //   { immediate: true }
+  // );
+
+  listenerRouteChange(() => {
+    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, props.menus);
+  });
 </script>
 <style scoped>
   .drawer-shadow {

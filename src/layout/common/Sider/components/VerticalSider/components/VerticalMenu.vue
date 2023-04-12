@@ -28,13 +28,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { ref } from 'vue';
+  // import { useRoute } from 'vue-router';
   import { useAppStore, useRouteStore, useThemeStore } from '@/store';
   import { useBasicLayout, useRouterPush } from '@/composables';
   import SubMenu from './SubMenu.vue';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
-  const route = useRoute();
+  // const route = useRoute();
   const app = useAppStore();
   const theme = useThemeStore();
   const routeStore = useRouteStore();
@@ -49,19 +50,29 @@
 
   const { mode } = useBasicLayout();
 
-  watch(
-    () => route.name,
-    () => {
-      const { matched } = route;
-      defaultPath.value = matched.map((item) =>
-        item.name !== undefined ? item.name.toString() : ''
-      );
-      // TODO: 需要处理一下
+  // watch(
+  //   () => route.name,
+  //   () => {
+  //     const { matched } = route;
+  //     defaultPath.value = matched.map((item) =>
+  //       item.name !== undefined ? item.name.toString() : ''
+  //     );
+  //     // TODO: 需要处理一下
+  //
+  //     defaultExpandKeys.value = defaultPath.value;
+  //   },
+  //   { immediate: true }
+  // );
 
-      defaultExpandKeys.value = defaultPath.value;
-    },
-    { immediate: true }
-  );
+  listenerRouteChange((route) => {
+    const { matched } = route;
+    defaultPath.value = matched.map((item) =>
+      item.name !== undefined ? item.name.toString() : ''
+    );
+    // TODO: 需要处理一下
+
+    defaultExpandKeys.value = defaultPath.value;
+  });
 </script>
 
 <style lang="less" scoped>

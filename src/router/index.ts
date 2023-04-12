@@ -5,12 +5,15 @@ import { constantRoutes } from './routes';
 import { scrollBehavior } from './helpers';
 import { createRouterGuard } from './guard';
 
+// TODO: 可以挪到配置文件的方法里，然后读取
 const { VITE_HASH_ROUTE = false, VITE_BASE_URL } = import.meta.env;
 
 export const router = createRouter({
   history: VITE_HASH_ROUTE ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
   routes: transformAuthRoutesToVueRoutes(constantRoutes),
-  scrollBehavior,
+  // 是否应该禁止尾部斜杠。默认为假
+  strict: true,
+  scrollBehavior, // TODO: 再议
 });
 
 /** 安装vue路由 */

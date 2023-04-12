@@ -18,9 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, reactive, watch } from 'vue';
+  import { computed, reactive } from 'vue';
   import { useRoute } from 'vue-router';
   import { useAppStore, useTabStore } from '@/store';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
   interface Props {
     /** 右键菜单可见性 */
@@ -49,10 +50,10 @@
     visible: false,
   });
 
-  const route = useRoute();
+  // const route = useRoute();
 
   const state = reactive({
-    currentPath: route.fullPath,
+    currentPath: useRoute().fullPath,
   });
 
   const emit = defineEmits<Emits>();
@@ -145,12 +146,16 @@
     hide();
   }
 
-  watch(
-    () => route.fullPath,
-    (path: string) => {
-      state.currentPath = path;
-    }
-  );
+  // watch(
+  //   () => route.fullPath,
+  //   (path: string) => {
+  //     state.currentPath = path;
+  //   }
+  // );
+
+  listenerRouteChange((route) => {
+    state.currentPath = route.fullPath;
+  });
 </script>
 
 <style lang="less" scoped></style>

@@ -26,13 +26,14 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useAppStore, useThemeStore, useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
   import { useBoolean } from '@/hooks';
   import { Logo } from '@/layout/common';
   import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
 
   const route = useRoute();
   const app = useAppStore();
@@ -98,12 +99,16 @@
     return menus;
   });
 
-  watch(
-    () => route.name,
-    () => {
-      getActiveParentRouteName();
-    },
-    { immediate: true }
-  );
+  // watch(
+  //   () => route.name,
+  //   () => {
+  //     getActiveParentRouteName();
+  //   },
+  //   { immediate: true }
+  // );
+
+  listenerRouteChange(() => {
+    getActiveParentRouteName();
+  });
 </script>
 <style scoped></style>

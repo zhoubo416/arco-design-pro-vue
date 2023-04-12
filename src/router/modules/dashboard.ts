@@ -20,7 +20,7 @@ const dashboard: AuthRoute.Route = {
       meta: {
         title: '工作台',
         requiresAuth: true,
-        permissions: ['super', 'admin'],
+        permissions: ['admin'],
         icon: 'icon-park-outline:workbench',
       },
     },

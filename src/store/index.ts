@@ -1,10 +1,11 @@
 import type { App } from 'vue';
-import { createPinia } from 'pinia';
+import { createPinia, Pinia } from 'pinia';
 // 持久化存储
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
+const store: Pinia = createPinia();
+
 export function setupStore(app: App<Element>) {
-  const store = createPinia();
   store.use(piniaPluginPersistedstate);
   app.use(store);
 }

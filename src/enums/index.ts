@@ -3,3 +3,4 @@ export * from './system';
 export * from './business';
 export * from './httpEnum';
 export * from './pageEnum';
+export * from './appEnum';

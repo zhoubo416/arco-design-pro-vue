@@ -7,7 +7,7 @@
       <div class="three"></div>
       <div class="four"></div>
     </div>
-    <h2 class="text-28px font-500 text-#646464">{{ title }}</h2>
+    <h2 class="text-28px font-500 text-[rgb(var(--primary-6))]">{{ title }}</h2>
   </div>
 </template>
 
@@ -15,15 +15,6 @@
   import { useAppInfo } from '@/composables';
 
   const { title } = useAppInfo();
-
-  function addThemeColorCssVars() {
-    const defaultColor = '#1890ff';
-    const themeColor = defaultColor;
-    const cssVars = `--primary-color: ${themeColor}`;
-    document.documentElement.style.cssText = cssVars;
-  }
-
-  addThemeColorCssVars();
 </script>
 
 <style lang="less" scoped>

@@ -5,6 +5,7 @@ import zhCN from '@/locale/zh-CN';
 import enUS from '@/locale/en-US';
 import { storage } from '@/utils/storage/storage';
 
+// TODO: 需要改一下
 const localeData = {
   legacy: false, // composition API
   locale: storage.get('app-lang'),
