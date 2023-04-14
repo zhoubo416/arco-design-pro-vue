@@ -1,30 +1,30 @@
 import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
+import { getThemeSettings } from '@/store/modules/app/helpers';
 // import { ProjectConfig } from '@/typings/config';
 
 interface AppState {
   /** 切换页面加载状态 */
   pageLoading: boolean;
-  //
   // /** 项目配置 */
   // projectConfig: ProjectConfig | null;
-  /** 重载页面(控制页面的显示) */
-  reloadFlag: boolean;
   /** 项目配置的抽屉可见状态 */
   settingDrawerVisible: boolean;
   /** 侧边栏折叠状态 */
   siderCollapse: boolean;
   /** vertical-mix模式下 侧边栏的固定状态 */
   mixSiderFixed: boolean;
+  /** 项目设置 */
+  projectSetting: Theme.Setting;
 }
 
 export const useAppStore = defineStore('app-store', {
   state: (): AppState => ({
     pageLoading: false,
-    reloadFlag: true,
     settingDrawerVisible: false,
     siderCollapse: false,
     mixSiderFixed: false,
+    projectSetting: getThemeSettings(),
   }),
   getters: {
     getPageLoading(): boolean {

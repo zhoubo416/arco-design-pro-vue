@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import watermark from '@/utils/watermark';
-import { getNaiveThemeOverrides, getThemeSettings } from './helpers';
+import { getNaiveThemeOverrides, getThemeSettings } from '../app/helpers';
 
 type ThemeState = Theme.Setting;
 
