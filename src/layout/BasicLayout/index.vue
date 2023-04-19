@@ -8,8 +8,8 @@
       <a-layout>
         <a-layout-content
           :style="{
-            marginTop: headerHeight + 'px',
-            marginBottom: theme.footer.fixed ? theme.footer.height + 'px' : '',
+            marginTop: getHeaderHeight + 'px',
+            marginBottom: footerFixed ? footerHeight + 'px' : '',
           }"
         >
           <Content />
@@ -19,44 +19,56 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <Setting />
   </a-layout>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { useThemeStore } from '@/store';
+  import { computed, unref } from 'vue';
   import { useBasicLayout } from '@/composables';
-  import { Sider, Header, Tab, Content, Setting, Footer } from '@/layout/common';
+  import { Sider, Header, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  // import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
   const { headerProps } = useBasicLayout();
+  const {
+    getFooterSetting,
+    getHeaderSetting,
+    getTabSetting,
+    getFixedHeaderAndMultiTab,
+    getSiderSetting,
+    getThemeColor,
+  } = useAppSetting();
 
-  const theme = useThemeStore();
-  // const app = useAppStore();
-
+  // const { getShowSettingButton } = useAppSetting();
+  // const theme = useThemeStore();
+  // const appStore = useAppStore();
+  // const { siderWidth, siderCollapsedWidth } = useSider();
   // const headerLeft = computed((): number => {
   //   return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
   // });
 
-  const headerHeight = computed((): number => {
-    let { height } = theme.header;
-    if (theme.tab.visible) {
-      height += theme.tab.height;
+  const { fixed: footerFixed, height: footerHeight } = unref(getFooterSetting);
+  const { visible: tabVisible, height: tabHeight } = unref(getTabSetting);
+  const { width: siderWidth } = unref(getSiderSetting);
+  const getHeaderHeight = computed((): number => {
+    let { height: headerHeight } = unref(getHeaderSetting);
+    if (tabVisible) {
+      headerHeight += tabHeight;
     }
-    if (!theme.fixedHeaderAndTab) {
-      height = 0;
+    if (!getFixedHeaderAndMultiTab) {
+      headerHeight = 0;
     }
-    return height;
+    return headerHeight;
   });
 
   const footerStyle = computed(() => {
-    if (theme.footer.fixed) {
+    if (footerFixed) {
       return {
         position: 'fixed',
         zIndex: 4,
-        height: `${theme.footer.height}px`,
-        paddingLeft: `${theme.sider.width}px`,
+        height: `${footerHeight}px`,
+        paddingLeft: `${siderWidth}px`,
         transitionDuration: '300ms',
         transitionTimingFunction: 'ease-in-out',
         transform: 'translateX(0px)',
@@ -70,12 +82,12 @@
       };
     }
     return {
-      height: `${theme.footer.height}px`,
+      height: `${footerHeight}px`,
     };
   });
 
   const init = () => {
-    setBaseColor(theme.themeColor);
+    setBaseColor(unref(getThemeColor));
   };
 
   init();

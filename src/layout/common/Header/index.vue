@@ -1,28 +1,28 @@
 <template>
   <a-layout-header
-    :class="theme.fixedHeaderAndTab ? 'layout-header-fixed' : 'layout-header'"
+    :class="getFixedHeaderAndMultiTab ? 'layout-header-fixed' : 'layout-header'"
     :style="{
-      height: theme.header.height + 'px',
+      height: headerHeight + 'px',
       paddingLeft: siderVisible ? headerLeft + 'px' : 0,
-      zIndex: theme.layout.mode === 'horizontal-mix' ? '6' : '4',
+      zIndex: layoutMode === 'horizontal-mix' ? '6' : '4',
     }"
   >
-    <dark-mode-container class="header flex-y-center h-full" :inverted="theme.header.inverted">
+    <dark-mode-container class="header flex-y-center h-full" :inverted="headerInverted">
       <Logo
         v-if="props.showLogo"
         :show-title="true"
         :png-logo="LogoPng"
         class="h-full"
-        :style="{ width: theme.sider.width + 'px' }"
+        :style="{ width: width + 'px' }"
       />
       <div v-if="!props.showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
         <MenuCollapse v-if="props.showMenuCollapse" />
-        <Breadcrumb v-if="theme.header.crumb.visible" />
+        <Breadcrumb v-if="headerCrumb.visible" />
       </div>
       <div
         v-else
         class="flex-y-center h-full flex-1"
-        :style="{ justifyContent: theme.menu.horizontalPosition }"
+        :style="{ justifyContent: horizontalPosition }"
       >
         <!--        <HeaderMenu />-->
         <Menu :menus="routeStore.menus" :mode="'horizontal'" />
@@ -32,7 +32,7 @@
         <ThemeModel />
         <Locale />
         <Fullscreen />
-        <Setting />
+        <Setting v-if="getShowSettingButton" />
         <User class="user" />
       </div>
     </dark-mode-container>
@@ -40,8 +40,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { useAppStore, useRouteStore, useThemeStore } from '@/store';
+  import { computed, unref } from 'vue';
+  import { useRouteStore } from '@/store';
   import { useBasicLayout } from '@/composables';
   import { Logo, Menu } from '@/layout/common';
   import LogoPng from '@/assets/logo.png';
@@ -55,6 +55,8 @@
     User,
     Setting,
   } from './components';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
 
   interface Props {
     /** 显示logo */
@@ -67,17 +69,33 @@
 
   const props = defineProps<Props>();
 
-  const theme = useThemeStore();
-  const app = useAppStore();
+  const {
+    getHeaderSetting,
+    getLayoutSetting,
+    getSiderSetting,
+    getMenuSetting,
+    getFixedHeaderAndMultiTab,
+  } = useAppSetting();
+
+  const {
+    height: headerHeight,
+    inverted: headerInverted,
+    crumb: headerCrumb,
+  } = unref(getHeaderSetting);
+  const { mode: layoutMode } = unref(getLayoutSetting);
+  const { collapsed: siderCollapsed, width } = unref(getSiderSetting);
+  const { horizontalPosition } = unref(getMenuSetting);
+
   const routeStore = useRouteStore();
+  const { getShowSettingButton } = useAppSetting();
 
   const { siderVisible } = useBasicLayout();
 
   const headerLeft = computed((): number => {
-    if (!theme.fixedHeaderAndTab) return 0;
-    if (theme.layout.mode.includes('horizontal-mix')) return 0;
+    if (!getFixedHeaderAndMultiTab) return 0;
+    if (layoutMode.includes('horizontal-mix')) return 0;
     const { siderWidth, siderCollapsedWidth } = useBasicLayout();
-    return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
+    return siderCollapsed ? siderCollapsedWidth.value : siderWidth.value;
   });
 </script>
 

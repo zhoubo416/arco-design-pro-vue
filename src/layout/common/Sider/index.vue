@@ -3,10 +3,10 @@
     class="layout-sider"
     hide-trigger
     collapsible
-    :collapsed="!isVerticalMix ? app.siderCollapse : false"
+    :collapsed="!isVerticalMix ? siderCollapsed : false"
     :style="{
       width: headerLeft + 'px',
-      paddingTop: !isHorizontalMix ? 0 : theme.header.height + 'px',
+      paddingTop: !isHorizontalMix ? 0 : headerHeight + 'px',
     }"
     v-if="siderVisible"
   >
@@ -16,20 +16,23 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { useAppStore, useThemeStore } from '@/store';
+  import { computed, unref } from 'vue';
   import { useBasicLayout } from '@/composables';
   import { VerticalMixSider, VerticalSider } from './components';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const theme = useThemeStore();
-  const app = useAppStore();
   const { siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
+  const { getLayoutSetting, getSiderSetting, getHeaderSetting } = useAppSetting();
 
-  const isVerticalMix = computed(() => theme.layout.mode === 'vertical-mix');
-  const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix');
+  const { mode: layoutMode } = unref(getLayoutSetting);
+  const { collapsed: siderCollapsed } = unref(getSiderSetting);
+  const { height: headerHeight } = unref(getHeaderSetting);
+
+  const isVerticalMix = computed(() => layoutMode === 'vertical-mix');
+  const isHorizontalMix = computed(() => layoutMode === 'horizontal-mix');
 
   const headerLeft = computed((): number => {
-    return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
+    return siderCollapsed ? siderCollapsedWidth.value : siderWidth.value;
   });
 </script>
 

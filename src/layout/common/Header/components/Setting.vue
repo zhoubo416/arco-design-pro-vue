@@ -2,21 +2,29 @@
   <hover-container
     tooltip-content="设置"
     class="w-40px h-full"
-    :inverted="theme.header.inverted"
+    :inverted="headerInverted"
     @click="openSetting"
   >
     <icon-settings class="text-20px" style="color: var(--color-text-1)" />
   </hover-container>
+
+  <Setting :visible="visible" @close="" />
 </template>
 
 <script lang="ts" setup>
-  import { useAppStore, useThemeStore } from '@/store';
+  import { Setting } from '@/layout/common';
+  import HoverContainer from '@/components/common/HoverContainer.vue';
+  import { ref, unref } from 'vue';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const theme = useThemeStore();
-  const app = useAppStore();
+  const { getHeaderSetting } = useAppSetting();
+
+  const { inverted: headerInverted } = unref(getHeaderSetting);
+
+  const visible = ref(false);
 
   const openSetting = () => {
-    app.openSettingDrawer();
+    visible.value = true;
   };
 </script>
 

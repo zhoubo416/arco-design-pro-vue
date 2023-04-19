@@ -1,7 +1,7 @@
 <template>
   <a-drawer
     :width="350"
-    :visible="app.settingDrawerVisible"
+    :visible="true"
     :cancel-text="$t('settings.close')"
     :ok-text="$t('settings.copySettings')"
     @ok="copySettings"
@@ -21,20 +21,21 @@
   import { Message } from '@arco-design/web-vue';
   import { useClipboard } from '@vueuse/core';
   import { useI18n } from 'vue-i18n';
-  import { useAppStore, useThemeStore } from '@/store';
   import { DarkMode, LayoutMode, PageFunc, PageView } from './components';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const app = useAppStore();
-  const theme = useThemeStore();
+  // const app = useAppStore();
+  // const theme = useThemeStore();
   const { t } = useI18n();
   const { copy } = useClipboard();
+  const { getSettingByJson } = useAppSetting();
 
   const cancel = () => {
-    app.closeSettingDrawer();
+    // app.closeSettingDrawer();
   };
 
   const copySettings = async () => {
-    const text = JSON.stringify(theme.$state, null, 2);
+    const text = JSON.stringify(getSettingByJson, null, 2);
     await copy(text);
     Message.success(t('settings.copySettings.message'));
   };

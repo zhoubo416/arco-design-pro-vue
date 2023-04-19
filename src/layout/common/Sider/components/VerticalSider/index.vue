@@ -1,27 +1,32 @@
 <template>
-  <dark-mode-container class="flex-col-stretch h-full" :inverted="theme.sider.inverted">
+  <dark-mode-container class="flex-col-stretch h-full" :inverted="siderInverted">
     <Logo
       v-if="!isHorizontalMix"
       :show-title="showTitle"
       :png-logo="LogoPng"
-      :style="{ height: theme.header.height + 'px' }"
+      :style="{ height: headerHeight + 'px' }"
     />
     <Menu :menus="routeStore.menus" :mode="'vertical'" />
   </dark-mode-container>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { useAppStore, useRouteStore, useThemeStore } from '@/store';
+  import { computed, unref } from 'vue';
+  import { useRouteStore } from '@/store';
   import { Logo, Menu } from '@/layout/common';
   import LogoPng from '@/assets/logo.png';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
 
-  const app = useAppStore();
-  const theme = useThemeStore();
   const routeStore = useRouteStore();
 
-  const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix');
-  const showTitle = computed(() => !app.siderCollapse && theme.layout.mode !== 'vertical-mix');
+  const { getLayoutSetting, getSiderSetting, getHeaderSetting } = useAppSetting();
+  const { mode: layoutMode } = unref(getLayoutSetting);
+  const { collapsed: siderCollapsed, inverted: siderInverted } = unref(getSiderSetting);
+  const { height: headerHeight } = unref(getHeaderSetting);
+
+  const isHorizontalMix = computed(() => layoutMode === 'horizontal-mix');
+  const showTitle = computed(() => !siderCollapsed && layoutMode !== 'vertical-mix');
 </script>
 
 <style lang="less" scoped>

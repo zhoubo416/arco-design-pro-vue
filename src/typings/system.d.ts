@@ -98,7 +98,7 @@ declare namespace Service {
 }
 
 /** 主题相关类型 */
-declare namespace Theme {
+declare namespace Project {
   /** 主题配置 */
   interface Setting {
     /** 暗黑模式 */
@@ -137,6 +137,7 @@ declare namespace Theme {
     watermark: Watermark;
   }
 
+  /** 水印 */
   interface Watermark {
     /** 水印 */
     watermark: boolean;
@@ -154,6 +155,7 @@ declare namespace Theme {
     modeList: LayoutModeList[];
   }
 
+  /** 布局模式列表 */
   interface LayoutModeList {
     value: EnumType.ThemeLayoutMode;
     label: import('@/enum').EnumThemeLayoutMode;
@@ -223,6 +225,11 @@ declare namespace Theme {
     mixCollapsedWidth: number;
     /** vertical-mix模式下侧边栏的子菜单的宽度 */
     mixChildMenuWidth: number;
+    /** vertical-mix模式下 侧边栏的固定状态 */
+    mixSiderFixed: boolean;
+
+    /** 侧边栏折叠状态 */
+    collapsed: boolean;
   }
 
   /** 菜单样式 */
@@ -261,6 +268,14 @@ declare namespace Theme {
   interface AnimateModeList {
     value: EnumType.ThemeAnimateMode;
     label: import('@/enum').EnumThemeAnimateMode;
+  }
+
+  /** 项目按钮展示配置 */
+  interface Button {
+    /** 配置按钮 */
+    setting: boolean;
+    /** Github */
+    github: boolean;
   }
 }
 

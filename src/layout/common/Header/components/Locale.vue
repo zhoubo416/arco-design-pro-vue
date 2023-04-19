@@ -2,7 +2,7 @@
   <hover-container
     tooltip-content="切换语言"
     class="w-40px h-full"
-    :inverted="theme.header.inverted"
+    :inverted="inverted"
     @click="setLanguage(theme.language === 'zh-CN' ? 'en-US' : 'zh-CN')"
   >
     <icon-english-fill
@@ -15,12 +15,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { useThemeStore } from '@/store';
   import useLocale from '@/hooks/locale';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { unref } from 'vue';
 
   const { changeLocale } = useLocale();
 
-  const theme = useThemeStore();
+  const { getHeaderSetting } = useAppSetting();
+  const { inverted } = unref(getHeaderSetting);
 
   const setLanguage = (language: EnumType.Language | undefined = 'zh-CN') => {
     console.log(language);

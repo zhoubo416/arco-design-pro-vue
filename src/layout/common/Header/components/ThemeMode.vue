@@ -1,17 +1,17 @@
 <template>
-  <hover-container class="w-40px" :inverted="theme.header.inverted" tooltip-content="主题模式">
-    <AppDarkModeSwitch
-      class="wh-full"
-      @update:dark="theme.setDarkMode"
-      style="color: var(--color-text-1)"
-    />
+  <hover-container class="w-40px" :inverted="inverted" tooltip-content="主题模式">
+    <!--    @update:dark="theme.setDarkMode"-->
+
+    <AppDarkModeSwitch class="wh-full" style="color: var(--color-text-1)" />
   </hover-container>
 </template>
 
 <script lang="ts" setup>
-  import { useThemeStore } from '@/store';
   import { AppDarkModeSwitch } from '@/components/Application';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { unref } from 'vue';
 
-  const theme = useThemeStore();
+  const { getHeaderSetting } = useAppSetting();
+  const { inverted } = unref(getHeaderSetting);
 </script>
 <style scoped></style>

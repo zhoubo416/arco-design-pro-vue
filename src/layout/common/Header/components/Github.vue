@@ -2,7 +2,7 @@
   <hover-container
     tooltip-content="github"
     class="w-40px h-full"
-    :inverted="theme.header.inverted"
+    :inverted="inverted"
     @click="handleClickLink"
   >
     <icon-github class="text-20px" style="color: var(--color-text-1)" />
@@ -10,9 +10,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { useThemeStore } from '@/store';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { unref } from 'vue';
 
-  const theme = useThemeStore();
+  const { getHeaderSetting } = useAppSetting();
+  const { inverted } = unref(getHeaderSetting);
+
   function handleClickLink() {
     window.open('https://github.com/LLiuHuan/arco-design-pro-vue', '_blank');
   }

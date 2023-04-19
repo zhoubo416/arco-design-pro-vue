@@ -8,7 +8,7 @@
         </template>
       </a-doption>
     </template>
-    <hover-container class="px-12px" :inverted="theme.header.inverted">
+    <hover-container class="px-12px" :inverted="inverted">
       <a-avatar :size="30">
         <img
           alt="avatar"
@@ -22,16 +22,20 @@
 
 <script lang="ts" setup>
   import { Modal } from '@arco-design/web-vue';
-  import { useAuthStore, useThemeStore } from '@/store';
+  import { useAuthStore } from '@/store';
   import { iconifyRender } from '@/utils/common/icon';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { unref } from 'vue';
 
   interface UserOptions {
     label: string;
     key: string;
     icon: any;
   }
-  const theme = useThemeStore();
+
   const auth = useAuthStore();
+  const { getHeaderSetting } = useAppSetting();
+  const { inverted } = unref(getHeaderSetting);
 
   const options: Array<UserOptions> = [
     {

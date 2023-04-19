@@ -1,17 +1,17 @@
-import { computed } from 'vue';
-import { useAppStore, useThemeStore } from '@/store';
+import { computed, unref } from 'vue';
+import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
 type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 
 export const useBasicLayout = () => {
-  const app = useAppStore();
-  const theme = useThemeStore();
+  const { getLayoutSetting, getSiderSetting } = useAppSetting();
+  const { mode: layoutMode } = unref(getLayoutSetting);
 
   type LayoutMode = 'vertical' | 'horizontal';
   const mode = computed(() => {
     const vertical: LayoutMode = 'vertical';
     const horizontal: LayoutMode = 'horizontal';
-    return theme.layout.mode.includes(vertical) ? vertical : horizontal;
+    return layoutMode.includes(vertical) ? vertical : horizontal;
   });
 
   const layoutHeaderProps: LayoutHeaderProps = {
@@ -37,23 +37,24 @@ export const useBasicLayout = () => {
     },
   };
 
-  const headerProps = computed(() => layoutHeaderProps[theme.layout.mode]);
+  const headerProps = computed(() => layoutHeaderProps[layoutMode]);
 
-  const siderVisible = computed(() => theme.layout.mode !== 'horizontal');
+  const siderVisible = computed(() => layoutMode !== 'horizontal');
   const siderWidth = computed(() => {
-    const { width, mixWidth, mixChildMenuWidth } = theme.sider;
-    const isVerticalMix = theme.layout.mode === 'vertical-mix';
+    const { width, mixWidth, mixChildMenuWidth, mixSiderFixed } = unref(getSiderSetting);
+    const isVerticalMix = layoutMode === 'vertical-mix';
     let w = isVerticalMix ? mixWidth : width;
-    if (isVerticalMix && app.mixSiderFixed) {
+    if (isVerticalMix && mixSiderFixed) {
       w += mixChildMenuWidth;
     }
     return w;
   });
   const siderCollapsedWidth = computed(() => {
-    const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = theme.sider;
-    const isVerticalMix = theme.layout.mode === 'vertical-mix';
+    const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth, mixSiderFixed } =
+      unref(getSiderSetting);
+    const isVerticalMix = layoutMode === 'vertical-mix';
     let w = isVerticalMix ? mixCollapsedWidth : collapsedWidth;
-    if (isVerticalMix && app.mixSiderFixed) {
+    if (isVerticalMix && mixSiderFixed) {
       w += mixChildMenuWidth;
     }
     return w;

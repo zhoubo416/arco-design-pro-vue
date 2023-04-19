@@ -33,7 +33,7 @@ const themeColorList = [
   '#546e7a',
 ];
 
-const defaultThemeSetting: Theme.Setting = {
+const defaultThemeSetting: Project.Setting = {
   darkMode: false,
   followSystemTheme: true,
   layout: {
@@ -114,4 +114,4 @@ const defaultThemeSetting: Theme.Setting = {
   },
 };
 
-export const themeSetting = (jsonSetting as Theme.Setting) || defaultThemeSetting;
+export const themeSetting = (jsonSetting as Project.Setting) || defaultThemeSetting;
