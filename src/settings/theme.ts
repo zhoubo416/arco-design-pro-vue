@@ -3,8 +3,10 @@ import {
   EnumThemeHorizontalMenuPosition,
   EnumThemeLayoutMode,
   EnumThemeTabMode,
+  ThemeEnum,
 } from '@/enums';
 import jsonSetting from './theme.json';
+import type { Project } from '@/typings/system';
 
 const themeColorList = [
   '#1890ff',
@@ -34,7 +36,7 @@ const themeColorList = [
 ];
 
 const defaultThemeSetting: Project.Setting = {
-  darkMode: false,
+  darkMode: ThemeEnum.LIGHT,
   followSystemTheme: true,
   layout: {
     minWidth: 900,
@@ -76,12 +78,22 @@ const defaultThemeSetting: Project.Setting = {
     isCache: true,
   },
   sider: {
+    /** 侧边栏反转色 */
     inverted: false,
+    /** 侧边栏宽度 */
     width: 220,
+    /** 侧边栏折叠时的宽度 */
     collapsedWidth: 64,
+    /** vertical-mix模式下侧边栏宽度 */
     mixWidth: 80,
+    /** vertical-mix模式下侧边栏折叠时的宽度 */
     mixCollapsedWidth: 48,
+    /** vertical-mix模式下侧边栏的子菜单的宽度 */
     mixChildMenuWidth: 200,
+    /** vertical-mix模式下 侧边栏的固定状态 */
+    mixSiderFixed: true,
+    /** 侧边栏折叠状态 */
+    collapsed: false,
   },
   menu: {
     horizontalPosition: 'flex-start',
@@ -107,7 +119,11 @@ const defaultThemeSetting: Project.Setting = {
       { value: 'zoom-out', label: EnumThemeAnimateMode['zoom-out'] },
     ],
   },
-  language: 'zh-CN',
+  locale: {
+    language: 'zh-CN',
+    languageList: ['zh-CN', 'en-US'],
+    default: 'zh-CN',
+  },
   watermark: {
     watermark: false,
     watermarkText: '水印',

@@ -1,15 +1,15 @@
 <template>
   <dark-mode-container
     class="arco-layout-tab"
-    :class="theme.fixedHeaderAndTab ? 'layout-tab-fixed' : 'layout-tab'"
+    :class="getFixedHeaderAndMultiTab ? 'layout-tab-fixed' : 'layout-tab'"
     :style="{
-      height: theme.tab.height + 'px',
-      top: theme.header.height + 'px',
+      height: height + 'px',
+      top: height + 'px',
       paddingLeft: !siderVisible ? 0 : tabLeft + 'px',
     }"
-    v-if="theme.tab.visible"
+    v-if="visible"
   >
-    <div class="layout-tab" :style="{ height: theme.tab.height + 'px' }">
+    <div class="layout-tab" :style="{ height: height + 'px' }">
       <span
         class="tabs-card-prev"
         @click="scrollPrev"
@@ -30,7 +30,7 @@
                   :id="`tag${element.fullPath}`"
                   class="layout-tab-scroll-item"
                   :class="{ 'active-item': tab.activeTab === element.fullPath }"
-                  :style="{ height: theme.tab.height - 12 + 'px' }"
+                  :style="{ height: height - 12 + 'px' }"
                   @click.stop="goPath(element.fullPath)"
                 >
                   <span :class="{ activeTab: tab.activeTab === element.fullPath }">
@@ -67,18 +67,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, nextTick, reactive, ref } from 'vue';
+  import { computed, nextTick, reactive, ref, unref } from 'vue';
   import { useRoute } from 'vue-router';
   import Draggable from 'vuedraggable';
   import { useEventListener } from '@vueuse/core';
-  import { useAppStore, useTabStore, useThemeStore } from '@/store';
+  import { useTabStore } from '@/store';
   import { useBasicLayout } from '@/composables';
   import { setTabRoutes } from '@/store/modules/tab/helpers';
   import ContextMenu from './components/ContextMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const theme = useThemeStore();
-  const app = useAppStore();
+  const { getFixedHeaderAndMultiTab, getSiderSetting, getTabSetting } = useAppSetting();
+  const { collapsed } = unref(getSiderSetting);
+  const { height, visible } = unref(getTabSetting);
   const tab = useTabStore();
   const { siderWidth, siderCollapsedWidth, siderVisible } = useBasicLayout();
 
@@ -97,10 +99,10 @@
 
   const tabLeft = computed((): number => {
     // 固定多页签
-    if (!theme.fixedHeaderAndTab) {
+    if (!unref(getFixedHeaderAndMultiTab)) {
       return 0;
     }
-    return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
+    return collapsed ? siderCollapsedWidth.value : siderWidth.value;
   });
 
   function init() {

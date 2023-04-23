@@ -34,6 +34,7 @@
   import { getActiveKeyPathsOfMenus } from '@/utils';
   import SubMenu from './SubMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import type { GlobalMenuOption } from '@/typings/system';
 
   const route = useRoute();
   const routeStore = useRouteStore();

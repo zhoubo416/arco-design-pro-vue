@@ -3,7 +3,10 @@ import { useRouterPush } from '@/composables';
 import { getThemeSettings } from '@/store/modules/app/helpers';
 import { DeepPartial } from 'unocss';
 import { deepMerge } from '@/utils';
-// import { ProjectConfig } from '@/typings/config';
+import type { Project } from '@/typings/system';
+import { ThemeEnum } from '@/enums';
+import { storage } from '@/utils/storage/storage';
+import { APP_DARK_MODE_KEY, LOCALE_KEY } from '@/enums/cacheEnum';
 
 interface AppState {
   /** 切换页面加载状态 */
@@ -58,6 +61,15 @@ export const useAppStore = defineStore('app-store', {
     getLayoutSetting(): Project.Layout {
       return this.projectSetting.layout;
     },
+    getPageSetting(): Project.Page {
+      return this.projectSetting.page;
+    },
+    getLocale(): Project.Locale {
+      return this.projectSetting.locale;
+    },
+    getDarkMode(): ThemeEnum {
+      return this.projectSetting.darkMode;
+    },
   },
   actions: {
     /**
@@ -92,6 +104,17 @@ export const useAppStore = defineStore('app-store', {
     },
     setSiderSetting(setting: DeepPartial<Project.Sider>): void {
       this.projectSetting.sider = deepMerge(this.projectSetting.sider || {}, setting);
+    },
+    setDarkMode(mode: ThemeEnum): void {
+      this.projectSetting.darkMode = mode;
+      storage.set(APP_DARK_MODE_KEY, mode);
+    },
+    setLocale(locale: Partial<Project.Locale>): void {
+      this.projectSetting.locale = { ...this.projectSetting.locale, ...locale };
+      storage.set(LOCALE_KEY, locale);
+    },
+    setThemeColor(color: string): void {
+      this.projectSetting.themeColor = color;
     },
   },
 });

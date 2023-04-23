@@ -50,6 +50,7 @@
   import { useRouterPush } from '@/composables';
   import { getBreadcrumbByRouteKey } from '@/utils';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import type { GlobalMenuOption } from '@/typings/system';
 
   const route = useRoute();
   const routeStore = useRouteStore();

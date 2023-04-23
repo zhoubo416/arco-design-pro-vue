@@ -3,10 +3,10 @@
     tooltip-content="切换语言"
     class="w-40px h-full"
     :inverted="inverted"
-    @click="setLanguage(theme.language === 'zh-CN' ? 'en-US' : 'zh-CN')"
+    @click="setLanguage(getLocale.language === 'zh-CN' ? 'en-US' : 'zh-CN')"
   >
     <icon-english-fill
-      v-if="theme.language === 'zh-CN'"
+      v-if="getLocale.language === 'zh-CN'"
       class="text-20px"
       style="color: var(--color-text-1)"
     />
@@ -15,11 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-  import useLocale from '@/hooks/locale';
+  import { useLocale } from '@/hooks/locale';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import { unref } from 'vue';
+  import type { EnumType } from '@/typings/system';
 
-  const { changeLocale } = useLocale();
+  const { changeLocale, getLocale } = useLocale();
 
   const { getHeaderSetting } = useAppSetting();
   const { inverted } = unref(getHeaderSetting);
@@ -35,7 +36,7 @@
   };
 
   const init = () => {
-    setLanguage(theme.getLanguage);
+    // setLanguage(theme.getLanguage);
   };
 
   init();

@@ -8,6 +8,8 @@ import AppLoading from './components/common/AppLoading.vue';
 
 const setupApp = async () => {
   const app = createApp(App);
+  // alert(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  // alert(window.matchMedia('(prefers-color-scheme: light)').matches);
 
   // app loading
   const appLoading = createApp(AppLoading);

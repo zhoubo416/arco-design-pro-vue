@@ -4,9 +4,9 @@
     <LoginBanner />
     <div class="content h-full">
       <AppDarkModeSwitch
-        :dark="theme.darkMode"
+        :dark="getDarkMode"
         class="absolute right-48px top-24px z-3 text-20px"
-        @update:dark="theme.setDarkMode"
+        @update:dark="setDarkMode"
       />
       <div class="content-inner">
         <div class="pt-24px">
@@ -26,13 +26,14 @@
   import type { Component } from 'vue';
   import { computed } from 'vue';
   import { EnumLoginModule } from '@/enums';
-  import { useThemeStore } from '@/store';
-  import { useAppInfo } from '@/composables';
+  // import { useAppInfo } from '@/composables';
   // import { getColorPalette, mixColor } from '@/utils';
   // import Footer from '@/components/footer/index.vue';
   import { PwdLogin } from './components';
   import LoginBanner from './components/Banner/banner.vue';
   import { AppLogo, AppDarkModeSwitch } from '@/components/Application';
+  import type { EnumType } from '@/typings/system';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
   interface Props {
     /** 登录模块分类 */
@@ -47,8 +48,9 @@
 
   const props = defineProps<Props>();
 
-  const theme = useThemeStore();
-  const { title } = useAppInfo();
+  const { getDarkMode, setDarkMode } = useAppSetting();
+
+  // const { title } = useAppInfo();
   const modules: LoginModule[] = [
     { key: 'pwd-login', label: EnumLoginModule['pwd-login'], component: PwdLogin },
     // { key: 'code-login', label: EnumLoginModule['code-login'], component: CodeLogin },

@@ -1,47 +1,48 @@
-import { ref, watch, nextTick, onUnmounted } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
+import { computed, nextTick, onUnmounted, ref, watch } from 'vue';
 import * as echarts from 'echarts/core';
-import {
-  BarChart,
-  LineChart,
-  PieChart,
-  ScatterChart,
-  PictorialBarChart,
-  RadarChart,
-  GaugeChart,
-  TreemapChart,
-} from 'echarts/charts';
 import type {
   BarSeriesOption,
-  LineSeriesOption,
-  PieSeriesOption,
-  ScatterSeriesOption,
-  PictorialBarSeriesOption,
-  RadarSeriesOption,
   GaugeSeriesOption,
+  LineSeriesOption,
+  PictorialBarSeriesOption,
+  PieSeriesOption,
+  RadarSeriesOption,
+  ScatterSeriesOption,
   TreemapSeriesOption,
 } from 'echarts/charts';
 import {
-  TitleComponent,
-  LegendComponent,
-  TooltipComponent,
-  GridComponent,
-  DatasetComponent,
-  TransformComponent,
-  ToolboxComponent,
-} from 'echarts/components';
+  BarChart,
+  GaugeChart,
+  LineChart,
+  PictorialBarChart,
+  PieChart,
+  RadarChart,
+  ScatterChart,
+  TreemapChart,
+} from 'echarts/charts';
 import type {
-  TitleComponentOption,
-  LegendComponentOption,
-  TooltipComponentOption,
-  GridComponentOption,
-  ToolboxComponentOption,
   DatasetComponentOption,
+  GridComponentOption,
+  LegendComponentOption,
+  TitleComponentOption,
+  ToolboxComponentOption,
+  TooltipComponentOption,
+} from 'echarts/components';
+import {
+  DatasetComponent,
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  TransformComponent,
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useElementSize } from '@vueuse/core';
-import { useThemeStore } from '@/store';
+import { useAppSetting } from '@/hooks/setting/useAppSetting';
+import { ThemeEnum } from '@/enums';
 
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
@@ -91,12 +92,23 @@ export function useEcharts(
   options: Ref<ECOption> | ComputedRef<ECOption>,
   renderFun?: (chartInstance: echarts.ECharts) => void
 ) {
-  const theme = useThemeStore();
-
   const domRef = ref<HTMLElement | null>(null);
 
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
+  const { getDarkMode: getSysDarkMode } = useAppSetting();
+
+  const getDarkMode = computed(() => {
+    if (getSysDarkMode.value === ThemeEnum.FOLLOW_SYSTEM) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return ThemeEnum.DARK;
+      } else {
+        return ThemeEnum.LIGHT;
+      }
+    } else {
+      return getSysDarkMode.value;
+    }
+  });
 
   let chart: echarts.ECharts | null = null;
 
@@ -116,9 +128,8 @@ export function useEcharts(
 
   async function render() {
     if (domRef.value) {
-      const chartTheme = theme.darkMode ? 'dark' : 'light';
       await nextTick();
-      chart = echarts.init(domRef.value, chartTheme);
+      chart = echarts.init(domRef.value, getDarkMode.value);
       if (renderFun) {
         renderFun(chart);
       }
@@ -156,7 +167,7 @@ export function useEcharts(
   });
 
   const stopDarkModeWatch = watch(
-    () => theme.darkMode,
+    () => getDarkMode.value,
     () => {
       updateTheme();
     }

@@ -6,16 +6,16 @@
       :key="item.value"
       :mode="item.value"
       :label="item.label"
-      :checked="item.value === theme.layout.mode"
+      :checked="item.value === getLocale.language"
       @click="theme.setLayoutMode(item.value)"
     />
   </a-space>
 </template>
 
 <script setup lang="ts">
-  import { useThemeStore } from '@/store';
   import { LayoutCheckbox } from './components';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const theme = useThemeStore();
+  const { getLocale } = useAppSetting();
 </script>
 <style scoped></style>

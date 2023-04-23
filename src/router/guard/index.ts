@@ -1,12 +1,12 @@
 import type { Router } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 import NProgress from 'nprogress';
-import { useI18n } from '@/hooks/web/useI18n';
 import { createPermissionGuard } from './permission';
 import 'nprogress/nprogress.css';
 import { setRouteChange } from '@/logics/mitt/routeChange';
 import { getToken } from '@/utils';
 import { useAppStore } from '@/store';
+import { useI18n } from '@/hooks/web/useI18n';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 

@@ -57,6 +57,7 @@
   } from './components';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
+  import type { GlobalHeaderProps } from '@/typings/system';
 
   interface Props {
     /** 显示logo */

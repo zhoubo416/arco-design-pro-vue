@@ -1,6 +1,5 @@
 import type { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 // import { useThemeStore } from '../theme';
 import {
@@ -12,6 +11,9 @@ import {
   isInTabRoutes,
   setTabRoutes,
 } from './helpers';
+import type { GlobalTabRoute } from '@/typings/system';
+import { useAppSetting } from '@/hooks/setting/useAppSetting';
+import { unref } from 'vue';
 
 interface TabState {
   /** 多页签数据 */
@@ -211,9 +213,9 @@ export const useTabStore = defineStore('tab-store', {
 
     /** 初始化Tab状态 */
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
-      const theme = useThemeStore();
-
-      const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
+      const { getTabSetting } = useAppSetting();
+      const { isCache } = unref(getTabSetting);
+      const tabs: GlobalTabRoute[] = isCache ? getTabRoutes() : [];
 
       const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
       if (!hasHome && this.homeTab.name !== 'root') {

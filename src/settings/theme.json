@@ -1,5 +1,5 @@
 {
-  "darkMode": false,
+  "darkMode": "light",
   "followSystemTheme": true,
   "layout": {
     "minWidth": 900,
@@ -142,7 +142,11 @@
       }
     ]
   },
-  "language": "zh-CN",
+  "locale": {
+    "language": "zh-CN",
+    "languageList": ["zh-CN", "en-US"],
+    "default": "zh-CN"
+  },
   "watermark": {
     "watermark": false,
     "watermarkText": "水印文字"

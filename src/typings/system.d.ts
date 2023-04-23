@@ -1,3 +1,7 @@
+import { ThemeEnum } from '@/enums';
+
+export type LocalType = 'zh-CN' | 'en-US' | 'zh-TW' | 'ja-JP' | 'ko-KR';
+
 /** 枚举的key类型 */
 declare namespace EnumType {
   /** 布局组件名称 */
@@ -102,7 +106,7 @@ declare namespace Project {
   /** 主题配置 */
   interface Setting {
     /** 暗黑模式 */
-    darkMode: boolean;
+    darkMode: ThemeEnum;
     /** 是否自动跟随系统主题 */
     followSystemTheme: boolean;
     /** 布局样式 */
@@ -131,8 +135,8 @@ declare namespace Project {
     footer: Footer;
     /** 页面样式 */
     page: Page;
-    /** 中英文 */
-    language: EnumType.Language;
+    /** 国际化 */
+    locale: Locale;
     /** 水印 */
     watermark: Watermark;
   }
@@ -276,6 +280,16 @@ declare namespace Project {
     setting: boolean;
     /** Github */
     github: boolean;
+  }
+
+  /** 国际化 */
+  interface Locale {
+    /** 语言 */
+    language: LocalType;
+    /** 语言列表 */
+    languageList: LocalType[];
+    /** 默认 */
+    default: LocalType;
   }
 }
 

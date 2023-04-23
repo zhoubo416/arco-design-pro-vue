@@ -1,12 +1,12 @@
 <template>
   <dark-mode-container
     class="flex h-full"
-    :inverted="theme.sider.inverted"
+    :inverted="inverted"
     @mouseleave="resetFirstDegreeMenus"
     style="color: var(--color-text-2)"
   >
     <div class="flex-1 flex-col-stretch h-full">
-      <logo :show-title="false" :style="{ height: theme.header.height + 'px' }" />
+      <logo :show-title="false" :style="{ height: height + 'px' }" />
       <div class="flex-1-hidden">
         <mix-menu-detail
           v-for="item in firstDegreeMenus"
@@ -15,7 +15,7 @@
           :active-route-name="activeParentRouteName"
           :label="item.label"
           :icon="item.icon"
-          :is-mini="app.siderCollapse"
+          :is-mini="collapsed"
           @click="handleMixMenu(item.routeName, item.hasChildren)"
         />
       </div>
@@ -26,18 +26,22 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
+  import { computed, ref, unref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { useAppStore, useThemeStore, useRouteStore } from '@/store';
+  import { useAppStore, useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
   import { useBoolean } from '@/hooks';
   import { Logo } from '@/layout/common';
   import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import type { GlobalMenuOption } from '@/typings/system';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
   const route = useRoute();
   const app = useAppStore();
-  const theme = useThemeStore();
+  const { getHeaderSetting, getSiderSetting } = useAppSetting();
+  const { height } = unref(getHeaderSetting);
+  const { inverted, collapsed } = unref(getSiderSetting);
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const { bool: drawerVisible, setTrue: openDrawer, setFalse: hideDrawer } = useBoolean();

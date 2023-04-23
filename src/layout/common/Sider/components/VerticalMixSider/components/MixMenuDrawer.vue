@@ -1,19 +1,20 @@
 <template>
   <div
     class="relative h-full transition-width duration-300 ease-in-out"
-    :style="{ width: app.mixSiderFixed ? theme.sider.mixChildMenuWidth + 'px' : '0px' }"
+    :style="{ width: mixSiderFixed ? mixChildMenuWidth + 'px' : '0px' }"
   >
     <dark-mode-container
       class="drawer-shadow absolute-lt flex-col-stretch h-full nowrap-hidden"
-      :style="{ width: showDrawer ? theme.sider.mixChildMenuWidth + 'px' : '0px' }"
+      :style="{ width: showDrawer ? mixChildMenuWidth + 'px' : '0px' }"
     >
       <header
         class="header-height flex-y-center justify-between"
-        :style="{ height: theme.header.height + 'px' }"
+        :style="{ height: height + 'px' }"
       >
         <h2 class="text-primary pl-8px text-16px font-bold">{{ title }}</h2>
-        <div class="px-8px text-16px text-gray-600 cursor-pointer" @click="app.toggleMixSiderFixed">
-          <icon-mdi-pin-off v-if="app.mixSiderFixed" />
+        <!--        @click="app.toggleMixSiderFixed"-->
+        <div class="px-8px text-16px text-gray-600 cursor-pointer">
+          <icon-mdi-pin-off v-if="mixSiderFixed" />
           <icon-mdi-pin v-else />
         </div>
       </header>
@@ -25,13 +26,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, watch } from 'vue';
+  import { ref, computed, watch, unref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { useAppStore, useThemeStore } from '@/store';
+  import { useAppStore } from '@/store';
   import { useAppInfo } from '@/composables';
   import { getActiveKeyPathsOfMenus } from '@/utils';
   import { Menu } from '@/layout/common';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import type { GlobalMenuOption } from '@/typings/system';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
   interface Props {
     /** 菜单抽屉可见性 */
@@ -44,11 +47,13 @@
 
   const route = useRoute();
   const app = useAppStore();
-  const theme = useThemeStore();
   // const { routerPush } = useRouterPush();
   const { title } = useAppInfo();
+  const { getSiderSetting, getHeaderSetting } = useAppSetting();
+  const { mixSiderFixed, mixChildMenuWidth } = unref(getSiderSetting);
+  const { height } = unref(getHeaderSetting);
 
-  const showDrawer = computed(() => (props.visible && props.menus.length) || app.mixSiderFixed);
+  const showDrawer = computed(() => (props.visible && props.menus.length) || mixSiderFixed);
 
   const activeKey = computed(() => route.name as string);
   const expandedKeys = ref<string[]>([]);

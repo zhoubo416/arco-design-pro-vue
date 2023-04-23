@@ -1,5 +1,6 @@
 import { computed, unref } from 'vue';
 import { useAppSetting } from '@/hooks/setting/useAppSetting';
+import type { EnumType, GlobalHeaderProps } from '@/typings/system';
 
 type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 

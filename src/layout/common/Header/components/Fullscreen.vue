@@ -4,7 +4,7 @@
       isFullscreen ? $t('settings.navbar.screen.toExit') : $t('settings.navbar.screen.toFull')
     "
     class="w-40px h-full"
-    :inverted="theme.header.inverted"
+    :inverted="inverted"
     @click="toggleFullScreen"
   >
     <icon-fullscreen v-if="!isFullscreen" class="text-20px" style="color: var(--color-text-1)" />
@@ -14,10 +14,12 @@
 
 <script lang="ts" setup>
   import { useFullscreen } from '@vueuse/core';
-  import { useThemeStore } from '@/store';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { unref } from 'vue';
 
-  const theme = useThemeStore();
   const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
+  const { getHeaderSetting } = useAppSetting();
+  const { inverted } = unref(getHeaderSetting);
 
   defineExpose({ isFullscreen, toggleFullScreen });
 </script>

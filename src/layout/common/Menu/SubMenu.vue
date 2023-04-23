@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
   import { useRouterPush } from '@/composables';
+  import type { GlobalMenuOption } from '@/typings/system';
 
   const { routerPush } = useRouterPush();
   defineProps({

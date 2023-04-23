@@ -4,8 +4,8 @@
       class="flex-1-hidden"
       :mode="mode"
       :style="{ width: '100%', height: '100%' }"
-      :collapsed="app.siderCollapse"
-      :collapsed-width="theme.sider.collapsedWidth"
+      :collapsed="collapsed"
+      :collapsed-width="collapsedWidth"
       v-model:selectedKeys="defaultPath"
       v-model:openKeys="defaultExpandKeys"
       auto-scroll-into-view
@@ -28,16 +28,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, unref } from 'vue';
   // import { useRoute } from 'vue-router';
-  import { useAppStore, useRouteStore, useThemeStore } from '@/store';
+  import { useAppStore, useRouteStore } from '@/store';
   import { useBasicLayout, useRouterPush } from '@/composables';
   import SubMenu from './SubMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import type { GlobalMenuOption } from '@/typings/system';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
   // const route = useRoute();
+  const { getSiderSetting } = useAppSetting();
+  const { collapsed, collapsedWidth } = unref(getSiderSetting);
   const app = useAppStore();
-  const theme = useThemeStore();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const defaultPath = ref([] as Array<string>);

@@ -5,19 +5,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { watch } from 'vue';
+  import { unref, watch } from 'vue';
   import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn';
-  import { useThemeStore } from '@/store';
+  import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  const theme = useThemeStore();
+  const { getDarkMode } = useAppSetting();
 
+  // TODO: 需要修改
   // created
-  document.body.setAttribute('arco-theme', theme.naiveTheme);
+  document.body.setAttribute('arco-theme', unref(getDarkMode));
 
   watch(
-    () => theme.naiveTheme,
+    () => unref(getDarkMode),
     (newTheme) => {
-      document.body.setAttribute('arco-theme', newTheme ?? '');
+      document.body.setAttribute('arco-theme', newTheme);
     }
   );
 </script>

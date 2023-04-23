@@ -1,27 +1,6 @@
 // 注册i8n实例并引入语言文件
 import { App } from 'vue';
-import { createI18n } from 'vue-i18n';
-import zhCN from '@/locale/zh-CN';
-import enUS from '@/locale/en-US';
-import { storage } from '@/utils/storage/storage';
-
-// TODO: 需要改一下
-const localeData = {
-  legacy: false, // composition API
-  locale: storage.get('app-lang'),
-  globalInjection: true,
-
-  silentTranslationWarn: true,
-  missingWarn: false,
-  silentFallbackWarn: true,
-
-  messages: {
-    'zh-CN': zhCN,
-    'en-US': enUS,
-  },
-};
-
-export const i18n = createI18n(localeData);
+import i18n from '@/locale';
 
 export const { t, ...methods } = i18n.global;
 
