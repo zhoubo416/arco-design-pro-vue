@@ -15,6 +15,7 @@ let lastChangeTab: RouteLocationNormalized;
 
 export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
   const r = getRawRoute(lastChangeRoute);
+  console.log(r);
   emitter.emit(key, r);
   lastChangeTab = r;
 }

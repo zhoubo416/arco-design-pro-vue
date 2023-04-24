@@ -11,9 +11,11 @@
 
 <script setup lang="ts">
   import { useDark, useToggle } from '@vueuse/core';
+  import { unref } from 'vue';
+  import { ThemeEnum } from '@/enums';
 
   interface Emits {
-    (e: 'update:dark', darkMode: boolean): void;
+    (e: 'update:dark', darkMode: ThemeEnum): void;
   }
 
   const emit = defineEmits<Emits>();
@@ -26,7 +28,12 @@
     storageKey: 'arco-theme',
     onChanged(dark: boolean) {
       // overridden default behavior
-      emit('update:dark', dark);
+      // emit('update:dark', dark);
+      if (unref(dark)) {
+        emit('update:dark', ThemeEnum.LIGHT);
+      } else {
+        emit('update:dark', ThemeEnum.DARK);
+      }
     },
   });
   const toggleTheme = useToggle(isDark);

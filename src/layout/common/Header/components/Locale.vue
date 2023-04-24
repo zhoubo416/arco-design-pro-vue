@@ -26,7 +26,11 @@
   const { inverted } = unref(getHeaderSetting);
 
   const setLanguage = (language: EnumType.Language | undefined = 'zh-CN') => {
-    console.log(language);
+    console.log(
+      language,
+      getLocale.value.language === 'zh-CN' ? 'en-US' : 'zh-CN',
+      getLocale.value.language
+    );
 
     // if (!language) {
     //   language = theme.language === 'zh-CN' ? 'en-US' : 'zh-CN';

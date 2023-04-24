@@ -4,13 +4,14 @@ import { useAppStore } from '@/store';
 import i18n from '@/locale';
 import { setHtmlLang } from '@/locale/helper';
 
-function setI18nLanguage(locale: LocalType) {
+export function setI18nLanguage(locale: LocalType) {
   const appStore = useAppStore();
   if (i18n.mode === 'legacy') {
     (i18n.global.locale as any) = locale;
   } else {
     (i18n.global.locale as any).value = locale;
   }
+  console.log('setI18nLanguage', locale);
   appStore.setLocale({ language: locale });
   setHtmlLang(locale);
 }
@@ -26,6 +27,7 @@ export function useLocale() {
     // Message.success(i18.t('navbar.action.locale'));
     const globalI18n = i18n.global;
     const current = unref(globalI18n.locale);
+    console.log(globalI18n, current, locale);
     if (current === locale) {
       return locale;
     }

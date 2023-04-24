@@ -116,5 +116,13 @@ export const useAppStore = defineStore('app-store', {
     setThemeColor(color: string): void {
       this.projectSetting.themeColor = color;
     },
+
+    initLocale() {
+      const locale = storage.get(LOCALE_KEY);
+      console.log('initLocale', locale);
+      if (locale) {
+        this.setLocale(locale);
+      }
+    },
   },
 });

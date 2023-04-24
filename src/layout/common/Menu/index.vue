@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { RouteLocationNormalized } from 'vue-router';
   import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
   import { getActiveKeyPathsOfMenus } from '@/utils';
@@ -36,14 +36,10 @@
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
 
-  const route = useRoute();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const selectedKeys = ref([] as Array<string>);
   const openKeys = ref([] as Array<string>);
-  const activeKey = computed(
-    () => (route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string
-  );
 
   function handleUpdateMenu(_key: string, item: any) {
     const menuItem = item as GlobalMenuOption;
@@ -74,9 +70,13 @@
   //   { immediate: true }
   // );
 
-  listenerRouteChange(() => {
-    selectedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
+  listenerRouteChange((route: RouteLocationNormalized) => {
+    const activeKey =
+      ((route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string) ?? '';
+    selectedKeys.value = getActiveKeyPathsOfMenus(activeKey, routeStore.menus);
+    console.log(selectedKeys.value);
     openKeys.value = selectedKeys.value.slice(0, selectedKeys.value.length - 1);
+    console.log(openKeys.value);
   });
 </script>
 

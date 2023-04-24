@@ -5,6 +5,7 @@ import { setupStore } from '@/store';
 import App from './App.vue';
 import '@arco-design/web-vue/dist/arco.css';
 import AppLoading from './components/common/AppLoading.vue';
+import { initAppConfig } from '@/logics/initAppConfig';
 
 const setupApp = async () => {
   const app = createApp(App);
@@ -26,6 +27,9 @@ const setupApp = async () => {
 
   // 初始化路由
   await setupRouter(app);
+
+  // 初始化配置
+  initAppConfig();
 
   // 延迟挂载app 为了可以多看会加载动画
   setTimeout(() => {
