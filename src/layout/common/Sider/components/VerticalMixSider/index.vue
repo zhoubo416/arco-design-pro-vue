@@ -5,7 +5,7 @@
     @mouseleave="resetFirstDegreeMenus"
     style="color: var(--color-text-2)"
   >
-    <div class="flex-1 flex-col-stretch h-full">
+    <div class="flex-1 flex-col-stretch h-full w-full">
       <logo :show-title="false" :style="{ height: height + 'px' }" />
       <div class="flex-1-hidden">
         <mix-menu-detail
@@ -36,6 +36,7 @@
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
 
   const route = useRoute();
   const app = useAppStore();
