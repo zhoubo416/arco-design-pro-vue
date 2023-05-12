@@ -7,6 +7,7 @@ import type { Project } from '@/typings/system';
 import { ThemeEnum } from '@/enums';
 import { storage } from '@/utils/storage/storage';
 import { APP_DARK_MODE_KEY, LOCALE_KEY } from '@/enums/cacheEnum';
+import { setBaseColor } from '@/utils/color';
 
 interface AppState {
   /** 切换页面加载状态 */
@@ -105,9 +106,13 @@ export const useAppStore = defineStore('app-store', {
     setSiderSetting(setting: DeepPartial<Project.Sider>): void {
       this.projectSetting.sider = deepMerge(this.projectSetting.sider || {}, setting);
     },
+    setLayout(setting: DeepPartial<Project.Layout>): void {
+      this.projectSetting.layout = deepMerge(this.projectSetting.layout || {}, setting);
+    },
     setDarkMode(mode: ThemeEnum): void {
       this.projectSetting.darkMode = mode;
       storage.set(APP_DARK_MODE_KEY, mode);
+      setBaseColor(this.getProjectSetting.themeColor);
     },
     setLocale(locale: Partial<Project.Locale>): void {
       this.projectSetting.locale = { ...this.projectSetting.locale, ...locale };

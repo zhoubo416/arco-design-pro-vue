@@ -3,12 +3,12 @@ import { useAppSetting } from '@/hooks/setting/useAppSetting';
 import { unref } from 'vue';
 
 export const setBaseColor = (val: string) => {
-  const { getDarkMode } = useAppSetting();
+  const { getIsDarkMode } = useAppSetting();
 
   for (let i = 1; i < 10; i += 1) {
     document.body.style.setProperty(
       `--arcoblue-${i}`,
-      getRgbStr(generate(val, { index: i, dark: unref(getDarkMode) === 'dark' }))
+      getRgbStr(generate(val, { index: i, dark: unref(getIsDarkMode) }))
     );
   }
 };

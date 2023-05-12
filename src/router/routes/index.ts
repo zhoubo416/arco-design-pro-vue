@@ -1,4 +1,5 @@
 import { getLoginModuleRegExp } from '@/utils';
+import { EnumType } from '@/typings/system';
 
 /** 根路由: / */
 export const ROOT_ROUTE: AuthRoute.Route = {

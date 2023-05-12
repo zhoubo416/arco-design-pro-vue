@@ -9,7 +9,7 @@
     unmountOnClose
   >
     <template #title> {{ $t('settings.title') }} </template>
-    <DarkMode />
+    <Mode />
     <LayoutMode />
     <PageFunc />
     <PageView />
@@ -21,17 +21,21 @@
   import { Message } from '@arco-design/web-vue';
   import { useClipboard } from '@vueuse/core';
   import { useI18n } from 'vue-i18n';
-  import { DarkMode, LayoutMode, PageFunc, PageView } from './components';
+  import { Mode, LayoutMode, PageFunc, PageView } from './components';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
 
-  // const app = useAppStore();
-  // const theme = useThemeStore();
   const { t } = useI18n();
   const { copy } = useClipboard();
   const { getSettingByJson } = useAppSetting();
 
+  interface Emits {
+    (e: 'close'): void;
+  }
+
+  const emit = defineEmits<Emits>();
+
   const cancel = () => {
-    // app.closeSettingDrawer();
+    emit('close');
   };
 
   const copySettings = async () => {

@@ -1,6 +1,7 @@
 import { useAppStore } from '@/store';
 import { computed } from 'vue';
 import { ThemeEnum } from '@/enums';
+import { EnumType } from '@/typings/system';
 
 export function useAppSetting() {
   const appStore = useAppStore();
@@ -29,13 +30,15 @@ export function useAppSetting() {
   const getThemeColor = computed(() => appStore.getProjectSetting.themeColor);
   // 获取模式
   const getDarkMode = computed(() => appStore.getDarkMode);
+  // 获取模式
+  const getIsDarkMode = computed(() => appStore.getDarkMode === ThemeEnum.DARK);
   // 获取国际化
   const getLocale = computed(() => appStore.getLocale);
 
   // 获取项目配置
   const getSettingByJson = computed(() => appStore.getProjectSetting);
 
-  // 修改
+  // 修改模式
   const setDarkMode = (darkMode: ThemeEnum) => {
     appStore.setDarkMode(darkMode);
   };
@@ -43,6 +46,11 @@ export function useAppSetting() {
   const setThemeColor = (themeColor: string) => {
     appStore.setThemeColor(themeColor);
   };
+  // 修改layout
+  const setLayoutMode = (mode: EnumType.ThemeLayoutMode) => {
+    appStore.setLayout({ mode });
+  };
+
   return {
     getShowSettingButton,
 
@@ -58,10 +66,12 @@ export function useAppSetting() {
     getThemeColor,
     getLocale,
     getDarkMode,
+    getIsDarkMode,
 
     getSettingByJson,
 
     setDarkMode,
     setThemeColor,
+    setLayoutMode,
   };
 }

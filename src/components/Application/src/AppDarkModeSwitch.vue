@@ -1,11 +1,26 @@
 <template>
   <!-- 切换模式 MODE SWITCH -->
-  <div
-    class="flex-center text-18px cursor-pointer text-[var(--color-text-1)]"
-    @click="handleToggleTheme"
-  >
-    <icon-moon-fill v-if="isDark" />
-    <icon-sun-fill v-else />
+  <div class="flex-center cursor-pointer text-[var(--color-text-1)]">
+    <a-button
+      v-if="!isSwitch"
+      class="!bg-transparent w-full"
+      shape="round"
+      @click="handleToggleTheme()"
+    >
+      <template #icon>
+        <icon-moon-fill class="text-20px" v-if="isDark" />
+        <icon-sun-fill class="text-20px" v-else />
+      </template>
+    </a-button>
+
+    <a-switch :model-value="!isDark" @change="handleToggleTheme()" v-else>
+      <template #checked-icon>
+        <icon-moon-fill />
+      </template>
+      <template #unchecked-icon>
+        <icon-sun-fill class="!text-[var(--color-text-1)]" />
+      </template>
+    </a-switch>
   </div>
 </template>
 
@@ -13,6 +28,12 @@
   import { useDark, useToggle } from '@vueuse/core';
   import { unref } from 'vue';
   import { ThemeEnum } from '@/enums';
+
+  interface Props {
+    isSwitch?: boolean;
+  }
+
+  withDefaults(defineProps<Props>(), { isSwitch: false });
 
   interface Emits {
     (e: 'update:dark', darkMode: ThemeEnum): void;
@@ -27,8 +48,6 @@
     valueLight: 'light',
     storageKey: 'arco-theme',
     onChanged(dark: boolean) {
-      // overridden default behavior
-      // emit('update:dark', dark);
       if (unref(dark)) {
         emit('update:dark', ThemeEnum.LIGHT);
       } else {

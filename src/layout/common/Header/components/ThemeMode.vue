@@ -1,7 +1,7 @@
+<!--主题模式-->
+
 <template>
   <hover-container class="w-40px" :inverted="inverted" tooltip-content="主题模式">
-    <!--    @update:dark="theme.setDarkMode"-->
-
     <AppDarkModeSwitch
       class="wh-full"
       style="color: var(--color-text-1)"
@@ -14,6 +14,7 @@
   import { AppDarkModeSwitch } from '@/components/Application';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import { unref } from 'vue';
+  import HoverContainer from '@/components/common/HoverContainer.vue';
 
   const { getHeaderSetting, setDarkMode } = useAppSetting();
   const { inverted } = unref(getHeaderSetting);

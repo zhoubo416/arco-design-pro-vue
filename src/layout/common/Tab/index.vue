@@ -4,7 +4,7 @@
     :class="getFixedHeaderAndMultiTab ? 'layout-tab-fixed' : 'layout-tab'"
     :style="{
       height: height + 'px',
-      top: height + 'px',
+      top: headerHeight + 'px',
       paddingLeft: !siderVisible ? 0 : tabLeft + 'px',
     }"
     v-if="visible"
@@ -77,12 +77,15 @@
   import ContextMenu from './components/ContextMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
 
-  const { getFixedHeaderAndMultiTab, getSiderSetting, getTabSetting } = useAppSetting();
+  const { getFixedHeaderAndMultiTab, getSiderSetting, getTabSetting, getHeaderSetting } =
+    useAppSetting();
   const { collapsed } = unref(getSiderSetting);
   const { height, visible } = unref(getTabSetting);
   const tab = useTabStore();
   const { siderWidth, siderCollapsedWidth, siderVisible } = useBasicLayout();
+  const { height: headerHeight } = unref(getHeaderSetting);
 
   // refs
   const navScroll = ref();

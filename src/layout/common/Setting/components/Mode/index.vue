@@ -2,7 +2,7 @@
   <a-divider orientation="center">{{ $t('settings.navbar.theme') }}</a-divider>
   <a-space direction="vertical" fill>
     <setting-menu :label="$t('settings.navbar.theme.dark')">
-      <a-switch :model-value="getDarkMode" @change="setDarkMode" />
+      <AppDarkModeSwitch is-switch />
     </setting-menu>
 
     <setting-menu :label="'主题色'">
@@ -13,7 +13,7 @@
             <span>{{ getThemeColor }}</span>
           </div>
           <template #content>
-            <color-picker v-model:pureColor="getThemeColor" :isWidget="true" format="hex" />
+            <color-picker v-model:pureColor="color" :isWidget="true" format="hex" />
           </template>
         </a-trigger>
       </div>
@@ -22,24 +22,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { unref, watch } from 'vue';
+  import { ref, unref, watch } from 'vue';
   import { ColorPicker } from 'vue3-colorpicker';
   import 'vue3-colorpicker/style.css';
   import { setBaseColor } from '@/utils/color';
   import SettingMenu from '../SettingMenu/index.vue';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import AppDarkModeSwitch from '@/components/Application/src/AppDarkModeSwitch.vue';
 
-  const { getThemeColor, setThemeColor, getDarkMode, setDarkMode } = useAppSetting();
+  const { getThemeColor, setThemeColor } = useAppSetting();
+
+  const color = ref('');
 
   watch(
-    () => unref(getThemeColor),
+    () => unref(color),
     (value: any) => {
-      // let regex1 = /\d+, \d+, \d+/gi;
-      // let color = value.match(regex1);
       setThemeColor(value);
 
       setBaseColor(value);
-      // document.body.style.setProperty(`&#45;&#45;arcoblue-5`, color[0]);
     }
   );
 </script>
