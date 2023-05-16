@@ -2,10 +2,10 @@
   <div class="flex-1-hidden">
     <a-menu
       class="flex-1-hidden"
-      :mode="mode"
+      :mode="getLayoutMenuMode"
       :style="{ width: '100%', height: '100%' }"
-      :collapsed="collapsed"
-      :collapsed-width="collapsedWidth"
+      :collapsed="getSiderCollapsed"
+      :collapsed-width="getSiderCollapsedWidth"
       v-model:selectedKeys="defaultPath"
       v-model:openKeys="defaultExpandKeys"
       auto-scroll-into-view
@@ -28,19 +28,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, unref } from 'vue';
-  // import { useRoute } from 'vue-router';
-  import { useAppStore, useRouteStore } from '@/store';
-  import { useBasicLayout, useRouterPush } from '@/composables';
+  import { ref } from 'vue';
+  import { useRouteStore } from '@/store';
+  import { useRouterPush } from '@/composables';
   import SubMenu from './SubMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { useLayoutSetting, useSidleSetting } from '@/hooks';
 
   // const route = useRoute();
-  const { getSiderSetting } = useAppSetting();
-  const { collapsed, collapsedWidth } = unref(getSiderSetting);
-  const app = useAppStore();
+  const { getSiderCollapsed, getSiderCollapsedWidth } = useSidleSetting();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const defaultPath = ref([] as Array<string>);
@@ -51,7 +48,7 @@
     routerPush(menuItem.routePath);
   }
 
-  const { mode } = useBasicLayout();
+  const { getLayoutMenuMode } = useLayoutSetting();
 
   // watch(
   //   () => route.name,

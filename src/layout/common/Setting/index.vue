@@ -1,7 +1,7 @@
 <template>
   <a-drawer
     :width="350"
-    :visible="true"
+    :visible="getThemeVisible"
     :cancel-text="$t('settings.close')"
     :ok-text="$t('settings.copySettings')"
     @ok="copySettings"
@@ -23,10 +23,13 @@
   import { useI18n } from 'vue-i18n';
   import { Mode, LayoutMode, PageFunc, PageView } from './components';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { useThemeSetting } from '@/hooks/setting/useThemeSetting';
 
   const { t } = useI18n();
   const { copy } = useClipboard();
   const { getSettingByJson } = useAppSetting();
+
+  const { getThemeVisible } = useThemeSetting();
 
   interface Emits {
     (e: 'close'): void;

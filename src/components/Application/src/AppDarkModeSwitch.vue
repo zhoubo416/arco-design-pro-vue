@@ -3,7 +3,7 @@
   <div class="flex-center cursor-pointer text-[var(--color-text-1)]">
     <a-button
       v-if="!isSwitch"
-      class="!bg-transparent w-full"
+      class="!bg-transparent w-full !text-[var(--color-text-1)]"
       shape="round"
       @click="handleToggleTheme()"
     >

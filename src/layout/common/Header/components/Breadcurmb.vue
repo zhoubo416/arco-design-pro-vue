@@ -12,7 +12,7 @@
             >
               <component
                 :is="item.icon"
-                v-if="crumb.showIcon"
+                v-if="getHeaderCrumb.showIcon"
                 class="inline-block align-text-bottom mr-4px text-16px"
               />
               <span>{{ $t(item.label) }}</span>
@@ -21,21 +21,21 @@
           <span class="link-text">
             <component
               class="inline-block align-text-bottom mr-4px text-16px"
-              v-if="crumb.showIcon"
+              v-if="getHeaderCrumb.showIcon"
               :is="breadcrumb.icon || 'icon-home-fill'"
-              :class="{ 'text-#BBBBBB': inverted }"
+              :class="{ 'text-#BBBBBB': getHeaderInverted }"
             />
-            <span :class="{ 'text-#BBBBBB': inverted }">{{ $t(breadcrumb.label) }}</span>
+            <span :class="{ 'text-#BBBBBB': getHeaderInverted }">{{ $t(breadcrumb.label) }}</span>
           </span>
         </a-dropdown>
         <span class="link-text" v-else>
           <component
             class="inline-block align-text-bottom mr-4px text-16px"
-            v-if="crumb.showIcon"
+            v-if="getHeaderCrumb.showIcon"
             :is="breadcrumb.icon || 'icon-home-fill'"
-            :class="{ 'text-#BBBBBB': inverted }"
+            :class="{ 'text-#BBBBBB': getHeaderInverted }"
           />
-          <span :class="{ 'text-#BBBBBB': inverted }">{{ $t(breadcrumb.label) }}</span>
+          <span :class="{ 'text-#BBBBBB': getHeaderInverted }">{{ $t(breadcrumb.label) }}</span>
         </span>
       </a-breadcrumb-item>
     </template>
@@ -43,21 +43,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
+  import { computed } from 'vue';
   import { useRoute } from 'vue-router';
   import { routePath } from '@/router';
   import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
   import { getBreadcrumbByRouteKey } from '@/utils';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import type { GlobalMenuOption } from '@/typings/system';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 
   const route = useRoute();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
 
-  const { getHeaderSetting } = useAppSetting();
-  const { crumb, inverted } = unref(getHeaderSetting);
+  const { getHeaderCrumb, getHeaderInverted } = useHeaderSetting();
 
   const breadcrumbs = computed(() =>
     getBreadcrumbByRouteKey(
@@ -66,10 +65,8 @@
       routePath('root')
     )
   );
-  console.log(breadcrumbs);
 
   function dropdownSelect(menuOption: GlobalMenuOption) {
-    console.log(menuOption);
     routerPush({ name: menuOption.routeName });
   }
 </script>

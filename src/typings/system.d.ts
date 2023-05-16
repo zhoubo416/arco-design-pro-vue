@@ -139,6 +139,8 @@ declare namespace Project {
     locale: Locale;
     /** 水印 */
     watermark: Watermark;
+    /** 主题配置 */
+    themeSetting: ThemeSetting;
   }
 
   /** 水印 */
@@ -290,6 +292,14 @@ declare namespace Project {
     languageList: LocalType[];
     /** 默认 */
     default: LocalType;
+  }
+
+  /** 主题配置 */
+  interface ThemeSetting {
+    /** 项目配置的抽屉可见状态 */
+    drawerVisible: boolean;
+    /** 侧边栏折叠状态 */
+    // siderCollapse: boolean;
   }
 }
 

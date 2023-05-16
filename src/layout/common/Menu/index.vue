@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { ref } from 'vue';
   import { RouteLocationNormalized } from 'vue-router';
   import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';

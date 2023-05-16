@@ -24,21 +24,18 @@
 
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { useBasicLayout } from '@/composables';
+  import { useLayoutSetting } from '@/hooks';
   import { Sider, Header, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
-  // import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useSidleSetting } from '@/hooks';
 
-  const { headerProps } = useBasicLayout();
-  const {
-    getFooterSetting,
-    getHeaderSetting,
-    getTabSetting,
-    getFixedHeaderAndMultiTab,
-    getSiderSetting,
-    getThemeColor,
-  } = useAppSetting();
+  const { headerProps } = useLayoutSetting();
+  const { getFooterSetting, getTabSetting, getFixedHeaderAndMultiTab, getThemeColor } =
+    useAppSetting();
+
+  const { getHeaderHeight: headHeight } = useHeaderSetting();
 
   // const { getShowSettingButton } = useAppSetting();
   // const theme = useThemeStore();
@@ -50,9 +47,9 @@
 
   const { fixed: footerFixed, height: footerHeight } = unref(getFooterSetting);
   const { visible: tabVisible, height: tabHeight } = unref(getTabSetting);
-  const { width: siderWidth } = unref(getSiderSetting);
+  const { getSiderWidth } = useSidleSetting();
   const getHeaderHeight = computed((): number => {
-    let { height: headerHeight } = unref(getHeaderSetting);
+    let headerHeight = unref(headHeight);
     if (tabVisible) {
       headerHeight += tabHeight;
     }
@@ -68,7 +65,7 @@
         position: 'fixed',
         zIndex: 4,
         height: `${footerHeight}px`,
-        paddingLeft: `${siderWidth}px`,
+        paddingLeft: `${unref(getSiderWidth)}px`,
         transitionDuration: '300ms',
         transitionTimingFunction: 'ease-in-out',
         transform: 'translateX(0px)',

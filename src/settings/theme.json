@@ -150,5 +150,8 @@
   "watermark": {
     "watermark": false,
     "watermarkText": "水印文字"
+  },
+  "themeSetting": {
+    "drawerVisible": false
   }
 }

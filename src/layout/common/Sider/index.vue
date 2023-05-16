@@ -1,12 +1,13 @@
 <template>
+  <div v-if="!isVerticalMix" :style="getHiddenDomStyle"> </div>
   <a-layout-sider
     class="layout-sider"
     hide-trigger
     collapsible
-    :collapsed="!isVerticalMix ? siderCollapsed : false"
+    :collapsed="!isVerticalMix ? getSiderCollapsed : false"
     :style="{
       width: headerLeft + 'px',
-      paddingTop: !isHorizontalMix ? 0 : headerHeight + 'px',
+      paddingTop: !isHorizontalMix ? 0 : getHeaderHeight + 'px',
     }"
     v-if="siderVisible"
   >
@@ -17,22 +18,31 @@
 
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { useBasicLayout } from '@/composables';
+  import { useLayoutSetting } from '@/hooks';
   import { VerticalMixSider, VerticalSider } from './components';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useSidleSetting } from '@/hooks';
 
-  const { siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
-  const { getLayoutSetting, getSiderSetting, getHeaderSetting } = useAppSetting();
-
-  const { mode: layoutMode } = unref(getLayoutSetting);
-  const { collapsed: siderCollapsed } = unref(getSiderSetting);
-  const { height: headerHeight } = unref(getHeaderSetting);
-
-  const isVerticalMix = computed(() => layoutMode === 'vertical-mix');
-  const isHorizontalMix = computed(() => layoutMode === 'horizontal-mix');
+  const { getSiderCollapsed } = useSidleSetting();
+  const { getHeaderHeight } = useHeaderSetting();
+  const { isVerticalMix, isHorizontalMix, siderVisible, siderWidth, siderCollapsedWidth } =
+    useLayoutSetting();
 
   const headerLeft = computed((): number => {
-    return siderCollapsed ? siderCollapsedWidth.value : siderWidth.value;
+    return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
+  });
+
+  const getHiddenDomStyle = computed(() => {
+    const width = headerLeft.value + 'px';
+
+    return {
+      // width: width,
+      // overflow: 'hidden',
+      // flex: `0 0 ${width}`,
+      // maxWidth: width,
+      // minWidth: width,
+      // transition: 'all 2s',
+    };
   });
 </script>
 

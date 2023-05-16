@@ -1,12 +1,12 @@
 <template>
   <dark-mode-container
     class="flex h-full"
-    :inverted="inverted"
+    :inverted="getSiderInverted"
     @mouseleave="resetFirstDegreeMenus"
     style="color: var(--color-text-2)"
   >
     <div class="flex-1 flex-col-stretch h-full w-full">
-      <logo :show-title="false" :style="{ height: height + 'px' }" />
+      <logo :show-title="false" :style="{ height: getHeaderHeight + 'px', a: getSiderCollapsed }" />
       <div class="flex-1-hidden">
         <mix-menu-detail
           v-for="item in firstDegreeMenus"
@@ -15,7 +15,7 @@
           :active-route-name="activeParentRouteName"
           :label="item.label"
           :icon="item.icon"
-          :is-mini="collapsed"
+          :is-mini="getSiderCollapsed"
           @click="handleMixMenu(item.routeName, item.hasChildren)"
         />
       </div>
@@ -28,21 +28,19 @@
 <script setup lang="ts">
   import { computed, ref, unref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { useAppStore, useRouteStore } from '@/store';
+  import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
-  import { useBoolean } from '@/hooks';
+  import { useBoolean, useSidleSetting } from '@/hooks';
   import { Logo } from '@/layout/common';
   import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 
   const route = useRoute();
-  const app = useAppStore();
-  const { getHeaderSetting, getSiderSetting } = useAppSetting();
-  const { height } = unref(getHeaderSetting);
-  const { inverted, collapsed } = unref(getSiderSetting);
+  const { getHeaderHeight } = useHeaderSetting();
+  const { getSiderCollapsed, getSiderInverted } = useSidleSetting();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const { bool: drawerVisible, setTrue: openDrawer, setFalse: hideDrawer } = useBoolean();

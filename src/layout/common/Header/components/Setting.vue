@@ -1,5 +1,5 @@
 <template>
-  <hover-container tooltip-content="设置" class="w-40px h-full" :inverted="headerInverted">
+  <hover-container tooltip-content="设置" class="w-40px h-full" :inverted="getHeaderInverted">
     <a-button class="!bg-transparent" shape="round" @click="visibleSetting()">
       <template #icon>
         <icon-settings class="text-20px" style="color: var(--color-text-1)" />
@@ -7,23 +7,23 @@
     </a-button>
   </hover-container>
 
-  <Setting v-if="visible" @close="visibleSetting()" />
+  <Setting @close="visibleSetting()" />
 </template>
 
 <script lang="ts" setup>
   import { Setting } from '@/layout/common';
   import HoverContainer from '@/components/common/HoverContainer.vue';
-  import { ref, unref } from 'vue';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useThemeSetting } from '@/hooks/setting/useThemeSetting';
+  import { unref } from 'vue';
 
-  const { getHeaderSetting } = useAppSetting();
-
-  const { inverted: headerInverted } = unref(getHeaderSetting);
-
-  const visible = ref(false);
+  const { setThemeSetting, getThemeVisible } = useThemeSetting();
+  const { getHeaderInverted } = useHeaderSetting();
 
   const visibleSetting = () => {
-    visible.value = !visible.value;
+    setThemeSetting({
+      drawerVisible: !unref(getThemeVisible),
+    });
   };
 </script>
 

@@ -2,12 +2,12 @@
   <a-divider orientation="center">{{ $t('settings.navbar.layout') }}</a-divider>
   <a-space fill>
     <layout-checkbox
-      v-for="item in modeList"
+      v-for="item in getLayoutModeList"
       :key="item.value"
       :mode="item.value"
       :label="item.label"
       :checked="item.value === getLocale.language"
-      @click="setLayoutMode(item.value)"
+      @click="setMode(item.value)"
     />
   </a-space>
 </template>
@@ -15,10 +15,15 @@
 <script setup lang="ts">
   import { LayoutCheckbox } from './components';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
-  import { unref } from 'vue';
+  import { EnumType } from '@/typings/system';
+  import { useLayoutSetting } from '@/hooks';
 
-  const { getLocale, getLayoutSetting, setLayoutMode } = useAppSetting();
+  const { getLocale } = useAppSetting();
 
-  const { modeList } = unref(getLayoutSetting);
+  const { getLayoutModeList, setLayoutMode } = useLayoutSetting();
+
+  const setMode = (mode: EnumType.ThemeLayoutMode) => {
+    setLayoutMode(mode);
+  };
 </script>
 <style scoped></style>

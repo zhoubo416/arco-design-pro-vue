@@ -1,7 +1,7 @@
 <!--切换语言-->
 
 <template>
-  <hover-container tooltip-content="切换语言" class="w-40px h-full" :inverted="inverted">
+  <hover-container tooltip-content="切换语言" class="w-40px h-full" :inverted="getHeaderInverted">
     <a-button
       class="!bg-transparent"
       shape="round"
@@ -21,15 +21,13 @@
 
 <script lang="ts" setup>
   import { useLocale } from '@/hooks/locale';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
-  import { unref } from 'vue';
   import type { EnumType } from '@/typings/system';
   import HoverContainer from '@/components/common/HoverContainer.vue';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 
   const { changeLocale, getLocale } = useLocale();
 
-  const { getHeaderSetting } = useAppSetting();
-  const { inverted } = unref(getHeaderSetting);
+  const { getHeaderInverted } = useHeaderSetting();
 
   const setLanguage = (language: EnumType.Language | undefined = 'zh-CN') => {
     changeLocale(language);

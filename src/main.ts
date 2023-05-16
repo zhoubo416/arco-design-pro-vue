@@ -32,9 +32,9 @@ const setupApp = async () => {
   initAppConfig();
 
   // 延迟挂载app 为了可以多看会加载动画
-  setTimeout(() => {
-    app.mount('#app');
-  }, 2000);
+  // setTimeout(() => {
+  app.mount('#app');
+  // }, 2000);
 };
 
 setupApp()

@@ -8,7 +8,7 @@
         </template>
       </a-doption>
     </template>
-    <hover-container class="px-12px" :inverted="inverted">
+    <hover-container class="px-12px" :inverted="getHeaderInverted">
       <a-avatar :size="30">
         <img
           alt="avatar"
@@ -26,6 +26,7 @@
   import { iconifyRender } from '@/utils/common/icon';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import { unref } from 'vue';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 
   interface UserOptions {
     label: string;
@@ -34,8 +35,7 @@
   }
 
   const auth = useAuthStore();
-  const { getHeaderSetting } = useAppSetting();
-  const { inverted } = unref(getHeaderSetting);
+  const { getHeaderInverted } = useHeaderSetting();
 
   const options: Array<UserOptions> = [
     {

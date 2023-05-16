@@ -4,7 +4,7 @@
       isFullscreen ? $t('settings.navbar.screen.toExit') : $t('settings.navbar.screen.toFull')
     "
     class="w-40px h-full"
-    :inverted="inverted"
+    :inverted="getHeaderInverted"
   >
     <a-button class="!bg-transparent" shape="round" @click="toggleFullScreen()">
       <template #icon>
@@ -21,13 +21,11 @@
 
 <script lang="ts" setup>
   import { useFullscreen } from '@vueuse/core';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
-  import { unref } from 'vue';
   import HoverContainer from '@/components/common/HoverContainer.vue';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 
   const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
-  const { getHeaderSetting } = useAppSetting();
-  const { inverted } = unref(getHeaderSetting);
+  const { getHeaderInverted } = useHeaderSetting();
 
   defineExpose({ isFullscreen, toggleFullScreen });
 </script>

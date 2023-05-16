@@ -1,17 +1,13 @@
 <template>
   <a-card title="Tab Home" :bordered="false" size="small" class="shadow-sm rounded-16px w-full">
     <a-space direction="vertical" :size="12">
-      <a-button @click="handleToTabDetail">跳转Tab Detail</a-button>
+      <a-button @click="handleToTabDetail()">跳转Tab Detail</a-button>
       <a-button @click="handleToTabMultiDetail(1)">跳转Tab Multi Detail 1</a-button>
       <a-button @click="handleToTabMultiDetail(2)">跳转Tab Multi Detail 2</a-button>
       <a-input-group>
         <a-input v-model:model-value="title" />
-        <a-button type="primary" @click="handleSetTitle">设置当前Tab页标题</a-button>
+        <a-button type="primary" @click="handleSetTitle()">设置当前Tab页标题</a-button>
       </a-input-group>
-      <!--      <div>-->
-      <!--        <canvas ref="canvas" v-show="0"></canvas>-->
-      <!--        <img :src="imageUrl" v-if="imageUrl" />-->
-      <!--      </div>-->
     </a-space>
   </a-card>
 </template>

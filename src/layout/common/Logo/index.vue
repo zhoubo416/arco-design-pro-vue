@@ -14,6 +14,7 @@
 <script setup lang="ts">
   import { routePath } from '@/router';
   import { useAppInfo } from '@/composables';
+  import SystemLogo from '@/components/common/SystemLogo.vue';
 
   interface Props {
     /** 显示名字 */

@@ -71,6 +71,9 @@ export const useAppStore = defineStore('app-store', {
     getDarkMode(): ThemeEnum {
       return this.projectSetting.darkMode;
     },
+    getThemeSetting(): Project.ThemeSetting {
+      return this.projectSetting.themeSetting;
+    },
   },
   actions: {
     /**
@@ -106,8 +109,16 @@ export const useAppStore = defineStore('app-store', {
     setSiderSetting(setting: DeepPartial<Project.Sider>): void {
       this.projectSetting.sider = deepMerge(this.projectSetting.sider || {}, setting);
     },
-    setLayout(setting: DeepPartial<Project.Layout>): void {
+    setLayoutSetting(setting: DeepPartial<Project.Layout>): void {
       this.projectSetting.layout = deepMerge(this.projectSetting.layout || {}, setting);
+    },
+    setThemeSetting(setting: DeepPartial<Project.ThemeSetting>): void {
+      // this.projectSetting.themeSetting = deepMerge(this.projectSetting.themeSetting || {}, setting);
+      console.log(1111);
+      this.projectSetting.themeSetting.drawerVisible = setting.drawerVisible ?? false;
+    },
+    setT1(a: boolean): void {
+      this.projectSetting.themeSetting.drawerVisible = a;
     },
     setDarkMode(mode: ThemeEnum): void {
       this.projectSetting.darkMode = mode;

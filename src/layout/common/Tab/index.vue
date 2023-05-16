@@ -4,7 +4,7 @@
     :class="getFixedHeaderAndMultiTab ? 'layout-tab-fixed' : 'layout-tab'"
     :style="{
       height: height + 'px',
-      top: headerHeight + 'px',
+      top: getHeaderHeight + 'px',
       paddingLeft: !siderVisible ? 0 : tabLeft + 'px',
     }"
     v-if="visible"
@@ -72,20 +72,21 @@
   import Draggable from 'vuedraggable';
   import { useEventListener } from '@vueuse/core';
   import { useTabStore } from '@/store';
-  import { useBasicLayout } from '@/composables';
+  import { useLayoutSetting } from '@/hooks';
   import { setTabRoutes } from '@/store/modules/tab/helpers';
   import ContextMenu from './components/ContextMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useSidleSetting } from '@/hooks';
 
-  const { getFixedHeaderAndMultiTab, getSiderSetting, getTabSetting, getHeaderSetting } =
-    useAppSetting();
-  const { collapsed } = unref(getSiderSetting);
+  const { getFixedHeaderAndMultiTab, getTabSetting } = useAppSetting();
+  const { getSiderCollapsed } = useSidleSetting();
   const { height, visible } = unref(getTabSetting);
   const tab = useTabStore();
-  const { siderWidth, siderCollapsedWidth, siderVisible } = useBasicLayout();
-  const { height: headerHeight } = unref(getHeaderSetting);
+  const { siderWidth, siderCollapsedWidth, siderVisible } = useLayoutSetting();
+  const { getHeaderHeight } = useHeaderSetting();
 
   // refs
   const navScroll = ref();
@@ -105,7 +106,7 @@
     if (!unref(getFixedHeaderAndMultiTab)) {
       return 0;
     }
-    return collapsed ? siderCollapsedWidth.value : siderWidth.value;
+    return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
   });
 
   function init() {

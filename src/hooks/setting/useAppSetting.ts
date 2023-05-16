@@ -1,7 +1,6 @@
 import { useAppStore } from '@/store';
 import { computed } from 'vue';
 import { ThemeEnum } from '@/enums';
-import { EnumType } from '@/typings/system';
 
 export function useAppSetting() {
   const appStore = useAppStore();
@@ -9,18 +8,12 @@ export function useAppSetting() {
   // 获取项目配置的抽屉可见状态
   const getShowSettingButton = computed(() => appStore.getProjectButton.setting);
 
-  // 获取header配置
-  const getHeaderSetting = computed(() => appStore.getHeaderSetting);
   // 获取tab配置
   const getTabSetting = computed(() => appStore.getTabSetting);
-  // 获取sider配置
-  const getSiderSetting = computed(() => appStore.getSiderSetting);
   // 获取menu配置
   const getMenuSetting = computed(() => appStore.getMenuSetting);
   // 获取footer配置
   const getFooterSetting = computed(() => appStore.getFooterSetting);
-  // 获取Layout配置
-  const getLayoutSetting = computed(() => appStore.getLayoutSetting);
   // 获取Page配置
   const getPageSetting = computed(() => appStore.getPageSetting);
 
@@ -46,20 +39,13 @@ export function useAppSetting() {
   const setThemeColor = (themeColor: string) => {
     appStore.setThemeColor(themeColor);
   };
-  // 修改layout
-  const setLayoutMode = (mode: EnumType.ThemeLayoutMode) => {
-    appStore.setLayout({ mode });
-  };
 
   return {
     getShowSettingButton,
 
-    getHeaderSetting,
     getTabSetting,
-    getSiderSetting,
     getMenuSetting,
     getFooterSetting,
-    getLayoutSetting,
     getPageSetting,
 
     getFixedHeaderAndMultiTab,
@@ -72,6 +58,5 @@ export function useAppSetting() {
 
     setDarkMode,
     setThemeColor,
-    setLayoutMode,
   };
 }
