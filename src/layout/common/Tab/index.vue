@@ -3,13 +3,13 @@
     class="arco-layout-tab"
     :class="getFixedHeaderAndMultiTab ? 'layout-tab-fixed' : 'layout-tab'"
     :style="{
-      height: height + 'px',
+      height: getTabHeight + 'px',
       top: getHeaderHeight + 'px',
       paddingLeft: !siderVisible ? 0 : tabLeft + 'px',
     }"
-    v-if="visible"
+    v-if="getTabVisible"
   >
-    <div class="layout-tab" :style="{ height: height + 'px' }">
+    <div class="layout-tab" :style="{ height: getTabHeight + 'px' }">
       <span
         class="tabs-card-prev"
         @click="scrollPrev"
@@ -30,7 +30,7 @@
                   :id="`tag${element.fullPath}`"
                   class="layout-tab-scroll-item"
                   :class="{ 'active-item': tab.activeTab === element.fullPath }"
-                  :style="{ height: height - 12 + 'px' }"
+                  :style="{ height: getTabHeight - 12 + 'px' }"
                   @click.stop="goPath(element.fullPath)"
                 >
                   <span :class="{ activeTab: tab.activeTab === element.fullPath }">
@@ -72,18 +72,16 @@
   import Draggable from 'vuedraggable';
   import { useEventListener } from '@vueuse/core';
   import { useTabStore } from '@/store';
-  import { useLayoutSetting } from '@/hooks';
+  import { useLayoutSetting, useTabSetting, useAppSetting, useHeaderSetting } from '@/hooks';
   import { setTabRoutes } from '@/store/modules/tab/helpers';
   import ContextMenu from './components/ContextMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
   import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useSidleSetting } from '@/hooks';
 
-  const { getFixedHeaderAndMultiTab, getTabSetting } = useAppSetting();
+  const { getFixedHeaderAndMultiTab } = useAppSetting();
   const { getSiderCollapsed } = useSidleSetting();
-  const { height, visible } = unref(getTabSetting);
+  const { getTabHeight, getTabVisible } = useTabSetting();
   const tab = useTabStore();
   const { siderWidth, siderCollapsedWidth, siderVisible } = useLayoutSetting();
   const { getHeaderHeight } = useHeaderSetting();

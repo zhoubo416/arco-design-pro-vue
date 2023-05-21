@@ -21,6 +21,7 @@
   import { computed } from 'vue';
   import type { FollowerPlacement } from 'vueuc';
   import type { EnumThemeLayoutMode } from '@/enums';
+  import type { EnumType } from '@/typings/system';
 
   interface Props {
     /** 布局模式 */

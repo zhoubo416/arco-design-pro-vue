@@ -1,5 +1,4 @@
 <template>
-  <div v-if="!isVerticalMix" :style="getHiddenDomStyle"> </div>
   <a-layout-sider
     class="layout-sider"
     hide-trigger
@@ -31,27 +30,12 @@
   const headerLeft = computed((): number => {
     return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
   });
-
-  const getHiddenDomStyle = computed(() => {
-    const width = headerLeft.value + 'px';
-
-    return {
-      // width: width,
-      // overflow: 'hidden',
-      // flex: `0 0 ${width}`,
-      // maxWidth: width,
-      // minWidth: width,
-      // transition: 'all 2s',
-    };
-  });
 </script>
 
 <style lang="less" scoped>
   .arco-layout-sider {
     z-index: 5;
     //background-color: var(--color-bg-2);
-    transition-duration: 300ms;
-    transition-timing-function: ease-in-out;
   }
 
   :deep(.arco-layout-sider-children) {

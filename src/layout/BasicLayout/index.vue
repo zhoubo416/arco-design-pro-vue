@@ -1,15 +1,16 @@
 <template>
   <a-layout class="admin-layout">
+    <Header v-show="getLayoutMode === 'horizontal-mix'" v-bind="headerProps" />
     <Sider />
     <a-layout class="layout-body">
       <!--    <a-layout class="layout-body" :style="{ marginLeft: !siderVisible ? 0 : headerLeft + 'px' }">-->
-      <Header v-bind="headerProps" />
+      <Header v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />
       <Tab />
       <a-layout>
         <a-layout-content
           :style="{
             marginTop: getHeaderHeight + 'px',
-            marginBottom: footerFixed ? footerHeight + 'px' : '',
+            marginBottom: getFooterFixed ? getFooterHeight + 'px' : '',
           }"
         >
           <Content />
@@ -27,15 +28,21 @@
   import { useLayoutSetting } from '@/hooks';
   import { Sider, Header, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
-  import { useSidleSetting } from '@/hooks';
+  import {
+    useSidleSetting,
+    useTabSetting,
+    useFooterSetting,
+    useHeaderSetting,
+    useAppSetting,
+  } from '@/hooks';
 
-  const { headerProps } = useLayoutSetting();
-  const { getFooterSetting, getTabSetting, getFixedHeaderAndMultiTab, getThemeColor } =
-    useAppSetting();
+  const { headerProps, getLayoutMode } = useLayoutSetting();
+  // TODO: 需要修改
+  const { getFixedHeaderAndMultiTab, getThemeColor } = useAppSetting();
 
   const { getHeaderHeight: headHeight } = useHeaderSetting();
+  const { getTabVisible, getTabHeight } = useTabSetting();
+  const { getFooterFixed, getFooterHeight } = useFooterSetting();
 
   // const { getShowSettingButton } = useAppSetting();
   // const theme = useThemeStore();
@@ -45,26 +52,24 @@
   //   return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
   // });
 
-  const { fixed: footerFixed, height: footerHeight } = unref(getFooterSetting);
-  const { visible: tabVisible, height: tabHeight } = unref(getTabSetting);
   const { getSiderWidth } = useSidleSetting();
   const getHeaderHeight = computed((): number => {
     let headerHeight = unref(headHeight);
-    if (tabVisible) {
-      headerHeight += tabHeight;
+    if (unref(getTabVisible)) {
+      headerHeight += unref(getTabHeight);
     }
-    if (!getFixedHeaderAndMultiTab) {
+    if (!unref(getFixedHeaderAndMultiTab)) {
       headerHeight = 0;
     }
     return headerHeight;
   });
 
   const footerStyle = computed(() => {
-    if (footerFixed) {
+    if (unref(getFooterFixed)) {
       return {
         position: 'fixed',
         zIndex: 4,
-        height: `${footerHeight}px`,
+        height: `${unref(getFooterHeight)}px`,
         paddingLeft: `${unref(getSiderWidth)}px`,
         transitionDuration: '300ms',
         transitionTimingFunction: 'ease-in-out',
@@ -79,7 +84,7 @@
       };
     }
     return {
-      height: `${footerHeight}px`,
+      height: `${unref(getFooterHeight)}px`,
     };
   });
 

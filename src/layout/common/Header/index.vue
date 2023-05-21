@@ -3,7 +3,7 @@
     :class="getFixedHeaderAndMultiTab ? 'layout-header-fixed' : 'layout-header'"
     :style="{
       height: getHeaderHeight + 'px',
-      paddingLeft: siderVisible ? headerLeft + 'px' : 0,
+      paddingLeft: getHeaderPaddingLeft ? headerLeft + 'px' : 0,
       zIndex: getLayoutMode === 'horizontal-mix' ? '6' : '4',
     }"
   >
@@ -22,7 +22,7 @@
       <div
         v-else
         class="flex-y-center h-full flex-1"
-        :style="{ justifyContent: horizontalPosition }"
+        :style="{ justifyContent: getMenuHorizontalPosition }"
       >
         <!--        <HeaderMenu />-->
         <Menu :menus="routeStore.menus" :mode="'horizontal'" />
@@ -42,7 +42,7 @@
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
   import { useRouteStore } from '@/store';
-  import { useLayoutSetting } from '@/hooks';
+  import { useLayoutSetting, useMenuSetting } from '@/hooks';
   import { Logo, Menu } from '@/layout/common';
   import LogoPng from '@/assets/logo.png';
   import {
@@ -72,12 +72,12 @@
 
   const props = defineProps<Props>();
 
-  const { getMenuSetting, getFixedHeaderAndMultiTab } = useAppSetting();
+  const { getFixedHeaderAndMultiTab } = useAppSetting();
   const { getHeaderInverted, getHeaderCrumb, getHeaderHeight } = useHeaderSetting();
   const { getSiderWidth, getSiderCollapsed } = useSidleSetting();
   const { getLayoutMode } = useLayoutSetting();
 
-  const { horizontalPosition } = unref(getMenuSetting);
+  const { getMenuHorizontalPosition } = useMenuSetting();
 
   const routeStore = useRouteStore();
   const { getShowSettingButton } = useAppSetting();
@@ -89,6 +89,12 @@
     if (unref(getLayoutMode).includes('horizontal-mix')) return 0;
     const { siderWidth, siderCollapsedWidth } = useLayoutSetting();
     return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
+  });
+
+  const getHeaderPaddingLeft = computed(() => {
+    // console.log(!unref(siderVisible));
+    // console.log(!unref(getFixedHeaderAndMultiTab));
+    return !(!unref(siderVisible) || !unref(getFixedHeaderAndMultiTab));
   });
 </script>
 

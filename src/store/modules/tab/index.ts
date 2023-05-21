@@ -12,8 +12,8 @@ import {
   setTabRoutes,
 } from './helpers';
 import type { GlobalTabRoute } from '@/typings/system';
-import { useAppSetting } from '@/hooks/setting/useAppSetting';
 import { unref } from 'vue';
+import { useTabSetting } from '@/hooks';
 
 interface TabState {
   /** 多页签数据 */
@@ -213,9 +213,8 @@ export const useTabStore = defineStore('tab-store', {
 
     /** 初始化Tab状态 */
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
-      const { getTabSetting } = useAppSetting();
-      const { isCache } = unref(getTabSetting);
-      const tabs: GlobalTabRoute[] = isCache ? getTabRoutes() : [];
+      const { getTabIsCache } = useTabSetting();
+      const tabs: GlobalTabRoute[] = unref(getTabIsCache) ? getTabRoutes() : [];
 
       const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
       if (!hasHome && this.homeTab.name !== 'root') {

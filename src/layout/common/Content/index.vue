@@ -1,7 +1,7 @@
 <template>
   <div :class="{ 'p-16px': props.showPadding }" class="layout-main">
     <router-view class="transition duration-300 ease-in-out" v-slot="{ Component, route }">
-      <transition :name="animateMode" mode="out-in" :appear="true">
+      <transition :name="getPageAnimateMode" mode="out-in" :appear="true">
         <keep-alive v-if="routeStore.cacheRoutes" :include="routeStore.cacheRoutes">
           <component :is="Component" :key="route.path" />
         </keep-alive>
@@ -13,9 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { unref } from 'vue';
   import { useRouteStore } from '@/store';
-  import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { usePageSetting } from '@/hooks';
 
   interface Props {
     /** 显示padding */
@@ -27,9 +26,7 @@
   });
 
   const routeStore = useRouteStore();
-  const { getPageSetting } = useAppSetting();
-  const { animateMode } = unref(getPageSetting);
-
+  const { getPageAnimateMode } = usePageSetting();
   // const getTransitionName = computed(() => {
   //   return theme.pageAnimateMode;
   // });

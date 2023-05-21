@@ -16,11 +16,16 @@ export const useHeaderSetting = () => {
   const setHeaderSetting = (setting: Partial<Project.Header>) => {
     appStore.setHeaderSetting(setting);
   };
+
+  const setHeaderHeight = (height: number) => {
+    appStore.setHeaderSetting({ height });
+  };
   return {
     getHeaderHeight,
     getHeaderCrumb,
     getHeaderInverted,
 
     setHeaderSetting,
+    setHeaderHeight,
   };
 };

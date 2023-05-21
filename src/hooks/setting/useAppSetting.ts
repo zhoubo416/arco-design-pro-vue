@@ -8,15 +8,6 @@ export function useAppSetting() {
   // 获取项目配置的抽屉可见状态
   const getShowSettingButton = computed(() => appStore.getProjectButton.setting);
 
-  // 获取tab配置
-  const getTabSetting = computed(() => appStore.getTabSetting);
-  // 获取menu配置
-  const getMenuSetting = computed(() => appStore.getMenuSetting);
-  // 获取footer配置
-  const getFooterSetting = computed(() => appStore.getFooterSetting);
-  // 获取Page配置
-  const getPageSetting = computed(() => appStore.getPageSetting);
-
   // 获取固定头部和多页签
   const getFixedHeaderAndMultiTab = computed(() => appStore.getProjectSetting.fixedHeaderAndTab);
   // 获取主题色
@@ -25,8 +16,6 @@ export function useAppSetting() {
   const getDarkMode = computed(() => appStore.getDarkMode);
   // 获取模式
   const getIsDarkMode = computed(() => appStore.getDarkMode === ThemeEnum.DARK);
-  // 获取国际化
-  const getLocale = computed(() => appStore.getLocale);
 
   // 获取项目配置
   const getSettingByJson = computed(() => appStore.getProjectSetting);
@@ -40,17 +29,16 @@ export function useAppSetting() {
     appStore.setThemeColor(themeColor);
   };
 
+  // 修改固定头部和多页签
+  const setFixedHeaderAndMultiTab = (fixedHeaderAndTab: boolean) => {
+    appStore.setProjectSetting({ fixedHeaderAndTab });
+  };
+
   return {
     getShowSettingButton,
 
-    getTabSetting,
-    getMenuSetting,
-    getFooterSetting,
-    getPageSetting,
-
     getFixedHeaderAndMultiTab,
     getThemeColor,
-    getLocale,
     getDarkMode,
     getIsDarkMode,
 
@@ -58,5 +46,6 @@ export function useAppSetting() {
 
     setDarkMode,
     setThemeColor,
+    setFixedHeaderAndMultiTab,
   };
 }

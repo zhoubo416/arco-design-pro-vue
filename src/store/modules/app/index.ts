@@ -113,12 +113,13 @@ export const useAppStore = defineStore('app-store', {
       this.projectSetting.layout = deepMerge(this.projectSetting.layout || {}, setting);
     },
     setThemeSetting(setting: DeepPartial<Project.ThemeSetting>): void {
-      // this.projectSetting.themeSetting = deepMerge(this.projectSetting.themeSetting || {}, setting);
-      console.log(1111);
-      this.projectSetting.themeSetting.drawerVisible = setting.drawerVisible ?? false;
+      this.projectSetting.themeSetting = deepMerge(this.projectSetting.themeSetting || {}, setting);
     },
-    setT1(a: boolean): void {
-      this.projectSetting.themeSetting.drawerVisible = a;
+    setMenuSetting(setting: DeepPartial<Project.Menu>): void {
+      this.projectSetting.menu = deepMerge(this.projectSetting.menu || {}, setting);
+    },
+    setTabSetting(setting: DeepPartial<Project.Tab>): void {
+      this.projectSetting.tab = deepMerge(this.projectSetting.tab || {}, setting);
     },
     setDarkMode(mode: ThemeEnum): void {
       this.projectSetting.darkMode = mode;
@@ -135,7 +136,6 @@ export const useAppStore = defineStore('app-store', {
 
     initLocale() {
       const locale = storage.get(LOCALE_KEY);
-      console.log('initLocale', locale);
       if (locale) {
         this.setLocale(locale);
       }
