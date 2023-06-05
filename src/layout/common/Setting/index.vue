@@ -13,6 +13,7 @@
     <LayoutMode />
     <PageFunc />
     <PageView />
+    <a-divider />
     <a-alert class="mt-10px">{{ $t('settings.alertContent') }}</a-alert>
   </a-drawer>
 </template>

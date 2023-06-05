@@ -148,8 +148,8 @@
     "default": "zh-CN"
   },
   "watermark": {
-    "watermark": false,
-    "watermarkText": "水印文字"
+    "visible": false,
+    "text": "水印文字"
   },
   "themeSetting": {
     "drawerVisible": false

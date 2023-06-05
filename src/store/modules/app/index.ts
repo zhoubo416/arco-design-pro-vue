@@ -74,6 +74,9 @@ export const useAppStore = defineStore('app-store', {
     getThemeSetting(): Project.ThemeSetting {
       return this.projectSetting.themeSetting;
     },
+    getWatermarkSetting(): Project.Watermark {
+      return this.projectSetting.watermark;
+    },
   },
   actions: {
     /**
@@ -106,6 +109,9 @@ export const useAppStore = defineStore('app-store', {
     setHeaderSetting(setting: DeepPartial<Project.Header>): void {
       this.projectSetting.header = deepMerge(this.projectSetting.header || {}, setting);
     },
+    setHeaderCrumbSetting(setting: DeepPartial<Project.Crumb>): void {
+      this.projectSetting.header.crumb = deepMerge(this.projectSetting.header.crumb || {}, setting);
+    },
     setSiderSetting(setting: DeepPartial<Project.Sider>): void {
       this.projectSetting.sider = deepMerge(this.projectSetting.sider || {}, setting);
     },
@@ -120,6 +126,15 @@ export const useAppStore = defineStore('app-store', {
     },
     setTabSetting(setting: DeepPartial<Project.Tab>): void {
       this.projectSetting.tab = deepMerge(this.projectSetting.tab || {}, setting);
+    },
+    setFooterSetting(setting: DeepPartial<Project.Footer>): void {
+      this.projectSetting.footer = deepMerge(this.projectSetting.footer || {}, setting);
+    },
+    setWatermarkSetting(setting: DeepPartial<Project.Watermark>): void {
+      this.projectSetting.watermark = deepMerge(this.projectSetting.watermark || {}, setting);
+    },
+    setPageSetting(setting: DeepPartial<Project.Page>): void {
+      this.projectSetting.page = deepMerge(this.projectSetting.page || {}, setting);
     },
     setDarkMode(mode: ThemeEnum): void {
       this.projectSetting.darkMode = mode;

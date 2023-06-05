@@ -28,6 +28,14 @@ export function useTabSetting() {
     appStore.setTabSetting({ height });
   };
 
+  const setTabIsCache = (isCache: boolean) => {
+    appStore.setTabSetting({ isCache });
+  };
+
+  const setTabVisible = (visible: boolean) => {
+    appStore.setTabSetting({ visible });
+  };
+
   return {
     getTabSetting,
     getTabHeight,
@@ -38,5 +46,7 @@ export function useTabSetting() {
 
     setTabSetting,
     setTabHeight,
+    setTabIsCache,
+    setTabVisible,
   };
 }

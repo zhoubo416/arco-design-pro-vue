@@ -10,9 +10,22 @@ export function useFooterSetting() {
   // 获取footer固定状态
   const getFooterFixed = computed(() => appStore.getFooterSetting.fixed);
 
+  // 设置footer固定状态
+  const setFooterFixed = (fixed: boolean) => {
+    appStore.setFooterSetting({ fixed });
+  };
+
+  // 设置footer高度
+  const setFooterHeight = (height: number) => {
+    appStore.setFooterSetting({ height });
+  };
+
   return {
     getFooterSetting,
     getFooterHeight,
     getFooterFixed,
+
+    setFooterFixed,
+    setFooterHeight,
   };
 }

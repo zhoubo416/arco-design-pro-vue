@@ -146,9 +146,9 @@ declare namespace Project {
   /** 水印 */
   interface Watermark {
     /** 水印 */
-    watermark: boolean;
+    visible: boolean;
     /** 水印文字 */
-    watermarkText: string;
+    text: string;
   }
 
   /** 布局样式 */

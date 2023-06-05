@@ -25,9 +25,26 @@ export const useSidleSetting = () => {
   // 获取侧边栏折叠状态
   const getSiderCollapsed = computed(() => appStore.getSiderSetting.collapsed);
 
+  // 设置sider
   const setSiderSetting = (setting: Partial<Project.Sider>) => {
     appStore.setSiderSetting(setting);
   };
+
+  // 设置侧边栏宽度
+  const setSiderWidth = (width: number) => {
+    appStore.setSiderSetting({ width });
+  };
+
+  // 设置vertical-mix模式下侧边栏宽度
+  const setSiderMixWidth = (mixWidth: number) => {
+    appStore.setSiderSetting({ mixWidth });
+  };
+
+  // 设置侧边栏反转色
+  const setSiderInverted = (inverted: boolean) => {
+    appStore.setSiderSetting({ inverted });
+  };
+
   return {
     getSiderSetting,
     getSiderInverted,
@@ -40,5 +57,8 @@ export const useSidleSetting = () => {
     getSiderCollapsed,
 
     setSiderSetting,
+    setSiderWidth,
+    setSiderMixWidth,
+    setSiderInverted,
   };
 };

@@ -1,5 +1,6 @@
 import { useAppStore } from '@/store';
 import { computed } from 'vue';
+import { EnumType, Project } from '@/typings/system';
 
 export function usePageSetting() {
   const appStore = useAppStore();
@@ -13,10 +14,25 @@ export function usePageSetting() {
   // 获取Page动画模式列表
   const getPageAnimateModeList = computed(() => appStore.getPageSetting.animateModeList);
 
+  // const setPageSetting = (setting: Partial<Project.Page>) => {
+  //   appStore.setPageSetting(setting);
+  // };
+
+  const setPageAnimateMode = (animateMode: EnumType.ThemeAnimateMode) => {
+    appStore.setPageSetting({ animateMode });
+  };
+
+  const setPageAnimate = (animate: boolean) => {
+    appStore.setPageSetting({ animate });
+  };
+
   return {
     getPageSetting,
     getPageAnimateMode,
     getPageAnimate,
     getPageAnimateModeList,
+
+    setPageAnimateMode,
+    setPageAnimate,
   };
 }
