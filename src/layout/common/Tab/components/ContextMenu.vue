@@ -6,9 +6,9 @@
         v-for="item in options"
         :key="item.key"
         :value="item.key"
-        :disabled="item.disabled"
+        :disabled="item.disabled ?? false"
       >
-        {{ item.label }}
+        {{ $t(item.label) }}
         <template #icon>
           <component v-if="item.icon" :is="item.icon" />
         </template>
@@ -76,29 +76,29 @@
 
   const options = computed<Option[]>(() => [
     {
-      label: '重新加载',
+      label: 'menu.reload.current',
       key: 'reload-current',
       disabled: state.currentPath !== tab.activeTab,
       icon: 'icon-refresh',
     },
     {
-      label: '关闭选中',
+      label: 'menu.close.current',
       key: 'close-current',
       disabled: state.currentPath === tab.homeTab.fullPath,
       icon: 'icon-close',
     },
     {
-      label: '关闭其他',
+      label: 'menu.close.other',
       key: 'close-other',
       icon: 'icon-minus',
     },
     {
-      label: '关闭左侧',
+      label: 'menu.close.left',
       key: 'close-left',
       icon: 'icon-to-left',
     },
     {
-      label: '关闭右侧',
+      label: 'menu.close.right',
       key: 'close-right',
       icon: 'icon-to-right',
     },

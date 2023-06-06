@@ -9,6 +9,7 @@ import { useLocaleSetting } from './setting/useLocaleSetting';
 import { useMenuSetting } from './setting/useMenuSetting';
 import { usePageSetting } from './setting/usePageSetting';
 import { useFooterSetting } from './setting/useFooterSetting';
+import { useWatermarkSetting } from './setting/useWatermarkSetting';
 
 export {
   useBoolean,
@@ -22,4 +23,5 @@ export {
   useMenuSetting,
   usePageSetting,
   useFooterSetting,
+  useWatermarkSetting,
 };

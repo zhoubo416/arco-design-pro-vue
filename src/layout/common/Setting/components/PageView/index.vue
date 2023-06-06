@@ -17,7 +17,7 @@
       <a-select
         class="max-w-120px"
         size="small"
-        :options="getPageAnimateModeList"
+        :options="animateModeList"
         @change="setPageAnimateMode"
         :model-value="getPageAnimateMode"
       />
@@ -29,6 +29,9 @@
   import SettingMenu from '../SettingMenu/index.vue';
 
   import { useHeaderSetting, usePageSetting, useTabSetting } from '@/hooks';
+  import { useI18n } from 'vue-i18n';
+  import { computed } from 'vue';
+  import { pageAnimateModeList } from '@/settings';
 
   const {
     getHeaderCrumbVisible,
@@ -37,13 +40,14 @@
     setHeaderCrumbShowIcon,
   } = useHeaderSetting();
   const { getTabVisible, setTabVisible } = useTabSetting();
-  const {
-    getPageAnimate,
-    getPageAnimateMode,
-    getPageAnimateModeList,
-    setPageAnimate,
-    setPageAnimateMode,
-  } = usePageSetting();
-  // TODO： 修复
+  const { getPageAnimate, getPageAnimateMode, setPageAnimate, setPageAnimateMode } =
+    usePageSetting();
+
+  const { t } = useI18n();
+  const animateModeList = computed(() => {
+    return [...pageAnimateModeList].map(({ label, value }) => {
+      return { label: t(label), value: value };
+    });
+  });
 </script>
 <!--<style scoped></style>-->

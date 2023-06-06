@@ -53,7 +53,6 @@
   const { loading, setLoading } = useLoading(true);
 
   const fetch = () => {
-    console.log(props.chartType);
     if (props.chartType === 'line') {
       chartOption.value = {
         grid: {
@@ -76,6 +75,7 @@
         series: [
           {
             name: '2001',
+            zlevel: 1,
             data: [10, 24, 100, 32, 40, 55, 66, 77, 11, 23, 45, 14],
             type: 'line',
             showSymbol: false,
@@ -87,6 +87,7 @@
           },
           {
             name: '2002',
+            zlevel: 2,
             data: [46, 12, 20, 33, 27, 11, 79, 99, 82, 44, 66, 88],
             type: 'line',
             showSymbol: false,
@@ -222,7 +223,6 @@
   };
 
   fetch();
-  console.log(chartOption.value);
   const { domRef: chartRef } = useEcharts(chartOption);
 </script>
 

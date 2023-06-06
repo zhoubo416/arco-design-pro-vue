@@ -1,7 +1,11 @@
 <!--主题模式-->
 
 <template>
-  <hover-container class="w-40px" :inverted="getHeaderInverted" tooltip-content="主题模式">
+  <hover-container
+    class="w-40px"
+    :inverted="getHeaderInverted"
+    :tooltip-content="$t('settings.navbar.theme')"
+  >
     <AppDarkModeSwitch
       class="wh-full"
       style="color: var(--color-text-1)"

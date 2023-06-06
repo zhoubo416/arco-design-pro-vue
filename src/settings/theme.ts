@@ -2,11 +2,29 @@ import {
   EnumThemeAnimateMode,
   EnumThemeHorizontalMenuPosition,
   EnumThemeLayoutMode,
-  EnumThemeTabMode,
   ThemeEnum,
 } from '@/enums';
 import jsonSetting from './theme.json';
 import type { Project } from '@/typings/system';
+import { EnumType } from '@/typings/system';
+
+/** 布局模式列表 */
+interface LayoutModeList {
+  value: EnumType.ThemeLayoutMode;
+  label: EnumThemeLayoutMode;
+}
+
+/** 动画类型列表 */
+interface AnimateModeList {
+  value: EnumType.ThemeAnimateMode;
+  label: EnumThemeAnimateMode;
+}
+
+/** 水平模式的菜单的位置列表 */
+interface HorizontalMenuPositionList {
+  value: EnumType.ThemeHorizontalMenuPosition;
+  label: EnumThemeHorizontalMenuPosition;
+}
 
 const themeColorList = [
   '#1890ff',
@@ -35,18 +53,37 @@ const themeColorList = [
   '#546e7a',
 ];
 
+/** 布局模式列表 */
+export const layoutModeList: LayoutModeList[] = [
+  { value: 'vertical', label: EnumThemeLayoutMode.vertical },
+  { value: 'vertical-mix', label: EnumThemeLayoutMode['vertical-mix'] },
+  { value: 'horizontal', label: EnumThemeLayoutMode.horizontal },
+  { value: 'horizontal-mix', label: EnumThemeLayoutMode['horizontal-mix'] },
+];
+
+/** 动画类型列表 */
+export const pageAnimateModeList: AnimateModeList[] = [
+  { value: 'fade-slide', label: EnumThemeAnimateMode['fade-slide'] },
+  { value: 'fade', label: EnumThemeAnimateMode.fade },
+  { value: 'fade-bottom', label: EnumThemeAnimateMode['fade-bottom'] },
+  { value: 'fade-scale', label: EnumThemeAnimateMode['fade-scale'] },
+  { value: 'zoom-fade', label: EnumThemeAnimateMode['zoom-fade'] },
+  { value: 'zoom-out', label: EnumThemeAnimateMode['zoom-out'] },
+];
+
+/** 水平模式的菜单的位置列表 */
+export const menuHorizontalPositionList: HorizontalMenuPositionList[] = [
+  { value: 'flex-start', label: EnumThemeHorizontalMenuPosition['flex-start'] },
+  { value: 'center', label: EnumThemeHorizontalMenuPosition.center },
+  { value: 'flex-end', label: EnumThemeHorizontalMenuPosition['flex-end'] },
+];
+
 const defaultThemeSetting: Project.Setting = {
   darkMode: ThemeEnum.LIGHT,
   followSystemTheme: true,
   layout: {
     minWidth: 900,
     mode: 'vertical',
-    modeList: [
-      { value: 'vertical', label: EnumThemeLayoutMode.vertical },
-      { value: 'vertical-mix', label: EnumThemeLayoutMode['vertical-mix'] },
-      { value: 'horizontal', label: EnumThemeLayoutMode.horizontal },
-      { value: 'horizontal-mix', label: EnumThemeLayoutMode['horizontal-mix'] },
-    ],
   },
   themeColor: themeColorList[0],
   themeColorList,
@@ -71,10 +108,6 @@ const defaultThemeSetting: Project.Setting = {
     visible: true,
     height: 44,
     mode: 'chrome',
-    modeList: [
-      { value: 'chrome', label: EnumThemeTabMode.chrome },
-      { value: 'button', label: EnumThemeTabMode.button },
-    ],
     isCache: true,
   },
   sider: {
@@ -97,11 +130,6 @@ const defaultThemeSetting: Project.Setting = {
   },
   menu: {
     horizontalPosition: 'flex-start',
-    horizontalPositionList: [
-      { value: 'flex-start', label: EnumThemeHorizontalMenuPosition['flex-start'] },
-      { value: 'center', label: EnumThemeHorizontalMenuPosition.center },
-      { value: 'flex-end', label: EnumThemeHorizontalMenuPosition['flex-end'] },
-    ],
   },
   footer: {
     fixed: false,
@@ -110,14 +138,6 @@ const defaultThemeSetting: Project.Setting = {
   page: {
     animate: true,
     animateMode: 'fade-slide',
-    animateModeList: [
-      { value: 'fade-slide', label: EnumThemeAnimateMode['fade-slide'] },
-      { value: 'fade', label: EnumThemeAnimateMode.fade },
-      { value: 'fade-bottom', label: EnumThemeAnimateMode['fade-bottom'] },
-      { value: 'fade-scale', label: EnumThemeAnimateMode['fade-scale'] },
-      { value: 'zoom-fade', label: EnumThemeAnimateMode['zoom-fade'] },
-      { value: 'zoom-out', label: EnumThemeAnimateMode['zoom-out'] },
-    ],
   },
   locale: {
     language: 'zh-CN',
@@ -125,8 +145,11 @@ const defaultThemeSetting: Project.Setting = {
     default: 'zh-CN',
   },
   watermark: {
-    watermark: false,
-    watermarkText: '水印',
+    visible: false,
+    text: '水印',
+  },
+  themeSetting: {
+    drawerVisible: true,
   },
 };
 

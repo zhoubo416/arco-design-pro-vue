@@ -1,6 +1,7 @@
 // import { iconifyRender } from '../common';
 
 import { customIconRender, iconifyRender } from '@/utils/common/icon';
+import { GlobalMenuOption } from '@/typings/system';
 
 /** 路由不转换菜单 */
 function hideInMenu(route: AuthRoute.Route) {

@@ -1,5 +1,9 @@
 <template>
-  <hover-container tooltip-content="设置" class="w-40px h-full" :inverted="getHeaderInverted">
+  <hover-container
+    :tooltip-content="$t('settings.navbar.settings')"
+    class="w-40px h-full"
+    :inverted="getHeaderInverted"
+  >
     <a-button class="!bg-transparent" shape="round" @click="visibleSetting()">
       <template #icon>
         <icon-settings class="text-20px" style="color: var(--color-text-1)" />

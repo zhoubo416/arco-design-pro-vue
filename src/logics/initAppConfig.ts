@@ -1,8 +1,8 @@
-import { useAppStore } from '@/store';
-import { setI18nLanguage } from '@/hooks/locale';
+import { useLocaleSetting } from '@/hooks';
+import { unref } from 'vue';
 
 export function initAppConfig() {
-  const appStore = useAppStore();
+  const { setLocale, getLocaleDefault } = useLocaleSetting();
 
-  setI18nLanguage(appStore.getLocale.language);
+  setLocale(unref(getLocaleDefault));
 }

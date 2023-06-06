@@ -12,8 +12,6 @@ export const useLayoutSetting = () => {
   const getLayoutSetting = computed(() => appStore.getLayoutSetting);
   // 获取Layout mode
   const getLayoutMode = computed(() => appStore.getLayoutSetting.mode);
-  // 获取Layout modeList
-  const getLayoutModeList = computed(() => appStore.getLayoutSetting.modeList);
   // 获取Layout minWidth
   const getLayoutMinWidth = computed(() => appStore.getLayoutSetting.minWidth);
 
@@ -92,7 +90,6 @@ export const useLayoutSetting = () => {
 
     getLayoutSetting,
     getLayoutMode,
-    getLayoutModeList,
     getLayoutMenuMode,
     getLayoutMinWidth,
 

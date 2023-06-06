@@ -13,8 +13,6 @@ export function useTabSetting() {
   const getTabHeight = computed(() => appStore.getTabSetting.height);
   // 获取tab模式
   const getTabMode = computed(() => appStore.getTabSetting.mode);
-  // 获取tab模式列表
-  const getTabModeList = computed(() => appStore.getTabSetting.modeList);
   // 获取tab是否缓存
   const getTabIsCache = computed(() => appStore.getTabSetting.isCache);
   // 获取tab是否可见
@@ -40,7 +38,6 @@ export function useTabSetting() {
     getTabSetting,
     getTabHeight,
     getTabMode,
-    getTabModeList,
     getTabIsCache,
     getTabVisible,
 

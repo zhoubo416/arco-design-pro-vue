@@ -2,7 +2,10 @@
   <a-layout class="admin-layout">
     <Header v-show="getLayoutMode === 'horizontal-mix'" v-bind="headerProps" />
     <Sider />
-    <a-layout class="layout-body">
+    <a-layout
+      class="layout-body"
+      :class="{ 'h-full overscroll-y-auto': getLayoutMode !== 'horizontal-mix' }"
+    >
       <!--    <a-layout class="layout-body" :style="{ marginLeft: !siderVisible ? 0 : headerLeft + 'px' }">-->
       <Header v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />
       <Tab />

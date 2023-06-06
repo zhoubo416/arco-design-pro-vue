@@ -1,15 +1,13 @@
-<!--切换语言-->
-
 <template>
-  <hover-container tooltip-content="切换语言" class="w-40px h-full" :inverted="getHeaderInverted">
-    <a-button
-      class="!bg-transparent"
-      shape="round"
-      @click="setLanguage(getLocale.language === 'zh-CN' ? 'en-US' : 'zh-CN')"
-    >
+  <hover-container
+    :tooltip-content="$t('settings.language')"
+    class="w-40px h-full"
+    :inverted="getHeaderInverted"
+  >
+    <a-button class="!bg-transparent" shape="round" @click="toggleLocale">
       <template #icon>
         <icon-english-fill
-          v-if="getLocale.language === 'zh-CN'"
+          v-if="getLocaleIsZhCn"
           class="text-20px"
           style="color: var(--color-text-1)"
         />
@@ -20,24 +18,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { useLocale } from '@/hooks/locale';
-  import type { EnumType } from '@/typings/system';
   import HoverContainer from '@/components/common/HoverContainer.vue';
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useLocaleSetting, useHeaderSetting } from '@/hooks';
 
-  const { changeLocale, getLocale } = useLocale();
-
+  const { getLocaleIsZhCn, toggleLocale } = useLocaleSetting();
   const { getHeaderInverted } = useHeaderSetting();
-
-  const setLanguage = (language: EnumType.Language | undefined = 'zh-CN') => {
-    changeLocale(language);
-  };
-
-  const init = () => {
-    // setLanguage(theme.getLanguage);
-  };
-
-  init();
 </script>
 
 <style lang="less" scoped></style>

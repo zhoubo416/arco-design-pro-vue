@@ -19,7 +19,7 @@
     <!--        class="w-120px"-->
     <!--        size="small"-->
     <!--        :value="getMenuHorizontalPosition"-->
-    <!--        :options="getMenuHorizontalPositionList"-->
+    <!--        :options="horizontalPositionList"-->
     <!--        @update:value="setMenuHorizontalPosition"-->
     <!--      />-->
     <!--    </setting-menu>-->
@@ -65,10 +65,10 @@
     <setting-menu :label="$t('settings.interface.functions.fixed.bottom')">
       <a-switch :model-value="getFooterFixed" @change="setFooterFixed" />
     </setting-menu>
-    <setting-menu :label="'开启水印'">
+    <setting-menu :label="$t('settings.interface.functions.watermark.watermark')">
       <a-switch :model-value="getWatermarkVisible" @change="setWatermarkVisible" />
     </setting-menu>
-    <setting-menu :label="'水印文字'">
+    <setting-menu :label="$t('settings.interface.functions.watermark.text')">
       <a-input
         class="max-w-120px"
         size="small"
@@ -87,33 +87,32 @@
     useFooterSetting,
     useHeaderSetting,
     useLayoutSetting,
-    useMenuSetting,
     useSidleSetting,
     useTabSetting,
-    useThemeSetting,
+    useWatermarkSetting,
   } from '@/hooks';
-  import { useWatermarkSetting } from '@/hooks/setting/useWatermarkSetting';
+  import { computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
+  import { menuHorizontalPositionList } from '@/settings';
 
-  const {
-    getSiderWidth,
-    getSiderMixWidth,
-    getSiderInverted,
-    setSiderWidth,
-    setSiderMixWidth,
-    setSiderInverted,
-  } = useSidleSetting();
+  const { getSiderWidth, getSiderMixWidth, setSiderWidth, setSiderMixWidth } = useSidleSetting();
   const { getTabIsCache, setTabIsCache } = useTabSetting();
   const { getLayoutMode } = useLayoutSetting();
   const { getFixedHeaderAndMultiTab, setFixedHeaderAndMultiTab } = useAppSetting();
-  const { getMenuHorizontalPosition, getMenuHorizontalPositionList, setMenuHorizontalPosition } =
-    useMenuSetting();
   const { getHeaderHeight, setHeaderHeight } = useHeaderSetting();
   const { getTabHeight, setTabHeight } = useTabSetting();
 
   const { getFooterFixed, setFooterFixed } = useFooterSetting();
-  const { getThemeVisible } = useThemeSetting();
   const { getWatermarkText, getWatermarkVisible, setWatermarkText, setWatermarkVisible } =
     useWatermarkSetting();
+
+  const { t } = useI18n();
+
+  const horizontalPositionList = computed(() => {
+    return [...menuHorizontalPositionList].map(({ label, value }) => {
+      return { label: t(label), value: value };
+    });
+  });
 </script>
 
 <style lang="less" scoped></style>

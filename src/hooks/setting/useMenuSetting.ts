@@ -9,10 +9,6 @@ export function useMenuSetting() {
   const getMenuSetting = computed(() => appStore.getMenuSetting);
   // 获取menu水平位置
   const getMenuHorizontalPosition = computed(() => appStore.getMenuSetting.horizontalPosition);
-  // 获取menu水平位置列表
-  const getMenuHorizontalPositionList = computed(
-    () => appStore.getMenuSetting.horizontalPositionList
-  );
 
   const setMenuHorizontalPosition = (position: EnumType.ThemeHorizontalMenuPosition) => {
     appStore.setMenuSetting({ horizontalPosition: position });
@@ -21,7 +17,6 @@ export function useMenuSetting() {
   return {
     getMenuSetting,
     getMenuHorizontalPosition,
-    getMenuHorizontalPositionList,
     setMenuHorizontalPosition,
   };
 }

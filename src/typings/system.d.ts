@@ -157,14 +157,8 @@ declare namespace Project {
     minWidth: number;
     /** 布局模式 */
     mode: EnumType.ThemeLayoutMode;
-    /** 布局模式列表 */
-    modeList: LayoutModeList[];
-  }
-
-  /** 布局模式列表 */
-  interface LayoutModeList {
-    value: EnumType.ThemeLayoutMode;
-    label: import('@/enum').EnumThemeLayoutMode;
+    // /** 布局模式列表 */
+    // modeList: LayoutModeList[];
   }
 
   /** 其他主题颜色 */
@@ -205,8 +199,8 @@ declare namespace Project {
     height: number;
     /** 多页签风格 */
     mode: EnumType.ThemeTabMode;
-    /** 多页签风格列表 */
-    modeList: ThemeTabModeList[];
+    // /** 多页签风格列表 */
+    // modeList: ThemeTabModeList[];
     /** 开启多页签缓存 */
     isCache: boolean;
   }
@@ -242,14 +236,6 @@ declare namespace Project {
   interface Menu {
     /** 水平模式的菜单的位置 */
     horizontalPosition: EnumType.ThemeHorizontalMenuPosition;
-    /** 水平模式的菜单的位置列表 */
-    horizontalPositionList: HorizontalMenuPositionList[];
-  }
-
-  /** 水平模式的菜单的位置列表 */
-  interface HorizontalMenuPositionList {
-    value: EnumType.ThemeHorizontalMenuPosition;
-    label: import('@/enum').EnumThemeHorizontalMenuPosition;
   }
 
   /** 底部样式 */
@@ -266,14 +252,8 @@ declare namespace Project {
     animate: boolean;
     /** 动画类型 */
     animateMode: EnumType.ThemeAnimateMode;
-    /** 动画类型列表 */
-    animateModeList: AnimateModeList[];
-  }
-
-  /** 动画类型列表 */
-  interface AnimateModeList {
-    value: EnumType.ThemeAnimateMode;
-    label: import('@/enum').EnumThemeAnimateMode;
+    // /** 动画类型列表 */
+    // animateModeList: AnimateModeList[];
   }
 
   /** 项目按钮展示配置 */

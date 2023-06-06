@@ -11,9 +11,6 @@ export function usePageSetting() {
   const getPageAnimateMode = computed(() => appStore.getPageSetting.animateMode);
   // 获取Page动画
   const getPageAnimate = computed(() => appStore.getPageSetting.animate);
-  // 获取Page动画模式列表
-  const getPageAnimateModeList = computed(() => appStore.getPageSetting.animateModeList);
-
   // const setPageSetting = (setting: Partial<Project.Page>) => {
   //   appStore.setPageSetting(setting);
   // };
@@ -30,7 +27,6 @@ export function usePageSetting() {
     getPageSetting,
     getPageAnimateMode,
     getPageAnimate,
-    getPageAnimateModeList,
 
     setPageAnimateMode,
     setPageAnimate,
