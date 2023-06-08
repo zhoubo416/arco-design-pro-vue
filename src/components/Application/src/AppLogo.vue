@@ -15,7 +15,7 @@
   import { useAuthStore } from '@/store';
   import { useGlobSetting } from '@/hooks/setting';
 
-  const props = defineProps({
+  defineProps({
     /**
      * The theme of the current parent component
      */

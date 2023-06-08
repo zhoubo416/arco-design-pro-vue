@@ -38,6 +38,7 @@ function createPageGuard(router: Router) {
     // 页面已经加载过，再次打开会更快，不需要再做loading等处理
     to.meta.loaded = !!loadedPageMap.get(to.path);
     // 通知路由更改
+    console.log('to', to);
     setRouteChange(to);
     return true;
   });

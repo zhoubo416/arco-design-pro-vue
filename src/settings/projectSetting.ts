@@ -1,3 +1,4 @@
+// TODO: 待删除
 const setting = {
   // 导航模式 vertical 左侧菜单模式 horizontal 顶部菜单模式   horizontal 没实现，当前结构实现出来有点问题，有时间再调试
   navMode: 'vertical',

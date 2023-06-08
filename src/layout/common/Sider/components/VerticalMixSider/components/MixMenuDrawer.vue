@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
   import { ref, computed, unref } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { RouteLocationNormalized, useRoute } from 'vue-router';
   import { useAppInfo } from '@/composables';
   import { getActiveKeyPathsOfMenus } from '@/utils';
   import { Menu } from '@/layout/common';
@@ -45,7 +45,6 @@
 
   const props = defineProps<Props>();
 
-  const route = useRoute();
   const { title } = useAppInfo();
   const { getSiderMixSiderFixed, getSiderMixChildMenuWidth, setSiderSetting } = useSidleSetting();
   const { getHeaderHeight } = useHeaderSetting();
@@ -54,7 +53,7 @@
     () => (props.visible && props.menus.length) || unref(getSiderMixSiderFixed)
   );
 
-  const activeKey = computed(() => route.name as string);
+  const activeKey = ref('');
   const expandedKeys = ref<string[]>([]);
 
   const setSiderMixSiderFixed = () => {
@@ -79,8 +78,15 @@
   //   { immediate: true }
   // );
 
-  listenerRouteChange(() => {
-    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, props.menus);
+  listenerRouteChange((route: RouteLocationNormalized) => {
+    console.log('MixMenuDrawer');
+    console.log(activeKey.value, props.menus);
+    console.log(route.name, route.fullPath);
+    const activeKey1 =
+      ((route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string) ?? '';
+    console.log(activeKey1);
+    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey1, props.menus);
+    console.log(expandedKeys.value);
   });
 </script>
 <style scoped>

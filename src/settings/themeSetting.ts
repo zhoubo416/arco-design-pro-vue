@@ -26,6 +26,10 @@ interface HorizontalMenuPositionList {
   label: EnumThemeHorizontalMenuPosition;
 }
 
+/** 类前缀 待用 */
+export const prefixCls = 'adp';
+
+/** 主题列表 TODO: 无用，待删除 */
 const themeColorList = [
   '#1890ff',
   '#409EFF',

@@ -1,7 +1,7 @@
 <template>
   <div class="h-full">
     <a-card title="西瓜视频" class="h-full shadow-sm rounded-16px">
-      <div ref="domRef"></div>
+      <div class="z-1" ref="domRef"></div>
       <template #actions>
         <web-site-link
           label="西瓜视频官网："

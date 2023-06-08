@@ -1,11 +1,12 @@
 <template>
+  <div :style="{ minHeight: getTabHeight + 'px' }"></div>
   <dark-mode-container
     class="arco-layout-tab"
     :class="getFixedHeaderAndMultiTab ? 'layout-tab-fixed' : 'layout-tab'"
     :style="{
       height: getTabHeight + 'px',
       top: getHeaderHeight + 'px',
-      paddingLeft: !siderVisible ? 0 : tabLeft + 'px',
+      width: !siderVisible ? 0 : `calc(100% - ${tabLeft}px)`,
     }"
     v-if="getTabVisible"
   >
@@ -187,6 +188,7 @@
   // );
 
   listenerRouteChange((route) => {
+    console.log('TabIndex');
     tab.addTab(route);
     tab.setActiveTab(route.fullPath);
     updateNavScroll(true);
@@ -205,7 +207,7 @@
   .arco-layout-tab {
     position: fixed;
     min-width: 900px;
-    left: 0;
+    right: 0;
     flex-shrink: 0;
     box-sizing: border-box;
     width: 100%;

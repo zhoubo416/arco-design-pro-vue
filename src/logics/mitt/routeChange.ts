@@ -15,16 +15,21 @@ let lastChangeTab: RouteLocationNormalized;
 
 export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
   const r = getRawRoute(lastChangeRoute);
-  console.log(r);
+  console.log('r: ', r);
   emitter.emit(key, r);
+  console.log('消息发送完毕');
+  console.log('lastChangeTab: ', lastChangeTab);
   lastChangeTab = r;
+  console.log('lastChangeTab2: ', lastChangeTab);
 }
 
 export function listenerRouteChange(
   callback: (route: RouteLocationNormalized) => void,
   immediate = true
 ) {
+  console.log('listenerRouteChange');
   emitter.on(key, callback);
+  console.log('listenerRouteChange2', immediate, lastChangeTab);
   immediate && lastChangeTab && callback(lastChangeTab);
 }
 

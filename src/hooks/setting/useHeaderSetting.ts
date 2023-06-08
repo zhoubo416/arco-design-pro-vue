@@ -16,6 +16,8 @@ export const useHeaderSetting = () => {
   // 获取header反转色
   const getHeaderInverted = computed(() => appStore.getHeaderSetting.inverted);
 
+  // 获取
+
   // 设置header
   const setHeaderSetting = (setting: Partial<Project.Header>) => {
     appStore.setHeaderSetting(setting);

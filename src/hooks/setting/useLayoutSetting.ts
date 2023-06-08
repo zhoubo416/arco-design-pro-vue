@@ -2,6 +2,7 @@ import { computed, unref } from 'vue';
 import type { EnumType, GlobalHeaderProps } from '@/typings/system';
 import { useSidleSetting } from '@/hooks';
 import { useAppStore } from '@/store';
+import { EnumMenuMode } from '@/enums';
 
 type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 
@@ -64,7 +65,11 @@ export const useLayoutSetting = () => {
 
   const headerProps = computed(() => layoutHeaderProps[unref(getLayoutMode)]);
 
-  const siderVisible = computed(() => unref(getLayoutMode) !== 'horizontal');
+  // 是否显示侧边栏
+  const siderVisible = computed(() => {
+    return unref(getLayoutMode) !== EnumMenuMode.HORIZONTAL;
+  });
+
   const siderWidth = computed(() => {
     let w = unref(isVerticalMix) ? unref(getSiderMixWidth) : unref(getSiderWidth);
     if (unref(isVerticalMix) && unref(getSiderMixSiderFixed)) {
@@ -72,6 +77,7 @@ export const useLayoutSetting = () => {
     }
     return w;
   });
+
   const siderCollapsedWidth = computed(() => {
     // const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth, mixSiderFixed } =
     //   unref(getSiderSetting);

@@ -1,4 +1,5 @@
 import { decrypto, encrypto } from '../crypto';
+import { prefixCls } from '@/settings';
 
 interface StorageData {
   value: unknown;
@@ -137,6 +138,6 @@ export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) =
   return new Storage();
 };
 
-export const storage = createStorage();
+export const storage = createStorage({ prefixKey: '__' + prefixCls.toUpperCase() });
 
 export default Storage;

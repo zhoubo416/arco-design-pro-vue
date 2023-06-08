@@ -71,6 +71,7 @@
   // );
 
   listenerRouteChange((route: RouteLocationNormalized) => {
+    console.log('MenuIndex');
     const activeKey =
       ((route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string) ?? '';
     selectedKeys.value = getActiveKeyPathsOfMenus(activeKey, routeStore.menus);

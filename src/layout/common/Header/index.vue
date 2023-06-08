@@ -1,9 +1,10 @@
 <template>
+  <div :style="{ minHeight: getHeaderHeight + 'px' }"></div>
   <a-layout-header
     :class="getFixedHeaderAndMultiTab ? 'layout-header-fixed' : 'layout-header'"
     :style="{
       height: getHeaderHeight + 'px',
-      paddingLeft: getHeaderPaddingLeft ? headerLeft + 'px' : 0,
+      width: getHeaderPaddingLeft ? `calc(100% - ${headerLeft}px)` : 0,
       zIndex: getLayoutMode === 'horizontal-mix' ? '6' : '4',
     }"
   >
@@ -111,7 +112,7 @@
   .layout-header-fixed {
     position: fixed;
     top: 0;
-    left: 0;
+    //left: 0;
     right: 0;
     transition: width 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
     transform: translateX(0px);

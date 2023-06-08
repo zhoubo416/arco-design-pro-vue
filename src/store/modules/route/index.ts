@@ -15,6 +15,7 @@ import {
 import { fetchUserRoutes } from '@/api';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
+import { GlobalMenuOption } from '@/typings/system';
 
 interface RouteState {
   /**

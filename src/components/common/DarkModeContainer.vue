@@ -1,6 +1,9 @@
 <template>
   <!-- <div class="dark-mode-container transition-all duration-300 ease-in-out"  :class="props.inverted ? 'bg-[#001428]' : 'text-[#333639]'">  -->
-  <div class="dark-mode-container">
+  <div
+    class="dark-mode-container transition-all duration-300 ease-in-out"
+    :class="inverted ? '!bg-[#001428]' : '!text-[#333639]'"
+  >
     <slot></slot>
   </div>
 </template>

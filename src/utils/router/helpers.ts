@@ -86,6 +86,7 @@ type ComponentAction = Record<AuthRoute.RouteComponent, () => void>;
  */
 export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   const resultRoute: RouteRecordRaw[] = [];
+  console.log(item);
 
   const itemRoute = { ...item } as RouteRecordRaw;
 

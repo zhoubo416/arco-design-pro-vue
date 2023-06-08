@@ -154,6 +154,7 @@
   // );
 
   listenerRouteChange((route) => {
+    console.log('ContextMenu');
     state.currentPath = route.fullPath;
   });
 </script>

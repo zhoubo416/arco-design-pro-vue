@@ -4,12 +4,20 @@ export enum EnumLayoutComponentName {
   blank = 'blank-layout',
 }
 
+// menu mode
+export enum EnumMenuMode {
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
+  VERTICAL_MIX = 'vertical-mix',
+  HORIZONTAL_MIX = 'horizontal-mix',
+}
+
 /** 布局模式 */
 export enum EnumThemeLayoutMode {
-  'vertical' = 'settings.layout.mode.vertical',
-  'horizontal' = 'settings.layout.mode.horizontal',
-  'vertical-mix' = 'settings.layout.mode.vertical-mix',
-  'horizontal-mix' = 'settings.layout.mode.horizontal-mix',
+  'vertical' = 'settings.layout.mode.vertical', // 左侧菜单模式
+  'horizontal' = 'settings.layout.mode.horizontal', // 顶部菜单模式
+  'vertical-mix' = 'settings.layout.mode.vertical-mix', // 左侧菜单混合模式
+  'horizontal-mix' = 'settings.layout.mode.horizontal-mix', // 顶部菜单混合模式
 }
 
 /** 多页签风格 */

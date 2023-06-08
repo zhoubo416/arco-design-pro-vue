@@ -65,6 +65,7 @@
   // );
 
   listenerRouteChange((route) => {
+    console.log('VerticalMenu');
     const { matched } = route;
     defaultPath.value = matched.map((item) =>
       item.name !== undefined ? item.name.toString() : ''

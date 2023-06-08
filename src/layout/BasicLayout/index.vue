@@ -1,26 +1,23 @@
 <template>
   <a-layout class="admin-layout">
-    <Header v-show="getLayoutMode === 'horizontal-mix'" v-bind="headerProps" />
-    <Sider />
+    <!--功能类-->
+    <!--只有顶部菜单混合模式才显示-->
+    <LayoutHeader v-if="getLayoutMode === 'horizontal-mix'" v-bind="headerProps" />
     <a-layout
       class="layout-body"
       :class="{ 'h-full overscroll-y-auto': getLayoutMode !== 'horizontal-mix' }"
     >
-      <!--    <a-layout class="layout-body" :style="{ marginLeft: !siderVisible ? 0 : headerLeft + 'px' }">-->
-      <Header v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />
-      <Tab />
+      <!--左侧菜单 默认左右分割-->
+      <Sider />
       <a-layout>
-        <a-layout-content
-          :style="{
-            marginTop: getHeaderHeight + 'px',
-            marginBottom: getFooterFixed ? getFooterHeight + 'px' : '',
-          }"
-        >
-          <Content />
-        </a-layout-content>
-        <a-layout-footer style="color: var(--color-text-1)" :style="footerStyle">
-          <Footer />
-        </a-layout-footer>
+        <!--顶部菜单 非顶部菜单混合模式展示-->
+        <LayoutHeader v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />
+        <!--Tab 一会合并到Header里-->
+        <Tab />
+        <!--内容区域-->
+        <Content />
+        <!--底部区域-->
+        <Footer />
       </a-layout>
     </a-layout>
   </a-layout>
@@ -29,7 +26,7 @@
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
   import { useLayoutSetting } from '@/hooks';
-  import { Sider, Header, Tab, Content, Footer } from '@/layout/common';
+  import { Sider, LayoutHeader, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
   import {
     useSidleSetting,
@@ -39,13 +36,14 @@
     useAppSetting,
   } from '@/hooks';
 
+  // 默认左右分割布局
+
   const { headerProps, getLayoutMode } = useLayoutSetting();
   // TODO: 需要修改
   const { getFixedHeaderAndMultiTab, getThemeColor } = useAppSetting();
 
   const { getHeaderHeight: headHeight } = useHeaderSetting();
   const { getTabVisible, getTabHeight } = useTabSetting();
-  const { getFooterFixed, getFooterHeight } = useFooterSetting();
 
   // const { getShowSettingButton } = useAppSetting();
   // const theme = useThemeStore();
@@ -55,7 +53,6 @@
   //   return app.siderCollapse ? siderCollapsedWidth.value : siderWidth.value;
   // });
 
-  const { getSiderWidth } = useSidleSetting();
   const getHeaderHeight = computed((): number => {
     let headerHeight = unref(headHeight);
     if (unref(getTabVisible)) {
@@ -65,30 +62,6 @@
       headerHeight = 0;
     }
     return headerHeight;
-  });
-
-  const footerStyle = computed(() => {
-    if (unref(getFooterFixed)) {
-      return {
-        position: 'fixed',
-        zIndex: 4,
-        height: `${unref(getFooterHeight)}px`,
-        paddingLeft: `${unref(getSiderWidth)}px`,
-        transitionDuration: '300ms',
-        transitionTimingFunction: 'ease-in-out',
-        transform: 'translateX(0px)',
-        left: 0,
-        bottom: 0,
-        'flex-shrink': 0,
-        'box-sizing': 'border-box',
-        width: '100%',
-        'transition-property': 'padding-left',
-        backgroundColor: 'var(--color-bg-1)',
-      };
-    }
-    return {
-      height: `${unref(getFooterHeight)}px`,
-    };
   });
 
   const init = () => {
