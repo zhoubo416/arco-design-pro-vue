@@ -4,7 +4,7 @@
     :class="getFixedHeaderAndMultiTab ? 'layout-header-fixed' : 'layout-header'"
     :style="{
       height: getHeaderHeight + 'px',
-      width: getHeaderPaddingLeft ? `calc(100% - ${headerLeft}px)` : 0,
+      width: getHeaderPaddingLeft ? `calc(100% - ${headerLeft}px)` : '100%',
       zIndex: getLayoutMode === 'horizontal-mix' ? '6' : '4',
     }"
   >

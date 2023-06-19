@@ -27,7 +27,7 @@ interface HorizontalMenuPositionList {
 }
 
 /** 类前缀 待用 */
-export const prefixCls = 'adp';
+export const prefixCls = 'arco';
 
 /** 主题列表 TODO: 无用，待删除 */
 const themeColorList = [

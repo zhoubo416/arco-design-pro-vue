@@ -1,24 +1,79 @@
 <script lang="ts">
-  import { prefixCls } from '@/settings';
-  import { defineComponent } from 'vue';
+  import { defineComponent, toRefs, ref } from 'vue';
+  import { createAppProviderContext } from './useAppContext';
+  import { prefixCls as prefixClsDefault } from '@/settings';
 
-  interface Props {
+  const propsType = {
     /**
      * class style prefix
      */
-    prefixCls: string;
-  }
+    prefixCls: { type: String, default: prefixClsDefault },
+  };
 
-  const props = withDefaults(defineProps<Props>(), {
-    prefixCls: prefixCls,
+  export default defineComponent({
+    name: 'AppProvider',
+    inheritAttrs: false,
+    props: propsType,
+    setup(props, { slots }) {
+      const isMobile = ref(false);
+      // const isSetState = ref(false);
+
+      // const appStore = useAppStore();
+      //
+      // // Monitor screen breakpoint information changes
+      // createBreakpointListen(({ screenMap, sizeEnum, width }) => {
+      //   const lgWidth = screenMap.get(sizeEnum.LG);
+      //   if (lgWidth) {
+      //     isMobile.value = width.value - 1 < lgWidth;
+      //   }
+      //   handleRestoreState();
+      // });
+
+      const { prefixCls } = toRefs(props);
+
+      // Inject variables into the global
+      createAppProviderContext({ prefixCls, isMobile });
+
+      // /**
+      //  * Used to maintain the state before the window changes
+      //  */
+      // function handleRestoreState() {
+      //   if (unref(isMobile)) {
+      //     if (!unref(isSetState)) {
+      //       isSetState.value = true;
+      //       const {
+      //         menuSetting: {
+      //           type: menuType,
+      //           mode: menuMode,
+      //           collapsed: menuCollapsed,
+      //           split: menuSplit,
+      //         },
+      //       } = appStore.getProjectConfig;
+      //       appStore.setProjectConfig({
+      //         menuSetting: {
+      //           type: MenuTypeEnum.SIDEBAR,
+      //           mode: MenuModeEnum.INLINE,
+      //           split: false,
+      //         },
+      //       });
+      //       appStore.setBeforeMiniInfo({ menuMode, menuCollapsed, menuType, menuSplit });
+      //     }
+      //   } else {
+      //     if (unref(isSetState)) {
+      //       isSetState.value = false;
+      //       const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniInfo;
+      //       appStore.setProjectConfig({
+      //         menuSetting: {
+      //           type: menuType,
+      //           mode: menuMode,
+      //           collapsed: menuCollapsed,
+      //           split: menuSplit,
+      //         },
+      //       });
+      //     }
+      //   }
+      // }
+      return () => slots.default?.();
+    },
   });
-
-  // export default defineComponent({
-  //   name: 'AppProvider',
-  //   inheritAttrs: false,
-  //   props,
-  //   setup(props, { slots }) {
-  //     return () => {};
-  //   },
-  // });
 </script>

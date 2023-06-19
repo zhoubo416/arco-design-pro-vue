@@ -1,9 +1,5 @@
 <template>
-  <a-layout-content
-    :style="{
-      marginBottom: getFooterFixed ? getFooterHeight + 'px' : '',
-    }"
-  >
+  <a-layout-content>
     <div :class="{ 'p-16px': props.showPadding }" class="layout-main">
       <router-view class="transition duration-300 ease-in-out" v-slot="{ Component, route }">
         <transition :name="getPageAnimateMode" mode="out-in" :appear="true">
@@ -20,7 +16,7 @@
 
 <script lang="ts" setup>
   import { useRouteStore } from '@/store';
-  import { useFooterSetting, usePageSetting } from '@/hooks';
+  import { usePageSetting } from '@/hooks';
 
   interface Props {
     /** 显示padding */
@@ -33,10 +29,6 @@
 
   const routeStore = useRouteStore();
   const { getPageAnimateMode } = usePageSetting();
-  const { getFooterFixed, getFooterHeight } = useFooterSetting();
-  // const getTransitionName = computed(() => {
-  //   return theme.pageAnimateMode;
-  // });
 </script>
 
 <style lang="less" scoped>

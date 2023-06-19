@@ -6,7 +6,7 @@
     :style="{
       height: getTabHeight + 'px',
       top: getHeaderHeight + 'px',
-      width: !siderVisible ? 0 : `calc(100% - ${tabLeft}px)`,
+      width: !siderVisible ? '100%' : `calc(100% - ${tabLeft}px)`,
     }"
     v-if="getTabVisible"
   >

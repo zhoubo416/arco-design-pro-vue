@@ -43,7 +43,7 @@
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const { bool: drawerVisible, setTrue: openDrawer, setFalse: hideDrawer } = useBoolean();
-  const route1 = useRoute();
+  const currentRoute = useRoute();
 
   const activeParentRouteName = ref('');
   function setActiveParentRouteName(routeName: string) {
@@ -91,8 +91,7 @@
   function resetFirstDegreeMenus() {
     console.log('resetFirstDegreeMenus2222222222222222');
 
-    console.log(route1);
-    getActiveParentRouteName(route1);
+    getActiveParentRouteName(currentRoute);
     hideDrawer();
   }
 
