@@ -230,6 +230,10 @@ declare namespace Project {
 
     /** 侧边栏折叠状态 */
     collapsed: boolean;
+    /** 隐藏侧边栏 */
+    hidden: boolean;
+    /** 折叠后是否展示名称 */
+    collapsedShowTitle: boolean;
   }
 
   /** 菜单样式 */

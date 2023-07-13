@@ -1,8 +1,8 @@
 <template>
-  <div class="login-container flex justify-center items-center">
+  <div class="login-container flex justify-center items-center relative">
     <AppLogo class="left-22px top-24px" />
     <LoginBanner />
-    <div class="content h-full">
+    <div class="content h-full bg-[#fff]">
       <AppDarkModeSwitch
         :dark="getDarkMode"
         class="absolute right-48px top-24px z-3 text-20px"
@@ -15,9 +15,10 @@
           </transition>
         </div>
       </div>
-      <div class="footer">
-        <!--        <Footer />-->
-      </div>
+    </div>
+    <div class="footer absolute bottom-0">
+      <!--        <Footer />-->
+      <Waves />
     </div>
   </div>
 </template>
@@ -34,6 +35,7 @@
   import { AppLogo, AppDarkModeSwitch } from '@/components/Application';
   import type { EnumType } from '@/typings/system';
   import { useAppSetting } from '@/hooks/setting/useAppSetting';
+  import { Waves } from '@/components/Waves';
 
   interface Props {
     /** 登录模块分类 */
@@ -83,6 +85,7 @@
   .login-container {
     display: flex;
     height: 100vh;
+    background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
 
     .banner {
       width: 700px;

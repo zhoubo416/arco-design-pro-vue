@@ -2,11 +2,11 @@
   <a-layout :class="prefixCls">
     <!--    <LayoutHeader v-if="getLayoutMode === 'horizontal-mix'" v-bind="headerProps" />-->
     <a-layout :class="[layoutClass]">
-      <Sider />
+      <LayoutSider />
       <a-layout :class="`${prefixCls}-main`">
         <!--            &lt;!&ndash;顶部菜单 非顶部菜单混合模式展示&ndash;&gt;-->
         <!--                    <LayoutHeader v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />-->
-        <LayoutHeader />
+        <LayoutHeader v-bind="headerProps" />
         <!--            &lt;!&ndash;Tab 一会合并到Header里&ndash;&gt;-->
         <!--            <Tab />-->
         <!--            &lt;!&ndash;内容区域&ndash;&gt;-->
@@ -23,7 +23,7 @@
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
   import { useLayoutSetting } from '@/hooks';
-  import { Sider, LayoutHeader, Tab, Content, Footer } from '@/layout/common';
+  import { LayoutSider, LayoutHeader, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
   import { useAppSetting } from '@/hooks';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -33,6 +33,7 @@
 
   const { prefixCls } = useDesign('default-layout');
   const { getThemeColor } = useAppSetting();
+  const { headerProps } = useLayoutSetting();
 
   const layoutClass = computed(() => {
     let cls: string[] = [];

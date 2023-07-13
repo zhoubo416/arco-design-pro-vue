@@ -20,7 +20,7 @@
 
 <style lang="less" scoped>
   .banner {
-    background-color: rgb(var(--primary-5));
+    //background-color: rgb(var(--primary-5));
 
     &-inner {
       flex: 1;

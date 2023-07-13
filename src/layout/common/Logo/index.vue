@@ -1,7 +1,7 @@
 <template>
   <!--   bg-[var(--color-bg-2)]-->
   <div>
-    <router-link :to="routeHomePath" class="flex-center w-full nowrap-hidden">
+    <router-link :to="routeHomePath" class="flex-center w-full h-full nowrap-hidden">
       <system-logo v-if="!props.pngLogo" class="text-24px text-primary" />
       <img v-else-if="props.pngLogo" class="w-24px" :src="props.pngLogo" alt="" />
       <h2

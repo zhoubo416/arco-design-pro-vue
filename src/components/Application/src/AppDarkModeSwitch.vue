@@ -1,5 +1,6 @@
 <template>
   <!-- 切换模式 MODE SWITCH -->
+  <!--copy to https://github.com/honghuangdc/soybean-admin/blob/main/src/components/common/dark-mode-switch.vue-->
   <div class="flex-center cursor-pointer text-[var(--color-text-1)]">
     <a-button
       v-if="!isSwitch"

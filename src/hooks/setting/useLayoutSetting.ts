@@ -16,13 +16,12 @@ export const useLayoutSetting = () => {
   // 获取Layout minWidth
   const getLayoutMinWidth = computed(() => appStore.getLayoutSetting.minWidth);
 
-  const isVerticalMix = computed(() => unref(getLayoutMode) === 'vertical-mix');
-  const isHorizontalMix = computed(() => unref(getLayoutMode) === 'horizontal-mix');
+  const isVerticalMix = computed(() => unref(getLayoutMode) === EnumMenuMode.VERTICAL_MIX);
+  const isHorizontalMix = computed(() => unref(getLayoutMode) === EnumMenuMode.HORIZONTAL_MIX);
 
-  type LayoutMode = 'vertical' | 'horizontal';
   const getLayoutMenuMode = computed(() => {
-    const vertical: LayoutMode = 'vertical';
-    const horizontal: LayoutMode = 'horizontal';
+    const vertical = EnumMenuMode.VERTICAL;
+    const horizontal = EnumMenuMode.HORIZONTAL;
     return unref(getLayoutMode).includes(vertical) ? vertical : horizontal;
   });
 

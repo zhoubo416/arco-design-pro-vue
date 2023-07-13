@@ -14,6 +14,8 @@ export const useSidleSetting = () => {
   const getSiderWidth = computed(() => appStore.getSiderSetting.width);
   // 获取侧边栏折叠时的宽度
   const getSiderCollapsedWidth = computed(() => appStore.getSiderSetting.collapsedWidth);
+  // 获取折叠后是否显示名称
+  const getSiderCollapsedShowTitle = computed(() => appStore.getSiderSetting.collapsedShowTitle);
   // 获取vertical-mix模式下侧边栏宽度
   const getSiderMixWidth = computed(() => appStore.getSiderSetting.mixWidth);
   // 获取vertical-mix模式下侧边栏折叠时的宽度
@@ -24,6 +26,8 @@ export const useSidleSetting = () => {
   const getSiderMixSiderFixed = computed(() => appStore.getSiderSetting.mixSiderFixed);
   // 获取侧边栏折叠状态
   const getSiderCollapsed = computed(() => appStore.getSiderSetting.collapsed);
+  // 获取侧边栏隐藏状态
+  const getSiderHidden = computed(() => appStore.getSiderSetting.hidden);
 
   // 设置sider
   const setSiderSetting = (setting: Partial<Project.Sider>) => {
@@ -45,20 +49,28 @@ export const useSidleSetting = () => {
     appStore.setSiderSetting({ inverted });
   };
 
+  // 设置侧边栏隐藏
+  const setSiderHidden = (hidden: boolean) => {
+    appStore.setSiderSetting({ hidden });
+  };
+
   return {
     getSiderSetting,
     getSiderInverted,
     getSiderWidth,
     getSiderCollapsedWidth,
+    getSiderCollapsedShowTitle,
     getSiderMixWidth,
     getSiderMixCollapsedWidth,
     getSiderMixChildMenuWidth,
     getSiderMixSiderFixed,
     getSiderCollapsed,
+    getSiderHidden,
 
     setSiderSetting,
     setSiderWidth,
     setSiderMixWidth,
     setSiderInverted,
+    setSiderHidden,
   };
 };

@@ -2,20 +2,20 @@
   <!--手机端-->
 
   <!--PC端-->
-  <a-layout-sider
-    class="layout-sider"
-    hide-trigger
-    collapsible
-    :collapsed="!isVerticalMix ? getSiderCollapsed : false"
-    :style="{
-      width: headerLeft + 'px',
-      paddingTop: !isHorizontalMix ? 0 : getHeaderHeight + 'px',
-    }"
-    v-if="siderVisible"
-  >
-    <VerticalMixSider v-if="isVerticalMix" />
-    <VerticalSider v-else />
-  </a-layout-sider>
+  <!--  <a-layout-sider-->
+  <!--    class="layout-sider"-->
+  <!--    hide-trigger-->
+  <!--    collapsible-->
+  <!--    :collapsed="!isVerticalMix ? getSiderCollapsed : false"-->
+  <!--    :style="{-->
+  <!--      width: headerLeft + 'px',-->
+  <!--      paddingTop: !isHorizontalMix ? 0 : getHeaderHeight + 'px',-->
+  <!--    }"-->
+  <!--    v-if="siderVisible"-->
+  <!--  >-->
+  <VerticalMixSider v-if="isVerticalMix" />
+  <VerticalSider v-else />
+  <!--  </a-layout-sider>-->
 </template>
 
 <script lang="ts" setup>

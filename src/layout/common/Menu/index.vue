@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1-hidden">
+  <div class="flex-1-hidden w-full">
     <a-menu
       class="flex-1-hidden"
       :mode="mode"
@@ -15,7 +15,9 @@
             <template #icon>
               <component :is="item.icon ? item.icon : ''" />
             </template>
-            {{ $t(item.label) }}
+            <template #title>
+              {{ $t(item.label) }}
+            </template>
           </a-menu-item>
         </template>
         <template v-else>
