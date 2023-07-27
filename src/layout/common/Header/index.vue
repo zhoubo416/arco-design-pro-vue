@@ -83,19 +83,21 @@
   const routeStore = useRouteStore();
   const { getShowSettingButton } = useAppSetting();
 
-  const { siderVisible } = useLayoutSetting();
+  const { getSiderVisible } = useSidleSetting();
 
   const headerLeft = computed((): number => {
     if (!getFixedHeaderAndMultiTab) return 0;
     if (unref(getLayoutMode).includes('horizontal-mix')) return 0;
-    const { siderWidth, siderCollapsedWidth } = useLayoutSetting();
-    return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
+    const { getSiderCountWidth, getSiderCollapsedCountWidth } = useSidleSetting();
+    return unref(getSiderCollapsed)
+      ? unref(getSiderCollapsedCountWidth)
+      : unref(getSiderCountWidth);
   });
 
   const getHeaderPaddingLeft = computed(() => {
-    // console.log(!unref(siderVisible));
+    // console.log(!unref(getSiderVisible));
     // console.log(!unref(getFixedHeaderAndMultiTab));
-    return !(!unref(siderVisible) || !unref(getFixedHeaderAndMultiTab));
+    return !(!unref(getSiderVisible) || !unref(getFixedHeaderAndMultiTab));
   });
 </script>
 

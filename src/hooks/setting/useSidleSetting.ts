@@ -1,9 +1,13 @@
-import { computed } from 'vue';
+import { computed, unref } from 'vue';
 import { useAppStore } from '@/store';
 import { Project } from '@/typings/system';
+import { EnumMenuMode } from '@/enums';
+import { useLayoutSetting } from '@/hooks';
 
 export const useSidleSetting = () => {
   const appStore = useAppStore();
+
+  const { getLayoutMode, isVerticalMix } = useLayoutSetting();
 
   // 获取sider配置
   const getSiderSetting = computed(() => appStore.getSiderSetting);
@@ -28,6 +32,26 @@ export const useSidleSetting = () => {
   const getSiderCollapsed = computed(() => appStore.getSiderSetting.collapsed);
   // 获取侧边栏隐藏状态
   const getSiderHidden = computed(() => appStore.getSiderSetting.hidden);
+  // 是否显示侧边栏
+  const getSiderVisible = computed((): boolean => unref(getLayoutMode) !== EnumMenuMode.HORIZONTAL);
+  // 获取侧边栏计算宽度
+  const getSiderCountWidth = computed((): number => {
+    let w = unref(isVerticalMix) ? unref(getSiderMixWidth) : unref(getSiderWidth);
+    if (unref(isVerticalMix) && unref(getSiderMixSiderFixed)) {
+      w += unref(getSiderMixChildMenuWidth);
+    }
+    return w;
+  });
+  // 获取侧边栏折叠计算宽度
+  const getSiderCollapsedCountWidth = computed((): number => {
+    // const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth, mixSiderFixed } =
+    //   unref(getSiderSetting);
+    let w = unref(isVerticalMix) ? unref(getSiderMixCollapsedWidth) : unref(getSiderCollapsedWidth);
+    if (unref(isVerticalMix) && unref(getSiderMixSiderFixed)) {
+      w += unref(getSiderMixChildMenuWidth);
+    }
+    return w;
+  });
 
   // 设置sider
   const setSiderSetting = (setting: Partial<Project.Sider>) => {
@@ -66,6 +90,9 @@ export const useSidleSetting = () => {
     getSiderMixSiderFixed,
     getSiderCollapsed,
     getSiderHidden,
+    getSiderVisible,
+    getSiderCountWidth,
+    getSiderCollapsedCountWidth,
 
     setSiderSetting,
     setSiderWidth,

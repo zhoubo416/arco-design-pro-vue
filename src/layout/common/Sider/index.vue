@@ -19,19 +19,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
   import { useLayoutSetting } from '@/hooks';
   import { VerticalMixSider, VerticalSider } from './components';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useSidleSetting } from '@/hooks';
+  import { computed, unref } from 'vue';
 
-  const { getSiderCollapsed } = useSidleSetting();
+  const { getSiderCollapsed, getSiderCollapsedCountWidth, getSiderCountWidth } = useSidleSetting();
   const { getHeaderHeight } = useHeaderSetting();
-  const { isVerticalMix, isHorizontalMix, siderVisible, siderWidth, siderCollapsedWidth } =
-    useLayoutSetting();
+  const { isVerticalMix, isHorizontalMix } = useLayoutSetting();
 
   const headerLeft = computed((): number => {
-    return unref(getSiderCollapsed) ? siderCollapsedWidth.value : siderWidth.value;
+    return unref(getSiderCollapsed)
+      ? unref(getSiderCollapsedCountWidth)
+      : unref(getSiderCountWidth);
   });
 </script>
 

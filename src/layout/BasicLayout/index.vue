@@ -6,7 +6,7 @@
       <a-layout :class="`${prefixCls}-main`">
         <!--            &lt;!&ndash;顶部菜单 非顶部菜单混合模式展示&ndash;&gt;-->
         <!--                    <LayoutHeader v-show="getLayoutMode !== 'horizontal-mix'" v-bind="headerProps" />-->
-        <LayoutHeader v-bind="headerProps" />
+        <LayoutHeader v-bind="getHeaderProps" />
         <!--            &lt;!&ndash;Tab 一会合并到Header里&ndash;&gt;-->
         <!--            <Tab />-->
         <!--            &lt;!&ndash;内容区域&ndash;&gt;-->
@@ -22,18 +22,17 @@
 
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { useLayoutSetting } from '@/hooks';
+  import { useHeaderSetting } from '@/hooks';
   import { LayoutSider, LayoutHeader, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
   import { useAppSetting } from '@/hooks';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { ThemeModel } from '@/layout/common/Header/components';
 
   // 默认左右分割布局
 
   const { prefixCls } = useDesign('default-layout');
   const { getThemeColor } = useAppSetting();
-  const { headerProps } = useLayoutSetting();
+  const { getHeaderProps } = useHeaderSetting();
 
   const layoutClass = computed(() => {
     let cls: string[] = [];

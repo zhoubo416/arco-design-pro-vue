@@ -8,13 +8,8 @@ export function useMenuSetting() {
   const appStore = useAppStore();
 
   const { getLayoutMenuMode } = useLayoutSetting();
-  const {
-    getSiderCollapsed,
-    getSiderWidth,
-    getSiderMixSiderFixed,
-    getSiderHidden,
-    getSiderCollapsedShowTitle,
-  } = useSidleSetting();
+  const { getSiderCollapsedCountWidth, getSiderCollapsed, getSiderWidth, getSiderMixSiderFixed } =
+    useSidleSetting();
 
   // 获取menu配置
   const getMenuSetting = computed(() => appStore.getMenuSetting);
@@ -25,8 +20,8 @@ export function useMenuSetting() {
   const getIsMixSidebar = computed(() => unref(getLayoutMenuMode) === EnumMenuMode.VERTICAL);
 
   const getMiniMenuWidth = computed(() => {
-    return unref(getSiderHidden) ? 0 : unref(getSiderCollapsedShowTitle) ? 80 : 62;
-    // return unref(getSiderCollapsed) ? unref(getSiderCollapsedWidth) : unref(getSiderWidth);
+    // return unref(getSiderHidden) ? 0 : unref(getSiderCollapsedShowTitle) ? 80 : 62;
+    return unref(getSiderCollapsed) ? unref(getSiderCollapsedCountWidth) : unref(getSiderWidth);
   });
 
   // 获取menu宽度

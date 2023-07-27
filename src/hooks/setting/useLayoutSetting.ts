@@ -1,6 +1,5 @@
 import { computed, unref } from 'vue';
 import type { EnumType, GlobalHeaderProps } from '@/typings/system';
-import { useSidleSetting } from '@/hooks';
 import { useAppStore } from '@/store';
 import { EnumMenuMode } from '@/enums';
 
@@ -13,12 +12,15 @@ export const useLayoutSetting = () => {
   const getLayoutSetting = computed(() => appStore.getLayoutSetting);
   // 获取Layout mode
   const getLayoutMode = computed(() => appStore.getLayoutSetting.mode);
-  // 获取Layout minWidth
+  // 获取Layout minWidth // 无用？
   const getLayoutMinWidth = computed(() => appStore.getLayoutSetting.minWidth);
 
+  // 是否是垂直混合模式
   const isVerticalMix = computed(() => unref(getLayoutMode) === EnumMenuMode.VERTICAL_MIX);
+  // 是否是水平混合模式
   const isHorizontalMix = computed(() => unref(getLayoutMode) === EnumMenuMode.HORIZONTAL_MIX);
 
+  // 获取Layout menu mode
   const getLayoutMenuMode = computed(() => {
     const vertical = EnumMenuMode.VERTICAL;
     const horizontal = EnumMenuMode.HORIZONTAL;
@@ -30,16 +32,7 @@ export const useLayoutSetting = () => {
     appStore.setLayoutSetting({ mode });
   };
 
-  const {
-    getSiderWidth,
-    getSiderMixWidth,
-    getSiderMixChildMenuWidth,
-    getSiderMixSiderFixed,
-    getSiderCollapsedWidth,
-    getSiderMixCollapsedWidth,
-  } = useSidleSetting();
-
-  const layoutHeaderProps: LayoutHeaderProps = {
+  const getLayoutHeaderProps: LayoutHeaderProps = {
     vertical: {
       showLogo: false,
       showHeaderMenu: false,
@@ -62,41 +55,18 @@ export const useLayoutSetting = () => {
     },
   };
 
-  const headerProps = computed(() => layoutHeaderProps[unref(getLayoutMode)]);
-
-  // 是否显示侧边栏
-  const siderVisible = computed(() => {
-    return unref(getLayoutMode) !== EnumMenuMode.HORIZONTAL;
-  });
-
-  const siderWidth = computed(() => {
-    let w = unref(isVerticalMix) ? unref(getSiderMixWidth) : unref(getSiderWidth);
-    if (unref(isVerticalMix) && unref(getSiderMixSiderFixed)) {
-      w += unref(getSiderMixChildMenuWidth);
-    }
-    return w;
-  });
-
-  const siderCollapsedWidth = computed(() => {
-    // const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth, mixSiderFixed } =
-    //   unref(getSiderSetting);
-    let w = unref(isVerticalMix) ? unref(getSiderMixCollapsedWidth) : unref(getSiderCollapsedWidth);
-    if (unref(isVerticalMix) && unref(getSiderMixSiderFixed)) {
-      w += unref(getSiderMixChildMenuWidth);
-    }
-    return w;
-  });
-
   return {
-    headerProps,
-    siderVisible,
-    siderWidth,
-    siderCollapsedWidth,
+    // headerProps,
+    // siderVisible,
+    // siderWidth,
+    // siderCollapsedWidth,
 
     getLayoutSetting,
     getLayoutMode,
     getLayoutMenuMode,
     getLayoutMinWidth,
+
+    getLayoutHeaderProps,
 
     isVerticalMix,
     isHorizontalMix,
