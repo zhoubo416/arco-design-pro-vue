@@ -1,49 +1,102 @@
 <template>
-  <dark-mode-container
-    class="flex h-full"
-    :inverted="getSiderInverted"
+  <!--  <dark-mode-container-->
+  <!--    class="flex h-full"-->
+  <!--    -->
+  <!--    :inverted="getSiderInverted"-->
+  <!--    @mouseleave="resetFirstDegreeMenus"-->
+  <!--    style="color: var(&#45;&#45;color-text-2)"-->
+  <!--  >-->
+  <!--      class="layout-sider"
+    :collapsed="getLayoutSiderCollapsed"
+    :style="getLayoutSiderStyle"
+    collapsible
+    hide-trigger-->
+  <div :class="`${prefixCls}-dom`" :style="getDomStyle"></div>
+  <div
+    class="flex-1 flex-col-stretch h-full w-full"
+    :class="prefixCls"
+    :style="getWrapStyle"
     @mouseleave="resetFirstDegreeMenus"
-    style="color: var(--color-text-2)"
   >
-    <div class="flex-1 flex-col-stretch h-full w-full">
-      <logo :show-title="false" :style="{ height: getHeaderHeight + 'px', a: getSiderCollapsed }" />
-      <div class="flex-1-hidden">
-        <mix-menu-detail
-          v-for="item in firstDegreeMenus"
-          :key="item.routeName"
-          :route-name="item.routeName"
-          :active-route-name="activeParentRouteName"
-          :label="item.label"
-          :icon="item.icon"
-          :is-mini="getSiderCollapsed"
-          @click="handleMixMenu(item.routeName, item.hasChildren)"
-        />
-      </div>
-      <mix-menu-collapse />
+    <logo :show-title="false" :style="{ height: getHeaderHeight + 'px', a: getSiderCollapsed }" />
+    <div class="flex-1-hidden">
+      <mix-menu-detail
+        v-for="item in firstDegreeMenus"
+        :key="item.routeName"
+        :route-name="item.routeName"
+        :active-route-name="activeParentRouteName"
+        :label="item.label"
+        :icon="item.icon"
+        :is-mini="getSiderCollapsed"
+        @click="handleMixMenu(item.routeName, item.hasChildren)"
+      />
     </div>
-    <mix-menu-drawer :visible="drawerVisible" :menus="activeChildMenus" />
-  </dark-mode-container>
+    <mix-menu-collapse />
+  </div>
+  <mix-menu-drawer :visible="drawerVisible" :menus="activeChildMenus" />
+
+  <!--  </dark-mode-container>-->
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, unref } from 'vue';
+  import { computed, CSSProperties, ref, unref } from 'vue';
   import { RouteLocationNormalized, useRoute } from 'vue-router';
   import { useRouteStore } from '@/store';
   import { useRouterPush } from '@/composables';
-  import { useBoolean, useSidleSetting } from '@/hooks';
+  import { useBoolean, useMenuSetting, useSidleSetting } from '@/hooks';
   import { Logo } from '@/layout/common';
   import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
   import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '@/enums';
 
   const { getHeaderHeight } = useHeaderSetting();
   const { getSiderCollapsed, getSiderInverted } = useSidleSetting();
+  const { getRealWidth } = useMenuSetting();
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const { bool: drawerVisible, setTrue: openDrawer, setFalse: hideDrawer } = useBoolean();
   const currentRoute = useRoute();
+
+  const { prefixCls } = useDesign('layout-mix-sider');
+
+  const getMixSideWidth = computed(() => {
+    return unref(getSiderCollapsed) ? SIDE_BAR_MINI_WIDTH : SIDE_BAR_SHOW_TIT_MINI_WIDTH;
+  });
+
+  // const getIsFixed = computed(() => {
+  //   /* eslint-disable-next-line */
+  //   mixSideHasChildren.value = unref(childrenMenus).length > 0;
+  //   const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
+  //   if (isFixed) {
+  //     /* eslint-disable-next-line */
+  //     openMenu.value = true;
+  //   }
+  //   return isFixed;
+  // });
+
+  function getWrapCommonStyle(width: string): CSSProperties {
+    return {
+      width,
+      maxWidth: width,
+      minWidth: width,
+      flex: `0 0 ${width}`,
+    };
+  }
+
+  const getWrapStyle = computed((): CSSProperties => {
+    const width = `${unref(getMixSideWidth)}px`;
+    return getWrapCommonStyle(width);
+  });
+
+  const getDomStyle = computed((): CSSProperties => {
+    const fixedWidth = unref(true) ? unref(getRealWidth) : 0;
+    const width = `${unref(getMixSideWidth) + fixedWidth}px`;
+    return getWrapCommonStyle(width);
+  });
 
   const activeParentRouteName = ref('');
   function setActiveParentRouteName(routeName: string) {
@@ -122,4 +175,18 @@
     getActiveParentRouteName(route);
   });
 </script>
-<style scoped></style>
+<style lang="less" scoped>
+  @import '@/design/index';
+  @prefix-cls: ~'@{nameCls}-layout-mix-sider';
+  .@{prefix-cls} {
+    position: fixed;
+    z-index: @layout-mix-sider-fixed-z-index;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.2s ease 0s;
+    color: var(--color-text-2);
+    //background-color: @sider-dark-bg-color;
+  }
+</style>

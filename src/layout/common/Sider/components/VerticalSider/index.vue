@@ -35,7 +35,6 @@
   import { useRouteStore } from '@/store';
   import { Logo, Menu } from '@/layout/common';
   import LogoPng from '@/assets/logo.png';
-  // import DarkModeContainer from '@/components/common/DarkModeContainer.vue';
   import { useLayoutSetting, useSidleSetting, useHeaderSetting, useMenuSetting } from '@/hooks';
 
   const routeStore = useRouteStore();

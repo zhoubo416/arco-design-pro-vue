@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { useHeaderSetting } from '@/hooks';
+  import { useHeaderSetting, useLayoutSetting } from '@/hooks';
   import { LayoutSider, LayoutHeader, Tab, Content, Footer } from '@/layout/common';
   import { setBaseColor } from '@/utils/color';
   import { useAppSetting } from '@/hooks';
@@ -33,12 +33,13 @@
   const { prefixCls } = useDesign('default-layout');
   const { getThemeColor } = useAppSetting();
   const { getHeaderProps } = useHeaderSetting();
+  const { isHorizontalMix } = useLayoutSetting();
 
   const layoutClass = computed(() => {
-    let cls: string[] = [];
-    // if (unref(getLayoutMode) === 'horizontal-mix') {
-    //   cls = ['arco-layout', 'arco-layout-horizontal-mix'];
-    // }
+    let cls: string[] = ['arco-layout'];
+    if (isHorizontalMix) {
+      cls = ['arco-layout-has-sider'];
+    }
     return cls;
   });
 
