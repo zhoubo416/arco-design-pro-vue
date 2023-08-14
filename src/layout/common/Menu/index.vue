@@ -1,6 +1,7 @@
 <template>
   <div class="flex-1-hidden w-full">
     <a-menu
+      ref="menuRef"
       class="flex-1-hidden"
       :mode="mode"
       :style="{ width: '100%', height: '100%' }"
@@ -15,9 +16,7 @@
             <template #icon>
               <component :is="item.icon ? item.icon : ''" />
             </template>
-            <template #title>
-              {{ $t(item.label) }}
-            </template>
+            {{ $t(item.label) }}111
           </a-menu-item>
         </template>
         <template v-else>

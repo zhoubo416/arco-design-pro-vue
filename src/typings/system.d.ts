@@ -240,6 +240,8 @@ declare namespace Project {
   interface Menu {
     /** 水平模式的菜单的位置 */
     horizontalPosition: EnumType.ThemeHorizontalMenuPosition;
+    /** 固定菜单 */
+    fixed: boolean;
   }
 
   /** 底部样式 */

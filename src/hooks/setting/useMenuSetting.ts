@@ -23,6 +23,8 @@ export function useMenuSetting() {
     // return unref(getSiderHidden) ? 0 : unref(getSiderCollapsedShowTitle) ? 80 : 62;
     return unref(getSiderCollapsed) ? unref(getSiderCollapsedCountWidth) : unref(getSiderWidth);
   });
+  // 获取固定菜单
+  const getMenuFixed = computed(() => appStore.getMenuSetting.fixed);
 
   // 获取menu宽度
   const getRealWidth = computed(() => {
@@ -38,10 +40,18 @@ export function useMenuSetting() {
     appStore.setMenuSetting({ horizontalPosition: position });
   };
 
+  // 修改固定菜单
+  const setMenuFixed = (fixed: boolean) => {
+    appStore.setMenuSetting({ fixed });
+  };
+
   return {
     getRealWidth,
     getMenuSetting,
     getMenuHorizontalPosition,
+    getMenuFixed,
+
     setMenuHorizontalPosition,
+    setMenuFixed,
   };
 }

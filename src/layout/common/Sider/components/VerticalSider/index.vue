@@ -1,19 +1,8 @@
 <template>
-  <!--  <dark-mode-container class="flex-col-stretch h-full" :inverted="getSiderInverted">-->
-  <!--  <a-layout-sider-->
-  <!--    class="layout-sider"-->
-  <!--    hide-trigger-->
-  <!--    collapsible-->
-  <!--    :collapsed="!isVerticalMix ? getSiderCollapsed : false"-->
-  <!--    :style="{-->
-  <!--      width: headerLeft + 'px',-->
-  <!--      paddingTop: !isHorizontalMix ? 0 : getHeaderHeight + 'px',-->
-  <!--    }"-->
-  <!--    v-if="siderVisible"-->
-  <!--  >-->
-  <div :style="getHiddenDomStyle"> </div>
+  <div v-if="getMenuFixed" :style="getHiddenDomStyle"> </div>
   <a-layout-sider
-    class="layout-sider"
+    ref="layoutSiderRef"
+    :class="getSiderClass"
     :collapsed="getLayoutSiderCollapsed"
     :style="getLayoutSiderStyle"
     collapsible
@@ -27,7 +16,6 @@
     />
     <Menu :menus="routeStore.menus" :mode="'vertical'" />
   </a-layout-sider>
-  <!--  </dark-mode-container>-->
 </template>
 
 <script lang="ts" setup>
@@ -36,13 +24,16 @@
   import { Logo, Menu } from '@/layout/common';
   import LogoPng from '@/assets/logo.png';
   import { useLayoutSetting, useSidleSetting, useHeaderSetting, useMenuSetting } from '@/hooks';
+  import { useDesign } from '@/hooks/web/useDesign';
 
   const routeStore = useRouteStore();
 
   const { getLayoutMode, isVerticalMix } = useLayoutSetting();
   const { getSiderCollapsed, getSiderInverted } = useSidleSetting();
   const { getHeaderHeight } = useHeaderSetting();
-  const { getRealWidth } = useMenuSetting();
+  const { getRealWidth, getMenuFixed } = useMenuSetting();
+
+  const { prefixCls } = useDesign('layout-sider');
 
   const isHorizontalMix = computed(() => unref(getLayoutMode) === 'horizontal-mix');
   const showTitle = computed(
@@ -74,9 +65,34 @@
       paddingTop: !unref(isHorizontalMix) ? 0 : `${unref(getHeaderHeight)}px`,
     };
   });
+
+  const getSiderClass = computed(() => {
+    return [
+      prefixCls,
+      {
+        [`${prefixCls}--fixed`]: unref(getMenuFixed),
+        // [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
+      },
+    ];
+  });
 </script>
 
 <style lang="less" scoped>
+  @prefix-cls: ~'@{nameCls}-layout-sider';
+
+  .@{prefix-cls} {
+    z-index: @layout-sider-fixed-z-index;
+    //background-color: var(--color-bg-2);
+
+    &--fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      height: 100%;
+    }
+  }
+
   .logo {
     height: 32px;
     margin: 12px 8px;
@@ -84,12 +100,12 @@
     //background-color: var(--color-bg-2);
   }
 
-  .layout-sider {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    height: 100%;
-    //transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
-  }
+  //.layout-sider {
+  //  position: fixed;
+  //  top: 0;
+  //  left: 0;
+  //  z-index: 99;
+  //  height: 100%;
+  //  //transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+  //}
 </style>

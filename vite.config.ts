@@ -27,7 +27,7 @@ export default defineConfig((configEnv) => {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            hack: `true; @import (reference) "${resolve('src/assets/styles/breakpoint.less')}";`,
+            hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
           },
           javascriptEnabled: true,
         },

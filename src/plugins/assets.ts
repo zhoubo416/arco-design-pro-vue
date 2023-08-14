@@ -3,7 +3,7 @@ import 'uno.css';
 // import 'swiper/css/navigation';
 // import 'swiper/css/pagination';
 import 'virtual:svg-icons-register';
-import '@/assets/styles/css/global.css';
+// import '@/assets/styles/css/global.css';
 import '@/utils/rem.ts';
 import '@/design/index.less';
 

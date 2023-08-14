@@ -236,7 +236,7 @@
     padding: 0;
   }
   .content-wrap {
-    width: 100%;
+    //width: 100%;
     padding: 16px;
     white-space: nowrap;
   }
