@@ -21,6 +21,7 @@ export default {
   'settings.interface.functions.tab.height': '多页签高度',
   'settings.interface.functions.tab.cache': '多页签缓存',
   'settings.interface.functions.sidebar.width': '侧边栏展开宽度',
+  'settings.interface.functions.sidebar.collapsedWidth': '侧边栏折叠宽度',
   'settings.interface.functions.sidebar.blend.width': '左侧混合侧边栏展开宽度',
   'settings.interface.functions.fixed.bottom': '固定底部',
   'settings.interface.functions.watermark.watermark': '开启水印',

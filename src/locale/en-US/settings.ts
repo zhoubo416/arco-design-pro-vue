@@ -21,6 +21,7 @@ export default {
   'settings.interface.functions.tab.height': 'Multi tab height',
   'settings.interface.functions.tab.cache': 'Multi tab cache',
   'settings.interface.functions.sidebar.width': 'Sidebar expansion width',
+  'settings.interface.functions.sidebar.collapsedWidth': 'Sidebar collapsed width',
   'settings.interface.functions.sidebar.blend.width': 'Left blend sidebar width',
   'settings.interface.functions.watermark.watermark': 'Watermark',
   'settings.interface.functions.watermark.text': 'Watermark Text',

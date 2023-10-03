@@ -215,7 +215,7 @@ declare namespace Project {
   interface Sider {
     /** 侧边栏反转色 */
     inverted: boolean;
-    /** 侧边栏宽度 */
+    /** 侧边栏展开时的宽度 */
     width: number;
     /** 侧边栏折叠时的宽度 */
     collapsedWidth: number;

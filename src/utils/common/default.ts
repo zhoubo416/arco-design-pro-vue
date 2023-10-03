@@ -1,4 +1,5 @@
 // 最常用的默认工具
+// 注册组件
 
 import { App, Component } from 'vue';
 

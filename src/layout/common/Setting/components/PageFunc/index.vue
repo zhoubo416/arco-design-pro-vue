@@ -53,6 +53,16 @@
         :step="10"
       />
     </setting-menu>
+    <setting-menu :label="$t('settings.interface.functions.sidebar.collapsedWidth')">
+      <a-input-number
+        class="max-w-120px"
+        size="small"
+        :model-value="getSiderCollapsedWidth"
+        @change="setSiderCollapsedWidth"
+        :step="10"
+        disabled
+      />
+    </setting-menu>
     <setting-menu :label="$t('settings.interface.functions.sidebar.blend.width')">
       <a-input-number
         class="max-w-120px"
@@ -95,7 +105,14 @@
   import { useI18n } from 'vue-i18n';
   import { menuHorizontalPositionList } from '@/settings';
 
-  const { getSiderWidth, getSiderMixWidth, setSiderWidth, setSiderMixWidth } = useSidleSetting();
+  const {
+    getSiderWidth,
+    getSiderMixWidth,
+    getSiderCollapsedWidth,
+    setSiderWidth,
+    setSiderMixWidth,
+    setSiderCollapsedWidth,
+  } = useSidleSetting();
   const { getTabIsCache, setTabIsCache } = useTabSetting();
   const { getLayoutMode } = useLayoutSetting();
   const { getFixedHeaderAndMultiTab, setFixedHeaderAndMultiTab } = useAppSetting();

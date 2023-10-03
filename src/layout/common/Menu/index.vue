@@ -1,30 +1,32 @@
 <template>
-  <div class="flex-1-hidden w-full">
-    <a-menu
-      ref="menuRef"
-      class="flex-1-hidden"
-      :mode="mode"
-      :style="{ width: '100%', height: '100%' }"
-      v-model:selectedKeys="selectedKeys"
-      v-model:openKeys="openKeys"
-      auto-scroll-into-view
-      accordion
-    >
-      <template v-for="item of menus" :key="item.key">
-        <template v-if="!item.children">
-          <a-menu-item :key="item.key" @click="handleUpdateMenu(item.key, item)">
-            <template #icon>
-              <component :is="item.icon ? item.icon : ''" />
-            </template>
-            {{ $t(item.label) }}111
-          </a-menu-item>
-        </template>
-        <template v-else>
-          <SubMenu :key="item.key" :menu-info="item" />
-        </template>
-      </template>
-    </a-menu>
-  </div>
+  <SimpleMenu />
+  <!--  <div class="flex-1-hidden w-full">-->
+  <!--    <a-menu-->
+  <!--      ref="menuRef"-->
+  <!--      class="flex-1-hidden"-->
+  <!--      :mode="mode"-->
+  <!--      :collapsed-width="getSiderCollapsedWidth"-->
+  <!--      :style="{ width: '100%', height: '100%' }"-->
+  <!--      v-model:selectedKeys="selectedKeys"-->
+  <!--      v-model:openKeys="openKeys"-->
+  <!--      auto-scroll-into-view-->
+  <!--      accordion-->
+  <!--    >-->
+  <!--      <template v-for="item of menus" :key="item.key">-->
+  <!--        <template v-if="!item.children">-->
+  <!--          <a-menu-item :key="item.key" @click="handleUpdateMenu(item.key, item)">-->
+  <!--            <template #icon>-->
+  <!--              <component :is="item.icon ? item.icon : ''" />-->
+  <!--            </template>-->
+  <!--            {{ $t(item.label) }}-->
+  <!--          </a-menu-item>-->
+  <!--        </template>-->
+  <!--        <template v-else>-->
+  <!--          <SubMenu :key="item.key" :menu-info="item" />-->
+  <!--        </template>-->
+  <!--      </template>-->
+  <!--    </a-menu>-->
+  <!--  </div>-->
 </template>
 
 <script lang="ts" setup>
@@ -36,11 +38,14 @@
   import SubMenu from './SubMenu.vue';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import type { GlobalMenuOption } from '@/typings/system';
+  import { useSidleSetting } from '@/hooks';
+  import SimpleMenu from '@/components/SimpleMenu/src/SimpleMenu.vue';
 
   const routeStore = useRouteStore();
   const { routerPush } = useRouterPush();
   const selectedKeys = ref([] as Array<string>);
   const openKeys = ref([] as Array<string>);
+  const { getSiderCollapsedWidth } = useSidleSetting();
 
   function handleUpdateMenu(_key: string, item: any) {
     const menuItem = item as GlobalMenuOption;

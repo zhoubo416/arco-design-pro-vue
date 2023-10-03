@@ -16,3 +16,16 @@ export function consoleWarn(message?: any, ...optionalParams: any[]) {
 export function consoleError(message?: any, ...optionalParams: any[]) {
   console.error(message, ...optionalParams);
 }
+
+export function openWindow(
+  url: string,
+  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
+) {
+  const { target = '__blank', noopener = true, noreferrer = true } = opt || {};
+  const feature: string[] = [];
+
+  noopener && feature.push('noopener=yes');
+  noreferrer && feature.push('noreferrer=yes');
+
+  window.open(url, target, feature.join(','));
+}

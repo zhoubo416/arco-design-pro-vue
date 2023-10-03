@@ -1,11 +1,11 @@
 <template>
   <div
-    class="border-2px rounded-6px cursor-pointer hover:border-primary"
-    :class="[checked ? 'border-primary' : 'border-transparent']"
+    class="border-2px rounded-6px cursor-pointer hover:border-red"
+    :class="[getLayoutMode == mode ? 'border-red' : 'border-transparent']"
   >
     <a-tooltip :content="activeConfig.placement" position="bottom">
       <template #content>
-        <span>{{ $t(label) }}</span>
+        <span>{{ $t(label) }}-{{ mode }}\\{{ getLayoutMode }}</span>
       </template>
       <div
         class="layout-checkbox__shadow relative w-56px h-48px bg-white rounded-4px overflow-hidden"
@@ -22,6 +22,7 @@
   import type { FollowerPlacement } from 'vueuc';
   import type { EnumThemeLayoutMode } from '@/enums';
   import type { EnumType } from '@/typings/system';
+  import { useLayoutSetting } from '@/hooks';
 
   interface Props {
     /** 布局模式 */
@@ -29,10 +30,11 @@
     /** 布局模式文本 */
     label: EnumThemeLayoutMode;
     /** 选中状态 */
-    checked: boolean;
+    // checked: boolean;
   }
 
   const props = defineProps<Props>();
+  const { getLayoutMode } = useLayoutSetting();
 
   type LayoutConfig = Record<
     EnumType.ThemeLayoutMode,

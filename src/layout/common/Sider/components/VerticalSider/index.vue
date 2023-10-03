@@ -1,10 +1,13 @@
 <template>
   <div v-if="getMenuFixed" :style="getHiddenDomStyle"> </div>
+  <!--  width-->
+  <!--  :style="getLayoutSiderStyle"-->
   <a-layout-sider
     ref="layoutSiderRef"
     :class="getSiderClass"
     :collapsed="getLayoutSiderCollapsed"
-    :style="getLayoutSiderStyle"
+    :width="getSiderWidth"
+    :collapsed-width="getSiderCollapsedWidth"
     collapsible
     hide-trigger
   >
@@ -29,7 +32,8 @@
   const routeStore = useRouteStore();
 
   const { getLayoutMode, isVerticalMix } = useLayoutSetting();
-  const { getSiderCollapsed, getSiderInverted } = useSidleSetting();
+  const { getSiderCollapsed, getSiderInverted, getSiderWidth, getSiderCollapsedWidth } =
+    useSidleSetting();
   const { getHeaderHeight } = useHeaderSetting();
   const { getRealWidth, getMenuFixed } = useMenuSetting();
 

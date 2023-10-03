@@ -14,7 +14,7 @@ export const useSidleSetting = () => {
 
   // 获取侧边栏反转色
   const getSiderInverted = computed(() => appStore.getSiderSetting.inverted);
-  // 获取侧边栏宽度
+  // 获取侧边栏展开时的宽度
   const getSiderWidth = computed(() => appStore.getSiderSetting.width);
   // 获取侧边栏折叠时的宽度
   const getSiderCollapsedWidth = computed(() => appStore.getSiderSetting.collapsedWidth);
@@ -63,6 +63,11 @@ export const useSidleSetting = () => {
     appStore.setSiderSetting({ width });
   };
 
+  // 设置侧边栏折叠宽度
+  const setSiderCollapsedWidth = (collapsedWidth: number) => {
+    appStore.setSiderSetting({ collapsedWidth });
+  };
+
   // 设置vertical-mix模式下侧边栏宽度
   const setSiderMixWidth = (mixWidth: number) => {
     appStore.setSiderSetting({ mixWidth });
@@ -99,5 +104,6 @@ export const useSidleSetting = () => {
     setSiderMixWidth,
     setSiderInverted,
     setSiderHidden,
+    setSiderCollapsedWidth,
   };
 };

@@ -1,6 +1,6 @@
 import { useAppStore } from '@/store';
 import { computed } from 'vue';
-import { EnumType, Project } from '@/typings/system';
+import { EnumType } from '@/typings/system';
 
 export function usePageSetting() {
   const appStore = useAppStore();

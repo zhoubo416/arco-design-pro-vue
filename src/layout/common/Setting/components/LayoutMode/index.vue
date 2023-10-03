@@ -6,7 +6,6 @@
       :key="item.value"
       :mode="item.value"
       :label="item.label"
-      :checked="item.value === getLayoutMode"
       @click="setMode(item.value)"
     />
   </a-space>
@@ -18,7 +17,7 @@
   import { useLayoutSetting } from '@/hooks';
   import { layoutModeList } from '@/settings';
 
-  const { setLayoutMode, getLayoutMode } = useLayoutSetting();
+  const { setLayoutMode } = useLayoutSetting();
 
   const setMode = (mode: EnumType.ThemeLayoutMode) => {
     setLayoutMode(mode);
