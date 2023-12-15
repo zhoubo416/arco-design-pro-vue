@@ -237,6 +237,6 @@
   },
   "homepage": "https://lliuhuan.github.io/arco-design-pro-vue",
   "engines": {
-    "node": "^12 || >=14"
+    "node": "^18 || >=18"
   }
 }
