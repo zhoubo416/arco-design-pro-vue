@@ -29,7 +29,7 @@ export const configCompressPlugin = (
       compressPlugin({
         ext: '.br',
         algorithm: 'brotliCompress',
-        deleteOriginFile,
+        deleteOriginFile: false,
       })
     );
   }
