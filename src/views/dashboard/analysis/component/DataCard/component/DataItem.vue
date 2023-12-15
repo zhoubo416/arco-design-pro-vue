@@ -209,9 +209,9 @@
               show: false,
             },
             data: [
-              { value: 1024, name: '微信' },
-              { value: 1024, name: '抖音' },
-              { value: 1024, name: '知乎' },
+              { value: 1024, name: '开心科室' },
+              { value: 1024, name: '罗小黑科室' },
+              { value: 1024, name: '落泪科室' },
             ],
           },
         ],

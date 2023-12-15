@@ -1,7 +1,7 @@
 export default {
-  'dashboard.analysis.data-card.visits': '访问次数',
-  'dashboard.analysis.data-card.downloads': '下载次数',
-  'dashboard.analysis.data-card.comments': '评论次数',
-  'dashboard.analysis.data-card.sharing': '分享次数',
+  'dashboard.analysis.data-card.visits': '需求计划',
+  'dashboard.analysis.data-card.downloads': '采购计划',
+  'dashboard.analysis.data-card.comments': '入库验收单',
+  'dashboard.analysis.data-card.sharing': '采购退货单',
   'dashboard.analysis.data-card.yesterday': '较昨日',
 };

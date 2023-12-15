@@ -28,7 +28,7 @@
       },
     },
     legend: {
-      data: ['下载量', '注册数'],
+      data: ['已处理', '待处理'],
     },
     grid: {
       left: '3%',
@@ -62,7 +62,7 @@
     series: [
       {
         color: '#8e9dff',
-        name: '下载量',
+        name: '已处理',
         type: 'line',
         smooth: true,
         stack: 'Total',
@@ -92,7 +92,7 @@
       },
       {
         color: '#26deca',
-        name: '注册数',
+        name: '待处理',
         type: 'line',
         smooth: true,
         stack: 'Total',
@@ -161,10 +161,10 @@
           show: false,
         },
         data: [
-          { value: 20, name: '学习' },
-          { value: 10, name: '娱乐' },
-          { value: 30, name: '工作' },
-          { value: 40, name: '休息' },
+          { value: 20, name: '取用未计费' },
+          { value: 10, name: '已过期' },
+          { value: 30, name: '近效期' },
+          { value: 40, name: '呆滞品' },
         ],
       },
     ],
