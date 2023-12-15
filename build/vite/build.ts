@@ -29,5 +29,20 @@ export function createViteBuild(env: ImportMetaEnv) {
     brotliSize: false,
     // chunk 大小警告的限制（以 kbs 为单位）。
     chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      input: 'index.html',
+      cssCodeSplit: true,
+      output: {
+        // 静态资源打包做处理
+        chunkFileNames: 'static/js/[name]-[hash].js',
+        entryFileNames: 'static/js/[name]-[hash].js',
+        assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        manualChunks(id: any) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+          }
+        },
+      },
+    },
   };
 }

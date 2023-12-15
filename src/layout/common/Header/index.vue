@@ -28,7 +28,6 @@
         <Menu :menus="routeStore.menus" :mode="'horizontal'" />
       </div>
       <div class="flex justify-end h-full pr-30px ribbon">
-        <Github />
         <ThemeModel />
         <Locale />
         <Fullscreen />

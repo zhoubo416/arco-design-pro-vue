@@ -5,24 +5,14 @@
 
 <p align="center">
 <a href="https://www.oscs1024.com/project/oscs/LLiuHuan/arco-design-pro-vue?ref=badge_small" alt="OSCS Status"><img src="https://www.oscs1024.com/platform/badge/LLiuHuan/arco-design-pro-vue.svg?size=small"/></a>
-  <a href="https://github.com/LLiuHuan/arco-design-pro-vue"><img src="https://img.shields.io/circleci/project/github/vuejs/vue/dev.svg?sanitize=true" alt="Build Status"></a>
-  <a href="https://github.com/LLiuHuan/arco-design-pro-vue/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
+  <a href="https://github.com/zhoubo416/arco-design-pro-vue"><img src="https://img.shields.io/circleci/project/github/vuejs/vue/dev.svg?sanitize=true" alt="Build Status"></a>
+  <a href="https://github.com/zhoubo416/arco-design-pro-vue/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
 </p>
 
-
-> 技术不好，也没啥时间，随便写写，对付看吧，喜欢的话可以点个 Start
-
-> 预计23年内全部完善，最少最少最少开发一套前端+一套后端
 
 ## 1. 基本介绍
 
 ### 1.1 项目介绍
-
-> 原本是打算实现 arco-design-pro 的vue版本，但是看官方说21年12月份就会推出vue版本的，所以这个项目就不会完全照搬 arco-design-pro 了
-
-在线预览
-：[https://lliuhuan.github.io/arco-design-pro-vue](https://lliuhuan.github.io/arco-design-pro-vue)  
-（请使用 Chrome 打开）
 
 ### 1.2 有什么好的想法和思路可以提Issues
 
@@ -32,7 +22,7 @@
 
 ```
 # 克隆项目
-git clone https://github.com/LLiuHuan/arco-design-pro-vue.git
+git clone https://github.com/zhoubo416/arco-design-pro-vue.git
 
 # 进入项目目录
 cd arco-design-pro-vue
@@ -51,20 +41,6 @@ pnpm dev
 还没弄，等功能完善了再弄
 
 ## 4. 后端
-
-还没开始弄，准备弄多个后端，供大家选择
-
-主要还是看时间吧，哈哈哈
-
-按照以下顺序进行开发
-
-1. 基于Go语言的后端，采用Gin框架
-2. 基于Go语言的后端，微服务形式
-3. 基于Java语言的后端，采用SpringBoot框架
-4. 基于Java语言的后端，微服务形式
-5. 基于Rust语言的后端，采用Actix框架
-6. 基于Node.js语言的后端，采用Koa框架
-7. 基于Python语言的后端，采用Flask/Django框架
 
 ## 5. 更新日志（不太会弄，不准，哈哈哈）
 
@@ -231,4 +207,4 @@ pnpm dev
 
 ## License
 
-Ths project is [MIT licensed](https://github.com/LLiuHuan/arco-design-pro-vue/blob/master/LICENSE).
+Ths project is [MIT licensed](https://github.com/zhoubo416/arco-design-pro-vue/blob/master/LICENSE).

@@ -4,7 +4,7 @@
     <img v-else-if="props.pngLogo" class="w-24px" :src="props.pngLogo" alt="" />
     <h2
       v-show="props.showTitle"
-      class="pl-10px text-18px font-bold text-primary transition duration-300 ease-in-out"
+      class="pl-10px text-14px font-bold text-primary transition duration-300 ease-in-out"
     >
       {{ title }}
     </h2>
