@@ -1,7 +1,9 @@
 import { defineConfig, presetUno } from 'unocss';
 
 export default defineConfig<any>({
-  exclude: ['node_modules', '.git', './stats.html'],
+  content: {
+    pipeline: { exclude: ['node_modules', '.git', './stats.html'] },
+  },
   presets: [presetUno({ dark: 'class' })],
   shortcuts: {
     'wh-full': 'w-full h-full',

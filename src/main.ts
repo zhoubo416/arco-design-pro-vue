@@ -29,7 +29,7 @@ const setupApp = async () => {
   // 延迟挂载app 为了可以多看会加载动画
   setTimeout(() => {
     app.mount('#app');
-  }, 2000);
+  }, 10);
 };
 
 setupApp()
