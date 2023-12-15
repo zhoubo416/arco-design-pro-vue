@@ -47,7 +47,6 @@
   import {
     Breadcrumb,
     MenuCollapse,
-    Github,
     ThemeModel,
     Locale,
     Fullscreen,
