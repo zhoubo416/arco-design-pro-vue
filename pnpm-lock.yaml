@@ -19,6 +19,9 @@ dependencies:
   '@fawmi/vue-google-maps':
     specifier: 0.9.67
     version: 0.9.67
+  '@unocss/reset':
+    specifier: ^0.58.0
+    version: 0.58.0
   '@vue/compiler-sfc':
     specifier: 3.0.2
     version: 3.0.2(vue@3.3.11)
@@ -2218,7 +2221,6 @@ packages:
 
   /@unocss/reset@0.58.0:
     resolution: {integrity: sha512-UVZ5kz37JGbwAA06k/gjKYcekcTwi6oIhev1EpTtCvHLL6XYcYqcwb/u4Wjzprd3L3lxDGYXvGdjREGm2u7vbQ==}
-    dev: true
 
   /@unocss/rule-utils@0.58.0:
     resolution: {integrity: sha512-LBJ9dJ/j5UIMzJF7pmIig55MtJAYtG+tn/zQRveZuPRVahzP+KqwlyB7u3uCUnQhdgo/MJODMcqyr0jl6+kTuA==}
