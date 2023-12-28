@@ -26,6 +26,7 @@ declare namespace AuthRoute {
     | 'document_naive'
     | 'document_baidu'
     | 'component'
+    | 'component_navigate'
     | 'component_button'
     | 'component_card'
     | 'component_table'

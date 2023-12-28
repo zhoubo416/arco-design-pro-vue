@@ -91,6 +91,16 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       component: 'basic',
       children: [
         {
+          name: 'component_navigate',
+          path: '/component/navigate',
+          component: 'self',
+          meta: {
+            title: '分类导航',
+            requiresAuth: true,
+            // icon: 'ic:baseline-radio-button-checked',
+          },
+        },
+        {
           name: 'component_button',
           path: '/component/button',
           component: 'self',
