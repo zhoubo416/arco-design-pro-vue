@@ -4,7 +4,18 @@
       <span class="sub-menu-lable">{{ $t(menuInfo.label) }}</span>
     </template>
     <template #icon>
-      <component :is="menuInfo.icon" style="font-size: 16px; vertical-align: middle" />
+      <a-tooltip
+        :key="menuInfo.key"
+        @click="handleUpdateMenu(menuInfo.key, menuInfo)"
+        position="right"
+        background-color="#fff"
+        class="sub-menu-lable"
+      >
+        <component :is="menuInfo.icon" style="font-size: 16px; vertical-align: middle" />
+        <template #content>
+          <navigate :parentMenu="menuInfo" />
+        </template>
+      </a-tooltip>
     </template>
     <template v-for="item in menuInfo.children" :key="item.key">
       <template v-if="item.children && item.children.length > 0">
@@ -24,6 +35,7 @@
 
 <script lang="ts" setup>
   import { useRouterPush } from '@/composables';
+  import navigate from '@/views/component/navigate/index.vue';
 
   const { routerPush } = useRouterPush();
   defineProps({

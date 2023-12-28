@@ -1,7 +1,13 @@
 <template>
   <router-link :to="routeHomePath" class="flex-center w-full nowrap-hidden">
-    <system-logo v-if="!props.pngLogo" class="text-24px text-primary" />
-    <img v-else-if="props.pngLogo" class="w-24px" :src="props.pngLogo" alt="" />
+    <a-tooltip position="right" background-color="#fff">
+      <system-logo v-if="!props.pngLogo" class="text-24px text-primary" />
+      <img v-else-if="props.pngLogo" class="w-24px" :src="props.pngLogo" alt="" />
+
+      <template #content>
+        <navigate key="logo" />
+      </template>
+    </a-tooltip>
     <h2
       v-show="props.showTitle"
       class="pl-10px text-14px font-bold text-primary transition duration-300 ease-in-out"
@@ -14,6 +20,7 @@
 <script setup lang="ts">
   import { routePath } from '@/router';
   import { useAppInfo } from '@/composables';
+  import navigate from '@/views/component/navigate/index.vue';
 
   interface Props {
     /** 显示名字 */
