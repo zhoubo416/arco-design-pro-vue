@@ -1,14 +1,14 @@
 <template>
-  <a-card class="general-card mb-15px w-min" :header-style="{ paddingBottom: '15px' }">
+  <a-card class="general-card mb-15px w-min h-min" :header-style="{ paddingBottom: '15px' }">
     <a-list size="small" :bordered="false" :hoverable="true">
       <template #header> 分类导航 </template>
       <a-list-item v-for="item in items" :key="item.key">
         <a-space size="mini">
-          <div class="w-25 text-right">{{ $t(item.label) }} ></div>
+          <div class="w-20 text-right">{{ $t(item.label) }} ></div>
           <template v-if="item.children">
             <template v-for="c in item.children" :key="c.key">
               <a-tooltip v-if="c.children" position="bottom" mini background-color="#f2f3f5">
-                <a-button class="w-20 text-left" type="text" @click="handleUpdateMenu(c.key, c)">{{
+                <a-button class="text-left" type="text" @click="handleUpdateMenu(c.key, c)">{{
                   $t(c.label)
                 }}</a-button>
                 <template v-if="c.children" #content>
@@ -28,13 +28,9 @@
                   </a-space>
                 </template>
               </a-tooltip>
-              <a-button
-                class="w-20 text-left"
-                v-else
-                type="text"
-                @click="handleUpdateMenu(c.key, c)"
-                >{{ $t(c.label) }}</a-button
-              >
+              <a-button class="text-left" v-else type="text" @click="handleUpdateMenu(c.key, c)">{{
+                $t(c.label)
+              }}</a-button>
             </template>
           </template>
         </a-space>
