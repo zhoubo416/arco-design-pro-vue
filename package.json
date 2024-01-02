@@ -36,6 +36,8 @@
     "@arco-design/web-vue": "2.42.1",
     "@fawmi/vue-google-maps": "0.9.67",
     "@unocss/reset": "^0.58.0",
+    "@visactor/vtable": "^0.17.3",
+    "@visactor/vtable-editors": "^0.17.3",
     "@vue/compiler-sfc": "3.0.2",
     "@wangeditor/editor": "^5.1.14",
     "@wangeditor/editor-for-vue": "^5.1.12",
