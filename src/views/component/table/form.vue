@@ -123,6 +123,8 @@
 
   defineProps({ layout: { type: String, default: 'horizontal' } });
 
+  function handleSubmit(){}
+  
   const form = reactive({
     size: 'medium',
     name: '',
