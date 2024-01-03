@@ -1,24 +1,48 @@
 <template>
-  <a-card title="耗材查询" :bordered="false" size="small" class="shadow-sm rounded-16px w-full">
-    <a-layout>
-      <a-layout-sider :resize-directions="['right']">
+  <a-card
+    title="耗材查询"
+    :bordered="false"
+    size="small"
+    class="shadow-sm rounded-16px w-full h-full"
+  >
+    <template #extra>
+      <a-switch v-model="formLayout" checked-value="right" unchecked-value="top" />
+    </template>
+    <a-layout style="height: 70vh">
+      <a-layout-sider v-if="formLayout === 'right'" :resize-directions="['right']">
         <a-card :bordered="false" size="small" class="shadow-sm rounded-16px w-full">
-          <table-form />
+          <table-form layout="vertical" />
         </a-card>
       </a-layout-sider>
-      <a-layout-content>
-        <div ref="listTableRef" style="width: 100%; height: 100%"></div>
-      </a-layout-content>
+      <a-layout :style="{ height: formLayout === 'top' ? '50vh' : '70vh' }">
+        <a-layout-header v-if="formLayout === 'top'">
+          <a-resize-box
+            :directions="['bottom']"
+            :style="{
+              height: '20vh',
+              textAlign: 'center',
+            }"
+          >
+            <a-card :bordered="false" size="small" class="shadow-sm rounded-16px w-full">
+              <table-form layout="inline" />
+            </a-card>
+          </a-resize-box>
+        </a-layout-header>
+        <a-layout-content>
+          <div ref="listTableRef" class="w-full h-full"></div>
+        </a-layout-content>
+      </a-layout>
     </a-layout>
   </a-card>
 </template>
 
 <script setup>
-  import { onMounted, ref, reactive } from 'vue';
+  import { onMounted, ref, watch } from 'vue';
   import tableForm from './form.vue';
 
   import * as VTable from '@visactor/vtable';
   const ListTable = VTable.ListTable;
+
   import { DateInputEditor, InputEditor, ListEditor } from '@visactor/vtable-editors';
   const inputEditor = new InputEditor();
   const dateInputEditor = new DateInputEditor();
@@ -124,10 +148,12 @@
     records,
     columns,
     widthMode: 'standard',
+    heightMode: 'standard',
   };
+  let listTable = null;
 
-  onMounted(() => {
-    const listTable = new ListTable(listTableRef.value, option);
+  function renderTable() {
+    listTable = new ListTable(listTableRef.value, option);
 
     listTable.on('click_cell', (params) => {
       console.log(params, 'click_cell');
@@ -141,5 +167,19 @@
     listTable.on('complete_edit_cell', (params) => {
       console.log(params, 'completeEditCell');
     });
+    console.log('renderTable...');
+  }
+
+  onMounted(() => {
+    renderTable();
+  });
+
+  // 表单布局
+  const formLayout = ref('right');
+  watch(formLayout, () => {
+    listTable.release();
+    setTimeout(() => {
+      renderTable();
+    }, 200);
   });
 </script>

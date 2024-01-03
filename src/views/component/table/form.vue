@@ -3,12 +3,11 @@
     ref="formRef"
     size="mini"
     :model="form"
-    class="w-full"
-    style="height: 580px"
-    layout="vertical"
+    class="w-full h-full"
+    :layout="layout"
     @submit="handleSubmit"
   >
-    <a-form-item>
+    <a-form-item v-if="layout == 'vertical'">
       <a-space>
         <a-button html-type="submit">查询</a-button>
         <a-button @click="$refs.formRef.resetFields()">重置</a-button>
@@ -109,12 +108,20 @@
     <a-form-item field="treeSelect" label="树型多选">
       <a-tree-select :data="treeData" v-model="form.treeSelect" placeholder="Please select ..." />
     </a-form-item>
+    <a-form-item v-if="layout != 'vertical'">
+      <a-space>
+        <a-button html-type="submit">查询</a-button>
+        <a-button @click="$refs.formRef.resetFields()">重置</a-button>
+      </a-space>
+    </a-form-item>
   </a-form>
 </template>
 
 <script setup>
   import { reactive } from 'vue';
   defineOptions({ name: 'TableForm' });
+
+  defineProps({ layout: { type: String, default: 'horizontal' } });
 
   const form = reactive({
     size: 'medium',
