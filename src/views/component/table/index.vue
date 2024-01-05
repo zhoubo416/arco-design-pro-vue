@@ -43,8 +43,17 @@
   import tableForm from './form.vue';
   import { columns } from './columns';
   import { tableData2 } from './data';
-  const tableData = tableData2.data.rows.map((it, index) => ({ ...it, idx: index + 1,isCheck: false }));
-  const records = reactive(tableData) ;
+  const tableData = tableData2.data.rows.map((it, index) => ({
+    ...it,
+    idx: index + 1,
+    isCheck: false,
+  }));
+  const records = reactive(tableData);
+
+  // 计算总结
+  watch(records, () => {
+    console.log('records', records?.length);
+   }, { deep: true });
 
   import * as VTable from '@visactor/vtable';
   const ListTable = VTable.ListTable;
@@ -57,6 +66,30 @@
   VTable.register.editor('name-editor', inputEditor);
   VTable.register.editor('date-editor', dateInputEditor);
   VTable.register.editor('list-editor', listEditor);
+  VTable.register.icon('order', {
+    type: 'svg',
+    svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/order.svg',
+    width: 22,
+    height: 22,
+    name: 'order',
+    positionType: VTable.TYPES.IconPosition.left,
+    marginRight: 0,
+    hover: {
+      width: 22,
+      height: 22,
+      bgColor: 'rgba(101, 117, 168, 0.1)',
+    },
+    cursor: 'pointer',
+    tooltip: {
+      style: {
+        bgColor: 'gray',
+        fontSize: 16,
+      },
+      // 气泡框，按钮的的解释信息
+      title: '点击可复制',
+      placement: VTable.TYPES.Placement.top,
+    },
+  });
 
   const listTableRef = ref();
   const option = {
@@ -103,17 +136,27 @@
     listTable.on('selected_cell', (params) => {
       Message.info('selected_cell');
     });
+
+    listTable.on('change_cell_value', (params) => {
+      console.log('change_cell_value', params)
+    });
+    listTable.on('checkbox_state_change', (params) => {
+      console.log('checkbox_state_change', params)
+    });
+
     listTable.on('click_cell', (args) => {
       const { col, row, targetIcon, originData } = args;
       // console.log(args, 'args')
       if (targetIcon) {
         if (targetIcon.name === 'edit') {
-          Message.info('编辑第 ' + (originData.organizationName) + '的数据');
+          Message.info('编辑第 ' + originData.organizationName + '的数据');
           // window?.alert?.('编辑第 ' + (row - listTable.columnHeaderLevelCount + 1) + ' 条数据');
         } else if (targetIcon.name === 'delete') {
           records.splice(row - listTable.columnHeaderLevelCount, 1);
           listTable.setRecords(records);
-          Message.error('删除第 ' + (originData.organizationName) + ' 条数据');
+          Message.error('删除第 ' + originData.organizationName + ' 条数据');
+        } else if (targetIcon.name === 'order') {
+          Message.success('已复制供应商' + originData.organizationName);
         }
       }
     });

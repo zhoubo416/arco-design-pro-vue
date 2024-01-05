@@ -75,7 +75,6 @@ export const columns = [
       fontVariant: 'small-caps',
       fontStyle: 'italic',
     },
-    editor: 'name-editor',
     sort: (v1, v2, order) => {
       // console.log(v1, v2, order, 'v1, v2, order');
       // 使用自定义排序逻辑
@@ -84,7 +83,7 @@ export const columns = [
       }
       return v1 === v2 ? 0 : v1 > v2 ? 1 : -1;
     },
-    headerIcon: customEditIcon,
+    icon: 'order',
   },
   {
     field: 'provinceCode1',
