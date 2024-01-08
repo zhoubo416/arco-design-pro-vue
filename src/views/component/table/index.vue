@@ -29,6 +29,7 @@
           </a-resize-box>
         </a-layout-header>
         <a-layout-content>
+          <span class="mb-2 ml-2">已选择{{total?.count}}条数据</span>
           <div ref="listTableRef" class="w-full h-full"></div>
         </a-layout-content>
       </a-layout>
@@ -51,9 +52,13 @@
   const records = reactive(tableData);
 
   // 计算总结
-  watch(records, () => {
-    console.log('records', records?.length);
-   }, { deep: true });
+  watch(
+    records,
+    () => {
+      console.log('records', records?.length);
+    },
+    { deep: true }
+  );
 
   import * as VTable from '@visactor/vtable';
   const ListTable = VTable.ListTable;
@@ -125,7 +130,8 @@
     },
   };
   let listTable = null;
-
+  // 合计信息
+  const total = ref({ count: 0 });
   function renderTable() {
     listTable = new ListTable(listTableRef.value, option);
 
@@ -137,11 +143,11 @@
       Message.info('selected_cell');
     });
 
-    listTable.on('change_cell_value', (params) => {
-      console.log('change_cell_value', params)
-    });
+    listTable.on('change_cell_value', (params) => {});
     listTable.on('checkbox_state_change', (params) => {
-      console.log('checkbox_state_change', params)
+      // console.log('checkbox_state_change', params);
+      const selected = listTable.getCheckboxState();
+      total.value.count = selected.filter(it => it.isCheck).length;
     });
 
     listTable.on('click_cell', (args) => {
