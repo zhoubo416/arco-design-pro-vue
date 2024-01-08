@@ -34,17 +34,17 @@
         </a-layout-content>
       </a-layout>
     </a-layout>
+    <a-modal
+      v-model:visible="modal.visible"
+      @ok="modalHandleOk"
+      @cancel="modalHandleCancel"
+      draggable
+      :title="modal.title"
+      title-align="start"
+    >
+      <div>{{ JSON.stringify(modal.obj) }}</div>
+    </a-modal>
   </a-card>
-  <a-modal
-    v-model:visible="modal.visible"
-    @ok="modalHandleOk"
-    @cancel="modalHandleCancel"
-    draggable
-    :title="modal.title"
-    title-align="start"
-  >
-    <div>{{ JSON.stringify(modal.obj) }}</div>
-  </a-modal>
 </template>
 
 <script setup>

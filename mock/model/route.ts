@@ -127,6 +127,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: 'route.component.table',
             requiresAuth: true,
+            keepAlive: true,
             // icon: 'mdi:table-large',
           },
         },
@@ -495,6 +496,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '分析页',
             requiresAuth: true,
+            keepAlive: true,
             // icon: 'icon-park-outline:analysis',
           },
         },
@@ -599,6 +601,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '表格',
             requiresAuth: true,
+            keepAlive: true,
             // icon: 'mdi:table-large',
           },
         },
@@ -677,6 +680,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '分析页',
             requiresAuth: true,
+            keepAlive: true,
             // icon: 'icon-park-outline:analysis',
           },
         },
