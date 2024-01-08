@@ -1,26 +1,49 @@
 import * as VTable from '@visactor/vtable';
 
-const customEditIcon = {
-  type: 'svg', //指定svg格式图标，其他还支持path，image
-  svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M2 26h28v2H2z" fill="currentColor"></path><path d="M25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4l15-15zm-5-5L24 7.6l-3 3L17.4 7l3-3zM6 22v-3.6l10-10l3.6 3.6l-10 10H6z" fill="currentColor"></path></svg>`,
-  width: 16,
-  height: 16,
-  name: 'edit', //定义图标的名称，在内部会作为缓存的key值
-  positionType: VTable.TYPES.IconPosition.contentRight, // 指定位置，可以在文本的前后，或者在绝对定位在单元格的左侧右侧
-  visibleTime: 'always', // 显示时机， 'always' | 'mouseenter_cell' | 'click_cell'
-  hover: {
-    // 热区大小
-    width: 12,
-    height: 12,
-    bgColor: 'rgba(22,44,66,0.5)',
+const HeaderIcon = [
+  {
+    type: 'svg', //指定svg格式图标，其他还支持path，image
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M2 26h28v2H2z" fill="currentColor"></path><path d="M25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4l15-15zm-5-5L24 7.6l-3 3L17.4 7l3-3zM6 22v-3.6l10-10l3.6 3.6l-10 10H6z" fill="currentColor"></path></svg>`,
+    width: 16,
+    height: 16,
+    name: 'header-edit', //定义图标的名称，在内部会作为缓存的key值
+    positionType: VTable.TYPES.IconPosition.contentRight, // 指定位置，可以在文本的前后，或者在绝对定位在单元格的左侧右侧
+    visibleTime: 'always', // 显示时机， 'always' | 'mouseenter_cell' | 'click_cell'
+    hover: {
+      // 热区大小
+      width: 12,
+      height: 12,
+      bgColor: 'rgba(22,44,66,0.5)',
+    },
+    tooltip: {
+      style: { arrowMark: false },
+      // 气泡框，按钮的的解释信息
+      title: '编辑',
+      placement: VTable.TYPES.Placement.right,
+    },
   },
-  tooltip: {
-    style: { arrowMark: false },
-    // 气泡框，按钮的的解释信息
-    title: '编辑',
-    placement: VTable.TYPES.Placement.right,
+  {
+    type: 'svg', //指定svg格式图标，其他还支持path，image
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M472 168H40a24 24 0 0 1 0-48h432a24 24 0 0 1 0 48z" fill="currentColor"></path><path d="M392 280H120a24 24 0 0 1 0-48h272a24 24 0 0 1 0 48z" fill="currentColor"></path><path d="M296 392h-80a24 24 0 0 1 0-48h80a24 24 0 0 1 0 48z" fill="currentColor"></path></svg>`,
+    width: 16,
+    height: 16,
+    name: 'header-filter', //定义图标的名称，在内部会作为缓存的key值
+    positionType: VTable.TYPES.IconPosition.contentRight, // 指定位置，可以在文本的前后，或者在绝对定位在单元格的左侧右侧
+    visibleTime: 'always', // 显示时机， 'always' | 'mouseenter_cell' | 'click_cell'
+    hover: {
+      // 热区大小
+      width: 12,
+      height: 12,
+      bgColor: 'rgba(22,44,66,0.5)',
+    },
+    tooltip: {
+      style: { arrowMark: false },
+      // 气泡框，按钮的的解释信息
+      title: '筛选',
+      placement: VTable.TYPES.Placement.right,
+    },
   },
-};
+];
 
 export const columns = [
   {
@@ -90,21 +113,21 @@ export const columns = [
     title: '省平台编码1',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'provinceCode2',
     title: '省平台编码2',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'provinceCode3',
     title: '省平台编码3',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
     fieldFormat: (record) => '字典转换省3',
   },
   {
@@ -112,49 +135,49 @@ export const columns = [
     title: '物资类型',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'materialCode',
     title: '耗材编码',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'registerCode',
     title: '注册证号',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'hospitalCommodityCode',
     title: '医院物资编码',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'materialName',
     title: '耗材名称',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'materialAlias',
     title: '耗材别名',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'materialSpecModel',
     title: '规格型号',
     width: 'auto',
     editor: 'name-editor',
-    headerIcon: customEditIcon,
+    headerIcon: HeaderIcon,
   },
   {
     field: 'materialUnit',

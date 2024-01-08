@@ -29,12 +29,22 @@
           </a-resize-box>
         </a-layout-header>
         <a-layout-content>
-          <span class="mb-2 ml-2">已选择{{total?.count}}条数据</span>
+          <span class="mb-2 ml-2">已选择{{ total?.count }}条数据</span>
           <div ref="listTableRef" class="w-full h-full"></div>
         </a-layout-content>
       </a-layout>
     </a-layout>
   </a-card>
+  <a-modal
+    v-model:visible="modal.visible"
+    @ok="modalHandleOk"
+    @cancel="modalHandleCancel"
+    draggable
+    :title="modal.title"
+    title-align="start"
+  >
+    <div>{{ JSON.stringify(modal.obj) }}</div>
+  </a-modal>
 </template>
 
 <script setup>
@@ -112,21 +122,10 @@
     editCellTrigger: 'click',
     menu: {
       renderMode: 'html',
-      defaultHeaderMenuItems: [
-        {
-          text: '筛选',
-          icon: {
-            svg: '<svg width="14" height="14" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M71 24L88 41.0286V53.0005L74.996 39.9755L74.9968 88.0005H66.9968L66.996 39.9835L54 53.0005V41.0286L71 24ZM48 80V88H8V80H48ZM48 44V52H8V44H48ZM88 8V16H8V8H88Z" fill="#2e2f32" fill-opacity="0.9"></path></svg>',
-          },
-          selectedIcon: {
-            svg: '<svg width="14" height="14" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M71 24L88 41.0286V53.0005L74.996 39.9755L74.9968 88.0005H66.9968L66.996 39.9835L54 53.0005V41.0286L71 24ZM48 80V88H8V80H48ZM48 44V52H8V44H48ZM88 8V16H8V8H88Z" fill="rgb(55,145,255)" fill-opacity="0.9"></path></svg>',
-          },
-          stateIcon: {
-            svg: '<svg width="12" height="11" viewBox="0 0 64 64" fill="#161616" xmlns="http://www.w3.org/2000/svg" class="visactor-table-action-area-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M45.0144 25.4994L34.9864 15.4674L34.9864 60.0154H28.9864L28.9864 15.5334L18.9864 25.5294V17.0454L27.776 8.25802H27.7732L32.0158 4.01538L45.0144 17.0134V25.4994Z" fill="#161616" fill-opacity="0.9"></path></svg>',
-          },
-        },
+      contextMenuItems: [
+        { menuKey: 'copy', text: '复制' },
+        { menuKey: ' update', text: '更新' },
       ],
-      contextMenuItems: ['复制', '粘贴'],
     },
   };
   let listTable = null;
@@ -147,12 +146,12 @@
     listTable.on('checkbox_state_change', (params) => {
       // console.log('checkbox_state_change', params);
       const selected = listTable.getCheckboxState();
-      total.value.count = selected.filter(it => it.isCheck).length;
+      total.value.count = selected.filter((it) => it.isCheck).length;
     });
 
     listTable.on('click_cell', (args) => {
-      const { col, row, targetIcon, originData } = args;
-      // console.log(args, 'args')
+      const { row, targetIcon, originData } = args;
+      console.log(args, 'args');
       if (targetIcon) {
         if (targetIcon.name === 'edit') {
           Message.info('编辑第 ' + originData.organizationName + '的数据');
@@ -163,14 +162,18 @@
           Message.error('删除第 ' + originData.organizationName + ' 条数据');
         } else if (targetIcon.name === 'order') {
           Message.success('已复制供应商' + originData.organizationName);
+        } else if (targetIcon.name === 'header-filter') {
+          modalHandleShow('筛选' + args.value, { field: args.field, value: args.value });
+        } else if (targetIcon.name === 'header-edit') {
+          modalHandleShow('批量编辑' + args.value, { field: args.field, value: args.value });
         }
       }
     });
     listTable.on('dropdown_icon_click', (params) => {
-      Message.info('dropdown_icon_click!');
+      Message.info('dropdown_icon_click!' + JSON.stringify(params));
     });
     listTable.on('dropdown_menu_click', (params) => {
-      Message.info('dropdown_menu_click!');
+      Message.info('dropdown_menu_click!' + JSON.stringify(params));
     });
     listTable.on('mouseenter_cell', (args) => {
       const { col, row, targetIcon } = args;
@@ -204,4 +207,19 @@
       renderTable();
     }, 200);
   });
+
+  const modal = reactive({ visible: false, obj: '', title: 'title' });
+
+  const modalHandleShow = (title, obj) => {
+    modal.visible = true;
+    modal.obj = obj;
+    modal.title = title;
+  };
+
+  const modalHandleOk = () => {
+    modal.visible = false;
+  };
+  const modalHandleCancel = () => {
+    modal.visible = false;
+  };
 </script>
