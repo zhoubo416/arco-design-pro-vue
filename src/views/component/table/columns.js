@@ -1,4 +1,5 @@
 import * as VTable from '@visactor/vtable';
+import { ListEditor } from '@visactor/vtable-editors';
 
 const HeaderIcon = [
   {
@@ -119,8 +120,17 @@ export const columns = [
     field: 'provinceCode2',
     title: '省平台编码2',
     width: 'auto',
-    editor: 'name-editor',
+    editor: 'custom-input',
     headerIcon: HeaderIcon,
+    editor: (args) => {
+      const record = args.table?.getRecordByCell(args.col, args.row);
+
+      // console.log(args, record, 'args');
+      const listEditor = new ListEditor({ values: ['女', '男'] });
+      VTable.register.editor('list-editor', listEditor);
+      if (record.provinceCode1 === 'name-editor') return 'name-editor';
+      else if (record.provinceCode1 === 'list-editor') return 'list-editor';
+    },
   },
   {
     field: 'provinceCode3',

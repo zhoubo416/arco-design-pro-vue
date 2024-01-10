@@ -73,14 +73,16 @@
   import * as VTable from '@visactor/vtable';
   const ListTable = VTable.ListTable;
 
-  import { DateInputEditor, InputEditor, ListEditor } from '@visactor/vtable-editors';
+  import { DateInputEditor, InputEditor } from '@visactor/vtable-editors';
   const inputEditor = new InputEditor();
   const dateInputEditor = new DateInputEditor();
-  const listEditor = new ListEditor({ values: ['女', '男'] });
-
   VTable.register.editor('name-editor', inputEditor);
   VTable.register.editor('date-editor', dateInputEditor);
-  VTable.register.editor('list-editor', listEditor);
+
+  import { CustomInput } from './editor/custom-input';
+  const customInput = new CustomInput({ attr: { type: 'text' }, style: { color: 'red' } });
+  VTable.register.editor('custom-input', customInput);
+
   VTable.register.icon('order', {
     type: 'svg',
     svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/order.svg',
@@ -138,11 +140,16 @@
     // listTable.on('change_cell_value', (params) => {});
     // listTable.on('start_edit_cell', (params) => {});
     // listTable.on('complete_edit_cell', (params) => {});
-    listTable.on('selected_cell', (params) => {
-      Message.info('selected_cell');
-    });
+    // listTable.on('selected_cell', (params) => {});
 
-    listTable.on('change_cell_value', (params) => {});
+    listTable.on('change_cell_value', (params) => {
+      const IEditor = listTable.getEditor(params.col + 1, params.row);
+      // console.log(IEditor, params, 'IEditor');
+      if (IEditor?.editorConfig && IEditor.editorConfig?.attr) {
+        IEditor.editorConfig.style.color = (params.changedValue === 'abc' ? 'blue' : 'red');
+        // console.log(IEditor, 'IEditor2');
+      }
+    });
     listTable.on('checkbox_state_change', (params) => {
       // console.log('checkbox_state_change', params);
       const selected = listTable.getCheckboxState();
@@ -151,7 +158,6 @@
 
     listTable.on('click_cell', (args) => {
       const { row, targetIcon, originData } = args;
-      console.log(args, 'args');
       if (targetIcon) {
         if (targetIcon.name === 'edit') {
           Message.info('编辑第 ' + originData.organizationName + '的数据');
