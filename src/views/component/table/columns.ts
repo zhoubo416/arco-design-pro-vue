@@ -1,6 +1,4 @@
 import * as VTable from '@visactor/vtable';
-import { ListEditor } from '@visactor/vtable-editors';
-
 const HeaderIcon = [
   {
     type: 'svg', //指定svg格式图标，其他还支持path，image
@@ -73,8 +71,7 @@ export const columns = [
     style: {
       textAlign: 'center',
     },
-    sort: true,
-    sort: (v1, v2, order) => {
+    sort: (v1: number, v2: number, order: string) => {
       // console.log(v1, v2, order, 'v1, v2, order');
       // 使用自定义排序逻辑
       if (order === 'desc') {
@@ -87,7 +84,6 @@ export const columns = [
     field: 'organizationName',
     title: '供应商',
     width: '200',
-    sort: true,
     style: {
       textAlign: 'left',
       textBaseline: 'middle',
@@ -99,7 +95,7 @@ export const columns = [
       fontVariant: 'small-caps',
       fontStyle: 'italic',
     },
-    sort: (v1, v2, order) => {
+    sort: (v1: number, v2: number, order: string) => {
       // console.log(v1, v2, order, 'v1, v2, order');
       // 使用自定义排序逻辑
       if (order === 'desc') {
@@ -120,16 +116,14 @@ export const columns = [
     field: 'provinceCode2',
     title: '省平台编码2',
     width: 'auto',
-    editor: 'custom-input',
     headerIcon: HeaderIcon,
-    editor: (args) => {
+    editor: (args: {
+      table: { getRecordByCell: (arg0: any, arg1: any) => any };
+      col: any;
+      row: any;
+    }) => {
       const record = args.table?.getRecordByCell(args.col, args.row);
-
-      // console.log(args, record, 'args');
-      const listEditor = new ListEditor({ values: ['女', '男'] });
-      VTable.register.editor('list-editor', listEditor);
-      if (record.provinceCode1 === 'name-editor') return 'name-editor';
-      else if (record.provinceCode1 === 'list-editor') return 'list-editor';
+      return 'name-editor';
     },
   },
   {
@@ -138,7 +132,7 @@ export const columns = [
     width: 'auto',
     editor: 'name-editor',
     headerIcon: HeaderIcon,
-    fieldFormat: (record) => '字典转换省3',
+    fieldFormat: (record: any) => '字典转换省3',
   },
   {
     field: 'materialUseTypeName',

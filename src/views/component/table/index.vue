@@ -79,10 +79,6 @@
   VTable.register.editor('name-editor', inputEditor);
   VTable.register.editor('date-editor', dateInputEditor);
 
-  import { CustomInput } from './editor/custom-input';
-  const customInput = new CustomInput({ attr: { type: 'text' }, style: { color: 'red' } });
-  VTable.register.editor('custom-input', customInput);
-
   VTable.register.icon('order', {
     type: 'svg',
     svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/order.svg',
@@ -146,7 +142,7 @@
       const IEditor = listTable.getEditor(params.col + 1, params.row);
       // console.log(IEditor, params, 'IEditor');
       if (IEditor?.editorConfig && IEditor.editorConfig?.attr) {
-        IEditor.editorConfig.style.color = (params.changedValue === 'abc' ? 'blue' : 'red');
+        IEditor.editorConfig.style.color = params.changedValue === 'abc' ? 'blue' : 'red';
         // console.log(IEditor, 'IEditor2');
       }
     });
