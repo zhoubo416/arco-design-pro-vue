@@ -64,6 +64,5 @@ export async function createPermissionGuard(
       },
     ],
   ];
-  console.log(isLogin, needLogin, !hasPermission);
   exeStrategyActions(actions);
 }

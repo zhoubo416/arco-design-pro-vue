@@ -23,8 +23,6 @@
   const theme = useThemeStore();
 
   const setLanguage = (language: EnumType.Language | undefined = 'zh-CN') => {
-    console.log(language);
-
     // if (!language) {
     //   language = theme.language === 'zh-CN' ? 'en-US' : 'zh-CN';
     // }

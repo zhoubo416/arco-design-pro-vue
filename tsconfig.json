@@ -29,7 +29,7 @@
     ], // 声明文件包
     "typeRoots": [
       "node_modules/@types/",
-      "src/typings"
+      "src/typings",
     ], // 声明文件目录 默认node_modules/@types
     "noImplicitAny": true, // 提示可能是any类型的变量
     "skipLibCheck": true,  // 是否打印ts解析文件的日志

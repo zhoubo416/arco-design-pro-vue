@@ -5,7 +5,7 @@ import { createViteProxy, createViteBuild, createVitePlugins, viteDefine } from 
 import { getEnvConfig } from '.env-config';
 
 export default defineConfig((configEnv) => {
-  const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
+  const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as ImportMetaEnv;
   const rootPath = fileURLToPath(new URL('./', import.meta.url));
   const srcPath = `${rootPath}src`;
   const isBuild = configEnv.command === 'build';
