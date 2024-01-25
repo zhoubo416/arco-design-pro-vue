@@ -37,6 +37,12 @@ dependencies:
   '@wangeditor/editor-for-vue':
     specifier: ^5.1.12
     version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.3.11)
+  ag-grid-community:
+    specifier: ^31.0.2
+    version: 31.0.2
+  ag-grid-vue3:
+    specifier: ^31.0.2
+    version: 31.0.2(vue@3.3.11)
   axios:
     specifier: ^1.3.2
     version: 1.6.2
@@ -3223,6 +3229,19 @@ packages:
   /add-stream@1.0.0:
     resolution: {integrity: sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==}
     dev: true
+
+  /ag-grid-community@31.0.2:
+    resolution: {integrity: sha512-gxUdHeAZUV2TDHqnDax5QSQgUxIvJ1zaFxUuPzcfiiPwbN6btz6kxg/KNrDfEjQi70JBfJV46BMR9KTG6iAVmQ==}
+    dev: false
+
+  /ag-grid-vue3@31.0.2(vue@3.3.11):
+    resolution: {integrity: sha512-b9ZAAI+Ktw1Ew8xQ10u/jWfiwgu6hJ01Da337Hp7d+3eBharQpvcY9MC00K/OxP34yrX04Gq34ChT/axeyO1qA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      ag-grid-community: 31.0.2
+      vue: 3.3.11(typescript@4.9.5)
+    dev: false
 
   /agent-base@7.1.0:
     resolution: {integrity: sha512-o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==}

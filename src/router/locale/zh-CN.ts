@@ -11,6 +11,7 @@ export default {
   'route.component.button': '按钮',
   'route.component.card': '卡片',
   'route.component.table': '表格',
+  'route.component.grid': 'AG表格',
   'route.component.form': '表单',
   'route.plugin': '插件示例',
   'route.plugin.charts': '图表',

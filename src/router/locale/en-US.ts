@@ -11,6 +11,7 @@ export default {
   'route.component.button': 'Button',
   'route.component.card': 'Card',
   'route.component.table': 'Table',
+  'route.component.grid': 'AGGrid',
   'route.component.form': 'Form',
   'route.plugin': 'Plugin',
   'route.plugin.charts': 'Charts',

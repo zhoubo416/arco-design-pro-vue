@@ -132,6 +132,17 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           },
         },
         {
+          name: 'component_grid',
+          path: '/component/grid',
+          component: 'self',
+          meta: {
+            title: 'route.component.grid',
+            requiresAuth: true,
+            keepAlive: true,
+            // icon: 'mdi:table-large',
+          },
+        },
+        {
           name: 'component_form',
           path: '/component/form',
           component: 'self',

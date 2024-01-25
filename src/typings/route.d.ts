@@ -30,6 +30,7 @@ declare namespace AuthRoute {
     | 'component_button'
     | 'component_card'
     | 'component_table'
+    | 'component_grid'
     | 'component_form'
     | 'component_icon'
     | 'plugin'
