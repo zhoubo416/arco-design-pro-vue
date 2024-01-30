@@ -16,7 +16,7 @@ class RowIndexRenderer {
   }
 
   // refresh 方法返回 boolean 类型，参数类型为 any，因为没有明确指定
-  refresh(params: any): boolean {
+  refresh(): boolean {
     return false;
   }
 
