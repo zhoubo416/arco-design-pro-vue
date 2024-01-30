@@ -52,7 +52,6 @@ export const columns = [
   {
     field: 'provinceCode2',
     headerName: '省平台编码2',
-    valueParser: (params) => `${params.value}:没有值，用 parser 处理`,
   },
   {
     field: 'provinceCode3',
