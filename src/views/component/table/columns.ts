@@ -117,12 +117,8 @@ export const columns = [
     title: '省平台编码2',
     width: 'auto',
     headerIcon: HeaderIcon,
-    editor: (args: {
-      table: { getRecordByCell: (arg0: any, arg1: any) => any };
-      col: any;
-      row: any;
-    }) => {
-      const record = args.table?.getRecordByCell(args.col, args.row);
+    editor: () => {
+      // const record = args.table?.getRecordByCell(args.col, args.row);
       return 'name-editor';
     },
   },
@@ -132,7 +128,7 @@ export const columns = [
     width: 'auto',
     editor: 'name-editor',
     headerIcon: HeaderIcon,
-    fieldFormat: (record: any) => '字典转换省3',
+    fieldFormat: () => '字典转换省3',
   },
   {
     field: 'materialUseTypeName',
