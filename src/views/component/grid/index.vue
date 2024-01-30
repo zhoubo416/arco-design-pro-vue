@@ -37,12 +37,10 @@
             :columnDefs="colDefs"
             :defaultColDef="defaultColDef"
             :dataTypeDefinitions="dataTypeDefinitions"
-
             rowSelection="multiple"
             :suppressRowClickSelection="true"
             :isRowSelectable="isRowSelectable"
             @selectionChanged="onSelectionChanged"
-
             :pagination="true"
             :paginationAutoPageSize="true"
             :paginateChildRows="true"
@@ -72,7 +70,9 @@
     },
     setup() {
       // Row Data: The data to be displayed.
-      const rowData = ref(tableData.data.rows.map((it,idx) => ({ ...it, isCheck: false, idx: idx+1 })));
+      const rowData = ref(
+        tableData.data.rows.map((it, idx) => ({ ...it, isCheck: false, idx: idx + 1 }))
+      );
 
       // Column Definitions: Defines & controls grid columns.
       const colDefs = ref(columns);
@@ -87,7 +87,7 @@
 
       const dataTypeDefinitions = ref(null);
 
-    const isRowSelectable = ref(null);
+      const isRowSelectable = ref(null);
       onBeforeMount(() => {
         dataTypeDefinitions.value = {
           object: {
@@ -98,9 +98,9 @@
           },
         };
 
-        isRowSelectable.value = (params) => {
-        return  true;
-      };
+        isRowSelectable.value = () => {
+          return true;
+        };
       });
 
       // 表单布局
@@ -108,14 +108,10 @@
       // 合计信息
       const total = ref({ count: 0 });
 
-      const onSelectionChanged = event => {
-
-        const rows = event.api.getSelectedRows()
-        total.value.count = rows.length
-
-        
-      }
-
+      const onSelectionChanged = (event) => {
+        const rows = event.api.getSelectedRows();
+        total.value.count = rows.length;
+      };
 
       return {
         rowData,
@@ -125,7 +121,7 @@
         formLayout,
         total,
         isRowSelectable,
-        onSelectionChanged
+        onSelectionChanged,
       };
     },
   };
