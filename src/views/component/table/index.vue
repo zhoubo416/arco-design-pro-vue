@@ -196,9 +196,11 @@
       });
     });
   }
-
+  import { CustomEditor } from './component/custom-editor';
   onMounted(() => {
     renderTable();
+    const ce2 = new CustomEditor({});
+    VTable.register.editor('custom-editor2', ce2);
   });
 
   // 表单布局

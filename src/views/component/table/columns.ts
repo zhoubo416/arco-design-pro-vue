@@ -117,16 +117,13 @@ export const columns = [
     title: '省平台编码2',
     width: 'auto',
     headerIcon: HeaderIcon,
-    editor: () => {
-      // const record = args.table?.getRecordByCell(args.col, args.row);
-      return 'name-editor';
-    },
+    editor: 'custom-editor2',
   },
   {
     field: 'provinceCode3',
     title: '省平台编码3',
     width: 'auto',
-    editor: 'name-editor',
+    editor: 'custom-editor2',
     headerIcon: HeaderIcon,
     fieldFormat: () => '字典转换省3',
   },
