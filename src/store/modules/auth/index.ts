@@ -12,7 +12,7 @@ import {
   setToken,
   setUserInfo,
 } from '@/utils';
-import { fetchLogin, fetchUserInfo } from '@/api';
+import { fetchLogin, getCodeImg, fetchUserInfo } from '@/api';
 import { useTabStore } from '../tab';
 
 interface AuthState {
@@ -92,12 +92,13 @@ export const useAuthStore = defineStore('auth-store', {
 
       // 获取用户信息
       const data = await fetchUserInfo();
-      if (data) {
+      const user = data?.data?.data?.user;
+      if (user) {
         // 成功后把用户信息存储到缓存中
-        setUserInfo(data);
+        setUserInfo({ userId: user.id, userName: user.userName, userRole: 'admin' });
 
         // 更新状态
-        this.userInfo = data;
+        this.userInfo = user;
         this.token = token;
 
         successFlag = true;
@@ -112,9 +113,15 @@ export const useAuthStore = defineStore('auth-store', {
      */
     async login(userName: string, password: string) {
       this.loginLoading = true;
-      const data = await fetchLogin(userName, password);
+      const ret = await getCodeImg();
+      const data = await fetchLogin(
+        userName,
+        password,
+        ret?.data.data?.uuid,
+        ret?.data.data?.publicKey
+      );
       if (data) {
-        await this.handleActionAfterLogin(data);
+        await this.handleActionAfterLogin(data.data.data);
       }
       this.loginLoading = false;
     },

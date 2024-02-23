@@ -271,9 +271,10 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
 export const http = createAxios();
 
 export const httpOne = createAxios({
+  timeout: 60 * 1000,
   requestOptions: {
-    apiUrl: '',
-    urlPrefix: '',
+    apiUrl: 'http://localhost:8080/',
+    urlPrefix: 'admin-api',
     isTransformResponse: true,
     isReturnNativeResponse: true,
   },

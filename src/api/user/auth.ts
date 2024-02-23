@@ -1,4 +1,5 @@
-import { http } from '@/utils';
+import { http, httpOne } from '@/utils';
+import { hexEncode } from '@/utils/auth/hexEncode';
 
 /**
  * 获取验证码
@@ -13,23 +14,35 @@ export function fetchSmsCode(phone: string) {
   });
 }
 
+// 获取验证码
+export function getCodeImg() {
+  return httpOne.request<Object>({
+    url: '/captchaImage',
+    method: 'get',
+  });
+}
+
 /**
  * 登录
  * @param username - 用户名
  * @param password - 密码
  */
-export function fetchLogin(username: string, password: string) {
-  return http.request<ApiAuth.Token>({
+export function fetchLogin(username: string, password: string, uuid: string, publicKey: string) {
+  return httpOne.request<ApiAuth.Token>({
     url: '/login',
     method: 'post',
-    params: { username, password },
+    params: {
+      username: hexEncode(username, publicKey),
+      password: hexEncode(password, publicKey),
+      uuid,
+    },
   });
 }
 
 /** 获取用户信息 */
 export function fetchUserInfo() {
-  return http.request<ApiAuth.UserInfo>({
-    url: '/getUserInfo',
+  return httpOne.request<ApiAuth.UserInfo>({
+    url: '/getInfo',
     method: 'get',
   });
 }
