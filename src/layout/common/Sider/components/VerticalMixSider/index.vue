@@ -51,7 +51,6 @@
       const { routeName, label } = item;
       const icon = item?.icon;
       const hasChildren = Boolean(item.children && item.children.length);
-
       return {
         routeName,
         label,

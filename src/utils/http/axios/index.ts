@@ -273,8 +273,8 @@ export const http = createAxios();
 export const httpOne = createAxios({
   timeout: 60 * 1000,
   requestOptions: {
-    apiUrl: 'http://localhost:8080/',
-    urlPrefix: 'admin-api',
+    apiUrl: '/',
+    urlPrefix: 'api',
     isTransformResponse: true,
     isReturnNativeResponse: true,
   },

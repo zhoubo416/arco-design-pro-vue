@@ -91,8 +91,8 @@ export const useAuthStore = defineStore('auth-store', {
       setRefreshToken(refreshToken);
 
       // 获取用户信息
-      const data = await fetchUserInfo();
-      const user = data?.data?.data?.user;
+      const ret = await fetchUserInfo();
+      const user = ret?.data?.user;
       if (user) {
         // 成功后把用户信息存储到缓存中
         setUserInfo({ userId: user.id, userName: user.userName, userRole: 'admin' });
@@ -114,14 +114,9 @@ export const useAuthStore = defineStore('auth-store', {
     async login(userName: string, password: string) {
       this.loginLoading = true;
       const ret = await getCodeImg();
-      const data = await fetchLogin(
-        userName,
-        password,
-        ret?.data.data?.uuid,
-        ret?.data.data?.publicKey
-      );
+      const { data } = await fetchLogin(userName, password, ret.data?.uuid, ret.data?.publicKey);
       if (data) {
-        await this.handleActionAfterLogin(data.data.data);
+        await this.handleActionAfterLogin(data);
       }
       this.loginLoading = false;
     },

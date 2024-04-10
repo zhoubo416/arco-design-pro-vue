@@ -17,7 +17,7 @@ export function fetchSmsCode(phone: string) {
 // 获取验证码
 export function getCodeImg() {
   return httpOne.request<Object>({
-    url: '/captchaImage',
+    url: '/captcha/captchaImage',
     method: 'get',
   });
 }
@@ -29,11 +29,11 @@ export function getCodeImg() {
  */
 export function fetchLogin(username: string, password: string, uuid: string, publicKey: string) {
   return httpOne.request<ApiAuth.Token>({
-    url: '/login',
+    url: '/system/login',
     method: 'post',
     params: {
-      username: hexEncode(username, publicKey),
-      password: hexEncode(password, publicKey),
+      username: publicKey ? hexEncode(username, publicKey) : username,
+      password: publicKey ? hexEncode(password, publicKey) : password,
       uuid,
     },
   });
@@ -42,7 +42,7 @@ export function fetchLogin(username: string, password: string, uuid: string, pub
 /** 获取用户信息 */
 export function fetchUserInfo() {
   return httpOne.request<ApiAuth.UserInfo>({
-    url: '/getInfo',
+    url: '/system/getInfo',
     method: 'get',
   });
 }

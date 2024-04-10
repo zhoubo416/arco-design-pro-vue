@@ -22,6 +22,5 @@ export function handleModuleRoutes(modules: AuthRoute.RouteModule): AuthRoute.Ro
       consoleError(`路由模块解析出错: key = ${key}`);
     }
   });
-
   return sortRoutes(routes);
 }

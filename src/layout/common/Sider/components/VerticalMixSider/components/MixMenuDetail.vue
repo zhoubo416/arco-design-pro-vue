@@ -28,7 +28,7 @@
     /** 当前激活状态的理由名称 */
     activeRouteName: string;
     /** 路由图标 */
-    icon?: string;
+    icon?: any;
     /** mini尺寸的路由 */
     isMini?: boolean;
   }
@@ -37,7 +37,6 @@
     icon: undefined,
     isMini: false,
   });
-
   const { bool: isHover, setTrue, setFalse } = useBoolean();
 
   const isActive = computed(() => props.routeName === props.activeRouteName);
