@@ -6,6 +6,12 @@ import App from './App.vue';
 import '@arco-design/web-vue/dist/arco.css';
 import AppLoading from './components/common/AppLoading.vue';
 
+/**
+ * 增加 ag-grid 的样式文件
+ */
+import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
+import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
+
 const setupApp = async () => {
   const app = createApp(App);
 
