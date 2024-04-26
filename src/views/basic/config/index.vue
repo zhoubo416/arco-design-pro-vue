@@ -24,12 +24,22 @@
       </a-form>
     </a-card>
     <a-card :bordered="false" size="small" class="general-card flex-1 h-full">
+      <div class="w-1/4 m-1">
+        <a-input
+          type="text"
+          id="filter-text-box"
+          placeholder="全表过滤"
+          @input="onFilterTextBoxChanged()"
+        />
+      </div>
       <ag-grid-vue
-        style="width: 100%; height: 100%"
         :class="'ag-theme-quartz'"
+        class="w-full flex-1"
         :columnDefs="colDefs"
         :columnTypes="columnTypes"
         :rowData="rowData"
+        @grid-ready="onGridReady"
+        @filter-modified="onFilterModified"
       />
     </a-card>
   </div>
@@ -52,20 +62,51 @@
   const formItemDef = shallowRef({ ...defaultProps });
   const rulesForm = shallowRef({ ...rules });
 
-  const handleSubmit = ({ values, errors }) => {
-    console.log('values:', values, '\nerrors:', errors);
-  };
-
   // 表格数据和渲染
   import { column, types } from './table-config.ts';
   const colDefs = shallowRef([...column]);
   const columnTypes = shallowRef({ ...types });
   import { reqData } from './data.ts';
   const tableData = reqData.data.rows;
-  const rowData = shallowRef(tableData);
+  const rowData = shallowRef([]);
+  const queryData = (values) => {
+    rowData.value = tableData.filter((row) => {
+      const { functionModule } = values;
+      if (functionModule) {
+        return row.functionModule.indexOf(functionModule) > -1;
+      } else {
+        return true;
+      }
+    });
+  };
+  const handleSubmit = ({ values, errors }) => {
+    if (errors) return;
+    queryData(values);
+  };
+  handleSubmit({ values: {} });
+
+  const gridApi = ref();
+  const onGridReady = (params) => {
+    gridApi.value = params.api;
+  };
+  const onFilterTextBoxChanged = () => {
+    gridApi.value.setGridOption(
+      'quickFilterText',
+      document.getElementById('filter-text-box').value
+    );
+  };
+  /**
+   * filter 相关 event
+   */
+  const onFilterModified = (e) => {
+    const { colId } = e.column;
+    queryData({ [colId]: e.filterInstance.getModel()?.value || '' });
+  };
 </script>
 <style lang="less" scoped>
   ::v-deep(.arco-card-body) {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 </style>

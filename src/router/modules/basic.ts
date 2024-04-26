@@ -10,7 +10,18 @@ const functionRoute: AuthRoute.Route = {
       meta: {
         title: '自定义配置',
         requiresAuth: true,
-        icon: 'ic:round-tab',
+        icon: 'iconoir:settings',
+      },
+    },
+    {
+      name: 'basic_edit',
+      path: '/basic/edit',
+      component: 'self',
+      meta: {
+        title: '编辑',
+        requiresAuth: true,
+        icon: 'iconoir:edit',
+        hide: true,
       },
     },
   ],

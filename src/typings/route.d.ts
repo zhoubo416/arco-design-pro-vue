@@ -21,6 +21,7 @@ declare namespace AuthRoute {
     | 'dashboard_workbench'
     | 'basic'
     | 'basic_config'
+    | 'basic_edit'
     | 'document'
     | 'document_vue'
     | 'document_vue-new'

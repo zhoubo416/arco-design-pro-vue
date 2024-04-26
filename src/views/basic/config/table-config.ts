@@ -1,10 +1,25 @@
+import CommonFilter from './component/common-filter.vue';
+import FilterLocal from './component/filter-local.vue';
+import FilterRemote from './component/filter-remote.vue';
+
 export const types = {
   common: {
     filter: true,
     tooltipValueGetter: (p: any) => p.value,
   },
+  filterType: {
+    filter: CommonFilter,
+  },
+  filterLocal: {
+    filter: FilterLocal,
+  },
+  filterRemote: {
+    filter: FilterRemote,
+  },
 };
-import ActionButton from './components/action-button.ts';
+import ActionButton from './component/action-button.vue';
+import { useRouterPush } from '@/composables';
+const { routerPush } = useRouterPush();
 
 export const column = [
   {
@@ -18,25 +33,25 @@ export const column = [
     field: 'functionModule',
     headerName: '功能模块',
     width: 160,
-    type: ['common'],
+    type: ['filterRemote'],
   },
   {
     field: 'configType',
     headerName: '类型',
-    type: ['common'],
+    type: ['filterLocal'],
     width: 160,
   },
   {
     field: 'configName',
     headerName: '配置名称',
     type: ['common'],
-    width: 180,
+    width: 260,
   },
   {
     field: 'remark',
     headerName: '备注',
     type: ['common'],
-    width: 210,
+    width: 280,
   },
   {
     field: 'updateUserName',
@@ -56,5 +71,6 @@ export const column = [
     width: 120,
     pinned: 'right',
     cellRenderer: ActionButton,
+    cellRendererParams: { routerPush: routerPush },
   },
 ];
